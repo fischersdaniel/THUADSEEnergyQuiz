@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "472603352465",
+    "firebase_url": "https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "energyquizdb",
+    "storage_bucket": "energyquizdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472603352465:android:8ad9ea5c87855c2ede4e30",
+        "android_client_info": {
+          "package_name": "thu.adse.energyquiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfWIykciCrGGsvU8Hsc1m6f5oC870jWzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

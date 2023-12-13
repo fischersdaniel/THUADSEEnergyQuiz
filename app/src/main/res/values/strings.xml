@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">EnergyQuiz</string>
+
+    <string name="login">Anmeldung</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Passwort</string>
+    <string name="remainLoggedIn">Angemeldet bleiben.</string>
+    <string name="login_button">Anmelden</string>
+    <string name="forgotPasswordRedirectText">Passwort vergessen?</string>
+    <string name="signUpRedirectText">Noch nicht registriert?\nHier registrieren!</string>
+
+    <string name="signUp">Registrierung</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Passwort</string>
+    <string name="signup_confirmpassword">Wiederhole Passwort</string>
+    <string name="signup_button">Registrieren</string>
+    <string name="loginRedirectSignUpText">Bereits registriert? Hier anmelden!</string>
+
+    <string name="forgotPassword">Passwort vergessen?</string>
+    <string name="sendNewPassword_email">Email</string>
+    <string name="sendNewPassword_button">Neues Passwort anfordern</string>
+    <string name="loginRedirectForgotPasswordText">Doch nicht vergessen?\nHier anmelden!</string>
+
+    <string name="changePassword">Passwort ändern?</string>
+    <string name="newPassword_text">Passwort</string>
+    <string name="confirmNewPassword_text">Wiederhole Passwort</string>
+    <string name="changePassword_button">Passwort ändern</string>
+    <string name="loginRedirectChangePasswordText">Keine Änderung benötigt?\nGehe zurück!</string>
+
+    <string name="deleteAccount">Account löschen?</string>
+    <string name="confirmDeleteAcc_button">Account löschen</string>
+    <string name="cancelDeleteAcc_textview">Doch nicht löschen?\nGehe zurück!</string>
+
+    <string name="main">Quiz zu Energie!</string>
+    <string name="startSingleplayer_button">Einzelspieler</string>
+    <string name="deleteAcc_button">Account löschen</string>
+    <string name="logout_button">Abmelden</string>
+    <string name="changePasswordMain_button">Passwort ändern</string>
+
+    <string name="singlePlayerStart">Einzelspieler Start</string>
+    <string name="startSinglePlayerGame_button">Starte Spiel</string>
+
+    <string name="singlePlayerGame">Einzelspieler</string>
+    <string name="numberQuestionsProgress_textview">0/0</string>
+    <string name="question_textview">Leere Frage</string>
+    <string name="answer1_textview">Leere Antwort 1</string>
+    <string name="answer2_textview">Leere Antwort 2</string>
+    <string name="answer3_textview">Leere Antwort 3</string>
+    <string name="answer4_textview">Leere Antwort 4</string>
+    <string name="confirm_next_button">Leer Bestätige/Weiter</string>
+    <string name="confirm_button">Bestätige</string>
+    <string name="next_button">Weiter</string>
+
+    <string name="singlePlayerResult">Einzelspieler Ergebnisse</string>
+    <string name="results_textview">Ergebnis</string>
+    <string name="numberCorrectAnswers_textview">Richtig beantwortet</string>
+    <string name="roundScore_textview">Punkte Runde</string>
+    <string name="userScore_textview">Gesamtpunkte</string>
+    <string name="userRank_textview">Rang</string>
+    <string name="userRank_0">Anfänger</string>
+    <string name="userRank_1">Schüler</string>
+    <string name="userRank_2">Fortgeschrittener</string>
+    <string name="userRank_3">Profi</string>
+    <string name="userRank_4">Meister</string>
+    <string name="userRank_5">Erleuchteter</string>
+    <string name="repeatNewGame_button">Nochmal spielen</string>
+    <string name="home_button">Home</string>
+
+
+
+</resources>
