@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
+/** Testkommentar um Zugriffsberechtigung zu klären -Sebastian **/
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
