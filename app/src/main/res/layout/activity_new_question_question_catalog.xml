@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newQuestionText"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewQuestionQuestionCatalog">
+
+
+    <RadioButton
+        android:id="@+id/radioButtonNewCorrectAnswer4"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/radioButtonNewCorrectAnswerOption4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewAnswer4" />
+
+    <RadioButton
+        android:id="@+id/radioButtonNewCorrectAnswer3"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/radioButtonNewCorrectAnswerOption3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewAnswer3" />
+
+    <RadioButton
+        android:id="@+id/radioButtonNewCorrectAnswer2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:text="@string/radioButtonNewCorrectAnswerOption2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewAnswer2" />
+
+    <EditText
+        android:id="@+id/editTextNewQuestion"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewQuestion"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNewAnswer1"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer1"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewQuestion" />
+
+    <EditText
+        android:id="@+id/editTextNewAnswer2"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer2"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonNewCorrectAnswer1" />
+
+    <EditText
+        android:id="@+id/editTextNewAnswer3"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer3"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonNewCorrectAnswer2" />
+
+    <EditText
+        android:id="@+id/editTextNewAnswer4"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer4"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonNewCorrectAnswer3" />
+
+    <Button
+        android:id="@+id/buttonBackToCatalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/buttonBackToCatalog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmitNewQuestion" />
+
+    <Button
+        android:id="@+id/buttonSubmitNewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/buttonSubmitNewQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonNewCorrectAnswer4" />
+
+    <RadioButton
+        android:id="@+id/radioButtonNewCorrectAnswer1"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:duplicateParentState="true"
+        android:text="@string/radioButtonNewCorrectAnswerOption1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewAnswer1" />
+</androidx.constraintlayout.widget.ConstraintLayout>

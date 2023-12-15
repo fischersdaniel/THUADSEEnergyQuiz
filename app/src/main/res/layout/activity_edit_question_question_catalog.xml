@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditQuestionQuestionCatalog">
+
+    <RadioButton
+        android:id="@+id/radioButtonEditCorrectAnswer4"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/radioButtonNewCorrectAnswerOption4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer4" />
+
+    <RadioButton
+        android:id="@+id/radioButtonEditCorrectAnswer3"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/radioButtonNewCorrectAnswerOption3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer3" />
+
+    <RadioButton
+        android:id="@+id/radioButtonEditCorrectAnswer2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/radioButtonNewCorrectAnswerOption2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer2" />
+
+    <EditText
+        android:id="@+id/editTextEditQuestion"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewQuestion"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextEditAnswer1"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer1"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditQuestion" />
+
+    <EditText
+        android:id="@+id/editTextEditAnswer2"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer2"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer1" />
+
+    <EditText
+        android:id="@+id/editTextEditAnswer3"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer3"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer2" />
+
+    <EditText
+        android:id="@+id/editTextEditAnswer4"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTextNewAnswer4"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer3" />
+
+    <Button
+        android:id="@+id/buttonBackToCatalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/buttonBackToCatalog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmitEditQuestion" />
+
+    <Button
+        android:id="@+id/buttonSubmitEditQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/buttonSubmitNewQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer4" />
+
+    <RadioButton
+        android:id="@+id/radioButtonEditCorrectAnswer1"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:text="@string/radioButtonNewCorrectAnswerOption1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

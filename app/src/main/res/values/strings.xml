@@ -66,6 +66,23 @@
     <string name="repeatNewGame_button">Nochmal spielen</string>
     <string name="home_button">Home</string>
 
-
+    <string name="questionTitleTextView">Fragenkatalog</string>
+    <string name="buttonToNewQuestion">+</string>
+    <string name="editTextNewQuestion">Frage</string>
+    <string name="editTextNewAnswer1">Eingabe Antwortmöglichkeit</string>
+    <string name="editTextNewAnswer2">Eingabe Antwortmöglichkeit</string>
+    <string name="editTextNewAnswer3">Eingabe Antwortmöglichkeit</string>
+    <string name="editTextNewAnswer4">Eingabe Antwortmöglichkeit</string>
+    <string name="radioButtonNewCorrectAnswerOption1">Richtige Antwort</string>
+    <string name="radioButtonNewCorrectAnswerOption2">Richtige Antwort</string>
+    <string name="radioButtonNewCorrectAnswerOption3">Richtige Antwort</string>
+    <string name="radioButtonNewCorrectAnswerOption4">Richtige Antwort</string>
+    <string name="buttonBackToCatalog">Zurück</string>
+    <string name="buttonSubmitNewQuestion">Speichern</string>
+    <string name="textViewTitleDialog">Aktion auswählen</string>
+    <string name="textViewDialogText">Möchtest du diese Frage bearbeiten oder löschen?</string>
+    <string name="buttonDialogEdit">Bearbeiten</string>
+    <string name="buttonDialogDelete">Löschen</string>
+    <string name="buttonDialogCancel">Abbrechen</string>
 
 </resources>
