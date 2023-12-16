@@ -31,7 +31,7 @@ public class SinglePlayerStartActivity extends AppCompatActivity {
 
         startSinglePlayerGame_button = findViewById(R.id.startSinglePlayerGame_button);
 
-        // !!!!!!!!!! numberQuestionsPerRound muss durch Logik von Linus Mockup beschrieben werden, Code muss in diese Activity eingepasst werden
+        // TODO: numberQuestionsPerRound muss durch Logik von Linus Mockup beschrieben werden, Code muss in diese Activity eingepasst werden
         // display the variable numberQuestionsPerRound and buttons for logic -/+
 
         startSinglePlayerGame_button.setOnClickListener(new View.OnClickListener() {

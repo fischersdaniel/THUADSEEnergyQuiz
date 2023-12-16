@@ -126,7 +126,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     }
 
     public void backToCatalog(){
-        Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivity.class);
+        Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
         startActivity(intent);
     }
 

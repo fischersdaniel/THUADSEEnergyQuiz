@@ -50,7 +50,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(HomeScreenActivity.this, StatisticsScreenActivity.class));
         } else if (v.getId() == R.id.cardViewHomeCatalog) {
             // Aktionen für cardCatalog
-            startActivity(new Intent(HomeScreenActivity.this, CatalogScreenActivity.class));
+            startActivity(new Intent(HomeScreenActivity.this, MainActivityQuestionCatalog.class));
         } else {
             // Standardaktion, wenn keine Übereinstimmung gefunden wurde
         }
