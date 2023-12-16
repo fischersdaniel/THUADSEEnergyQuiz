@@ -12,19 +12,25 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SinglePlayerGameActivity extends AppCompatActivity {
 
     private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview;
     private Button confirm_next_button;
     private int color_green, color_red, color_white, color_grey;
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
-    private int numberQuestionsPerRound, actualQuestionNumber, numberCorrectAnswersRound;
+    private int numberQuestionsPerRound, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound;
     private int[] questionIDsPerRound;
+    DatabaseReference questionsDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_game);
+
+        questionsDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Questions");
 
         color_green = Color.parseColor("#25e712");
         color_red = Color.parseColor("#c51d34");
@@ -33,6 +39,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
         numberQuestionsPerRound = 4; //for testing
         actualQuestionNumber = 0;
+        actualQuestionID = 0;
         numberCorrectAnswersRound = 0;
         switchConfirmNextButton = false;
 
@@ -72,6 +79,12 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
             //starts not with zero but with one as index!
        //     questionIDsPerRound[counter_questions] = randomQuestionID;
        // }
+
+        // Question DB pull
+        actualQuestionID = 1;
+
+       // questionsDbRef.child(toString(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getKey();
+
 
         // set the textviews with the data for the first question
         actualQuestionNumber = 1;
