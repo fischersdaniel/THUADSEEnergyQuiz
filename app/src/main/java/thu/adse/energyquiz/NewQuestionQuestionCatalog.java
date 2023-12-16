@@ -134,7 +134,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         int idCount=1;
         newQuestionId =1;
         for (int i = 0; i < questionIDs.size(); i++) {
-            if (questionIDs.get(i) != Integer.toString(idCount)){
+            if (!questionIDs.get(i).equals(Integer.toString(idCount))){
                 newQuestionId = idCount;
             } else{
                 newQuestionId = 0;
