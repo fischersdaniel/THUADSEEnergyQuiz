@@ -91,7 +91,6 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
         questionsDbRef.child(key).child("answers").child("answer3").child("correctAnswer").setValue(editAnswer3IsCorrect);
         questionsDbRef.child(key).child("answers").child("answer4").child("correctAnswer").setValue(editAnswer4IsCorrect);
 
-
         Toast.makeText(EditQuestionQuestionCatalog.this, "Daten gespeichert", Toast.LENGTH_SHORT).show();
     }
 
