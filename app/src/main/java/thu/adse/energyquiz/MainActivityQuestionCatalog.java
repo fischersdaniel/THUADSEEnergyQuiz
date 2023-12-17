@@ -23,7 +23,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     QuestionAdapterQuestionCatalog questionAdapter;
     ArrayList<QuestionQuestionCatalog> list;
     Dialog dialog;
-    Button buttonToNewQuestionActivity, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
+    Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
 
 
 
@@ -82,6 +82,11 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
         dialog.setCancelable(true);
 
+        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
+        buttonBackToMenu.setOnClickListener(view -> backToMenu());
+
+
+
         buttonDialogEdit = dialog.findViewById(R.id.buttonDialogEdit);
         buttonDialogDelete = dialog.findViewById(R.id.buttonDialogDelete);
         buttonDialogCancel = dialog.findViewById(R.id.buttonDialogCancel);
@@ -107,6 +112,10 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
     public void openNewQuestion() {
         Intent intent = new Intent(MainActivityQuestionCatalog.this, NewQuestionQuestionCatalog.class);
+        startActivity(intent);
+    }
+    public void backToMenu(){
+        Intent intent = new Intent(MainActivityQuestionCatalog.this, HomeScreenActivity.class);
         startActivity(intent);
     }
 

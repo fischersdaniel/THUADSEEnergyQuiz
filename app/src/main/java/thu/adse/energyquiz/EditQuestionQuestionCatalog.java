@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
     boolean editAnswer1IsCorrect,editAnswer2IsCorrect,editAnswer3IsCorrect,editAnswer4IsCorrect;
 
     EditText editTextEditQuestion, editTextEditAnswer1, editTextEditAnswer2, editTextEditAnswer3, editTextEditAnswer4;
-    RadioButton radioButtonEditCorrectAnswer1, radioButtonEditCorrectAnswer2, radioButtonEditCorrectAnswer3, radioButtonEditCorrectAnswer4;
+    CheckBox radioButtonEditCorrectAnswer1, radioButtonEditCorrectAnswer2, radioButtonEditCorrectAnswer3, radioButtonEditCorrectAnswer4;
 
     Button buttonBackToCatalog, buttonSubmitEditQuestion;
 

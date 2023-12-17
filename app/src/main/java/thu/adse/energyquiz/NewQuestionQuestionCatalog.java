@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
     EditText editTextNewQuestion, editTextNewAnswer1, editTextNewAnswer2, editTextNewAnswer3, editTextNewAnswer4;
     Button buttonBackToCatalog, buttonSubmitNewQuestion;
-    RadioButton radioButtonNewCorrectAnswer1, radioButtonNewCorrectAnswer2, radioButtonNewCorrectAnswer3, radioButtonNewCorrectAnswer4;
+    CheckBox radioButtonNewCorrectAnswer1, radioButtonNewCorrectAnswer2, radioButtonNewCorrectAnswer3, radioButtonNewCorrectAnswer4;
 
     DatabaseReference questionsDbRef;
 

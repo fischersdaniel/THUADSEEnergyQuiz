@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".EditQuestionQuestionCatalog">
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/radioButtonEditCorrectAnswer4"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer4" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/radioButtonEditCorrectAnswer3"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer3" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/radioButtonEditCorrectAnswer2"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -116,7 +116,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer4" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/radioButtonEditCorrectAnswer1"
         android:layout_width="150dp"
         android:layout_height="50dp"
