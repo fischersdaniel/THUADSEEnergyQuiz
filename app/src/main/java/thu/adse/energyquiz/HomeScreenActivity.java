@@ -14,7 +14,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Findet und initialisiere die CardView-Elemente (CardView redundant, da bereits)
+        // Findet und initialisiere die CardView-Elemente
         CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
         CardView cardViewHomeUser = findViewById(R.id.cardViewHomeUser);
         CardView cardViewHomeSingle = findViewById(R.id.cardViewHomeSingle);

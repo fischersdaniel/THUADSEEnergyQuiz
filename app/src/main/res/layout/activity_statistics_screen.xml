@@ -28,7 +28,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewHomeStatisticsRank"
+        android:id="@+id/cardViewStatisticsRank"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
@@ -63,11 +63,11 @@
                     android:gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/textViewStatisticsRangDB"
+                    android:id="@+id/textViewStatisticsRankCalculated"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="Anfänger"
+                    android:text=""
                     android:gravity="end|center_vertical" />
 
             </LinearLayout>
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="1234 pt."
+                    android:text=""
                     android:gravity="end|center_vertical" />
 
             </LinearLayout>
@@ -111,11 +111,11 @@
                     android:gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/textViewStatisticsNextRankDB"
+                    android:id="@+id/textViewStatisticsNextRankCalculated"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="2345 pt."
+                    android:text=""
                     android:gravity="end|center_vertical" />
 
             </LinearLayout>
@@ -125,7 +125,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewHomeStatisticsFragen"
+        android:id="@+id/cardViewHomeStatisticsQuestions"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
@@ -135,7 +135,7 @@
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewHomeStatisticsRank">
+        app:layout_constraintTop_toBottomOf="@id/cardViewStatisticsRank">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewStatisticsRichtigeFragenText"
+                    android:id="@+id/textViewStatisticsCorrectAnswersText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -160,11 +160,11 @@
                     android:gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/textViewRichtigeFragenDB"
+                    android:id="@+id/textViewStatisticsCorrectAnswersDB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="30"
+                    android:text=""
                     android:gravity="end|center_vertical" />
 
             </LinearLayout>
@@ -176,19 +176,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewFalscheFragenText"
+                    android:id="@+id/textViewStatisticsTotalAnswersText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Falsch beantwortet:"
+                    android:text="Gesamt beantwortet:"
                     android:gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/textViewFalscheFragenDB"
+                    android:id="@+id/textViewStatisticsTotalAnswersDB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="20"
+                    android:text=""
                     android:gravity="end|center_vertical" />
 
             </LinearLayout>
@@ -200,7 +200,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewQuoteFragenText"
+                    android:id="@+id/textViewQuoteText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -208,7 +208,7 @@
                     android:gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/textViewQuoteFragenBerechnet"
+                    android:id="@+id/textViewQuoteCalculated"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
