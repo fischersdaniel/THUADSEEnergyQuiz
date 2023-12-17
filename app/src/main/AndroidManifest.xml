@@ -71,6 +71,12 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".Loginscreen"
+            android:exported="false" />
+        <activity
+            android:name=".Lobbyscreen"
+            android:exported="false" />
     </application>
 
 </manifest>
