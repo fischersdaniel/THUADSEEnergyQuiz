@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,26 +31,33 @@ public class Lobbyscreen extends AppCompatActivity {
     List<String> roomslist;
 
     String playerName = "";
+    String playerID = "";
     String roomName = "";
 
     FirebaseDatabase database;
+    private FirebaseAuth authLobby;
     DatabaseReference roomRef;
     DatabaseReference roomsRef;
+    DatabaseReference playerIDRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobbyscreen);
-
         database = FirebaseDatabase.getInstance();
 
         //get the player name and assign his room name to the player name
         SharedPreferences preferences = getSharedPreferences("PREFS", 0);
         playerName = preferences.getString("playerName", "");
-        roomName = playerName;
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //Get signed in UserID
+            playerID = FirebaseAuth.getInstance().getUid();
+    } else {
+        // No user is signed in
+    }
+        roomName = playerName + " " + playerID;
         listView = findViewById(R.id.listView_Lobby);
         buttonLobbyCreate = findViewById(R.id.button2);
-
         //all existing available rooms
         roomslist = new ArrayList<>();
 
@@ -58,7 +67,7 @@ public class Lobbyscreen extends AppCompatActivity {
                 //create room and add yourself as player1
                 buttonLobbyCreate.setText("CREATING ROOM");
                 buttonLobbyCreate.setEnabled(false);
-                roomName = playerName;
+                roomName = playerName + " " + playerID;
                 roomRef = database.getReference("rooms/" + roomName +"/player1");
                 addRoomEventListener();
                 roomRef.setValue(playerName);
@@ -124,3 +133,11 @@ public class Lobbyscreen extends AppCompatActivity {
         });
     }
 }
+
+
+//Unused Code
+//playerIDRef.addValueEventListener(new ValueEventListener() {
+//@Override
+//public void onDataChange(@NonNull DataSnapshot snapshot) {}
+//@Override
+//public void onCancelled(@NonNull DatabaseError error) {}
