@@ -25,15 +25,16 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     private int color_green, color_red, color_white, color_grey;
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
     private int numberQuestionsPerRound, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound;
+    private String actualQuestionTitle, actualQuestionAnswer1, actualQuestionAnswer2, actualQuestionAnswer3, actualQuestionAnswer4;
+    private Boolean actualQuestionAnswer1Correct, actualQuestionAnswer2Correct, actualQuestionAnswer3Correct, actualQuestionAnswer4Correct;
     private int[] questionIDsPerRound;
-    //private DatabaseReference databaseReference;
+
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_game);
-
-        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child("1"); //???
 
         color_green = Color.parseColor("#25e712");
         color_red = Color.parseColor("#c51d34");
@@ -83,20 +84,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
        //     questionIDsPerRound[counter_questions] = randomQuestionID;
        // }
 
-        // Question DB pull
-        actualQuestionID = 1;
-
-       // questionsDbRef.child(toString(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getKey();
-
-
-        // set the textviews with the data for the first question
+        // set the textviews with the default data
         actualQuestionNumber = 1;
         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
-        question_textview.setText("text you want to display");
-        answer1_textview.setText("text you want to display");
-        answer2_textview.setText("text you want to display");
-        answer3_textview.setText("text you want to display");
-        answer4_textview.setText("text you want to display");
         confirm_next_button.setText(getString(R.string.confirm_button));
 
         answer1_textview.setBackgroundColor(color_white);
@@ -108,6 +98,49 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         answer2_choosen = false;
         answer3_choosen = false;
         answer4_choosen = false;
+
+
+        // Question DB pull
+        actualQuestionID = 1;
+       // databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(actualQuestionIDString);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    actualQuestionTitle = dataSnapshot.child(String.valueOf(actualQuestionID)).child("questionTitle").getValue(String.class);
+                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("answerText").getValue(String.class);
+                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("answerText").getValue(String.class);
+                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("answerText").getValue(String.class);
+                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("answerText").getValue(String.class);
+                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
+
+                    // set the textviews with the data for the first question
+                    actualQuestionNumber = 1;
+                    numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
+                    question_textview.setText(actualQuestionTitle);
+                    answer1_textview.setText(actualQuestionAnswer1);
+                    answer2_textview.setText(actualQuestionAnswer2);
+                    answer3_textview.setText(actualQuestionAnswer3);
+                    answer4_textview.setText(actualQuestionAnswer4);
+                    confirm_next_button.setText(getString(R.string.confirm_button));
+                }
+                else{
+                    question_textview.setText("Not found");
+                    answer1_textview.setText("Not found");
+                    answer2_textview.setText("Not found");
+                    answer3_textview.setText("Not found");
+                    answer4_textview.setText("Not found");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
+            }
+        });
 
         //------------
 
@@ -180,31 +213,31 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                     switchConfirmNextButton = true;
                     confirm_next_button.setText(getString(R.string.next_button));
                     //DB einmal holen
-                    if (answer1_choosen == true) {
+                    if (answer1_choosen == actualQuestionAnswer1Correct) {
                         answer1_textview.setBackgroundColor(color_green);
                     } else {
                         answer1_textview.setBackgroundColor(color_red);
                     }
 
-                    if (answer2_choosen == true) {
+                    if (answer2_choosen == actualQuestionAnswer2Correct) {
                         answer2_textview.setBackgroundColor(color_green);
                     } else {
                         answer2_textview.setBackgroundColor(color_red);
                     }
 
-                    if (answer3_choosen == true) {
+                    if (answer3_choosen == actualQuestionAnswer3Correct) {
                         answer3_textview.setBackgroundColor(color_green);
                     } else {
                         answer3_textview.setBackgroundColor(color_red);
                     }
 
-                    if (answer4_choosen == true) {
+                    if (answer4_choosen == actualQuestionAnswer4Correct) {
                         answer4_textview.setBackgroundColor(color_green);
                     } else {
                         answer4_textview.setBackgroundColor(color_red);
                     }
 
-                    if (answer1_choosen == true & answer2_choosen == true & answer3_choosen == true & answer4_choosen == true) {
+                    if (answer1_choosen == actualQuestionAnswer1Correct & answer2_choosen == actualQuestionAnswer2Correct & answer3_choosen == actualQuestionAnswer3Correct & answer4_choosen == actualQuestionAnswer4Correct) {
                         //true durch Auslesen der geholten Daten aus DB ersetzen
                         numberCorrectAnswersRound = numberCorrectAnswersRound + 1;
                     } else {
@@ -219,14 +252,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                     if(actualQuestionNumber < numberQuestionsPerRound){
 
                         actualQuestionNumber++;
+                        actualQuestionID++; //for test without random
 
                         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
-                        question_textview.setText("text you want to display");
-                        answer1_textview.setText("text you want to display");
-                        answer2_textview.setText("text you want to display");
-                        answer3_textview.setText("text you want to display");
-                        answer4_textview.setText("text you want to display");
-                        confirm_next_button.setText(getString(R.string.confirm_button));
 
                         answer1_textview.setBackgroundColor(color_white);
                         answer2_textview.setBackgroundColor(color_white);
@@ -237,6 +265,44 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         answer2_choosen = false;
                         answer3_choosen = false;
                         answer4_choosen = false;
+
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    actualQuestionTitle = dataSnapshot.child(String.valueOf(actualQuestionID)).child("questionTitle").getValue(String.class);
+                                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
+
+                                    // set the textviews with the data for the questions
+                                    numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
+                                    question_textview.setText(actualQuestionTitle);
+                                    answer1_textview.setText(actualQuestionAnswer1);
+                                    answer2_textview.setText(actualQuestionAnswer2);
+                                    answer3_textview.setText(actualQuestionAnswer3);
+                                    answer4_textview.setText(actualQuestionAnswer4);
+                                    confirm_next_button.setText(getString(R.string.confirm_button));
+                                }
+                                else{
+                                    question_textview.setText("Not found");
+                                    answer1_textview.setText("Not found");
+                                    answer2_textview.setText("Not found");
+                                    answer3_textview.setText("Not found");
+                                    answer4_textview.setText("Not found");
+                                    confirm_next_button.setText(getString(R.string.confirm_button));
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
+                            }
+                        });
 
                     } else{
 
