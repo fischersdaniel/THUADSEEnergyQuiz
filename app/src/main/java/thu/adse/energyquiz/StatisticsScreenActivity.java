@@ -23,6 +23,9 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     private TextView textViewStatisticsNextRankCalculated;
     private DatabaseReference databaseReference;
 
+    private String rank;
+    private int nextRank;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,9 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     Integer score = dataSnapshot.child("score").getValue(Integer.class);
                     Integer totalCorrectAnswers = dataSnapshot.child("totalCorrectAnswers").getValue(Integer.class);
                     Integer totalAnswers = dataSnapshot.child("totalAnswers").getValue(Integer.class);
+                    String rank = dataSnapshot.child("Rank").getValue(String.class);
 
+                    /*
                     if (score != null) {
                         textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
 
@@ -74,6 +79,32 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     } else {
                         textViewStatisticsPointsDB.setText("N/A");
                     }
+                    */
+
+                    // Check rank on the basis of the scoring system / user score
+                    if(score < 20){
+                        nextRank = 20;
+                    }
+                    else if(score < 50){
+                        nextRank = 50;
+                    }
+                    else if(score < 100){
+                        nextRank = 100;
+                    }
+                    else if(score < 200){
+                        nextRank = 200;
+                    }
+                    else if(score < 500){
+                        nextRank = 500;
+                    }
+                    else{
+                        nextRank = 500; // not possible
+                    }
+
+                    textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
+                    textViewStatisticsRankCalculated.setText(rank);
+                    textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
+
 
                     if (totalCorrectAnswers != null) {
                         textViewStatisticsCorrectAnswersDB.setText(String.valueOf(totalCorrectAnswers));
