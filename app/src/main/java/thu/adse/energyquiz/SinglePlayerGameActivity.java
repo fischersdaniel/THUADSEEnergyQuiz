@@ -12,8 +12,11 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SinglePlayerGameActivity extends AppCompatActivity {
 
@@ -23,14 +26,14 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
     private int numberQuestionsPerRound, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound;
     private int[] questionIDsPerRound;
-    DatabaseReference questionsDbRef;
+    //private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_game);
 
-        questionsDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Questions");
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child("1"); //???
 
         color_green = Color.parseColor("#25e712");
         color_red = Color.parseColor("#c51d34");
