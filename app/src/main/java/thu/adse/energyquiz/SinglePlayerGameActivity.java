@@ -24,7 +24,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     private Button confirm_next_button;
     private int color_green, color_red, color_white, color_grey;
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
-    private int numberQuestionsPerRound, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound;
+    private int numberQuestionsPerRound, counterRandomQuestions, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound;
     private String actualQuestionTitle, actualQuestionAnswer1, actualQuestionAnswer2, actualQuestionAnswer3, actualQuestionAnswer4;
     private Boolean actualQuestionAnswer1Correct, actualQuestionAnswer2Correct, actualQuestionAnswer3Correct, actualQuestionAnswer4Correct;
     private int[] questionIDsPerRound;
@@ -66,11 +66,15 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
         // Generate random question IDs within the question catalog
         //10 must be maxnumber ID from DB
-       // for(int counter_questions=0; counter_questions<numberQuestionsPerRound; counter_questions++) {
 
-       //     int randomQuestionID = new Random().nextInt(10);
+        questionIDsPerRound = new int[numberQuestionsPerRound];
+        Random randomQuestionID = new Random();
+        counterRandomQuestions = 0;
+        while(counterRandomQuestions < numberQuestionsPerRound){
 
-            // Since Appstart asked questions should not be part of the round
+            int i = randomQuestionID.nextInt(10+1);
+            //+1, because the maximum is excluded
+            // Since app start asked questions should not be part of the round
             // randomQuestionID should not be within the DB in [array:int:usedSessionIDs]
                /* while(i<zahl.length){
                     zahl[i]=i;
@@ -79,10 +83,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                     //zahl ist das Array
                 }*/
             // a question is only one time per round allowed
-
-            //starts not with zero but with one as index!
-       //     questionIDsPerRound[counter_questions] = randomQuestionID;
-       // }
+            questionIDsPerRound[counterRandomQuestions] = i;
+            counterRandomQuestions++;
+        }
 
         // set the textviews with the default data
         actualQuestionNumber = 1;
@@ -108,18 +111,17 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    actualQuestionTitle = dataSnapshot.child(String.valueOf(actualQuestionID)).child("questionTitle").getValue(String.class);
-                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("answerText").getValue(String.class);
-                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
-                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("answerText").getValue(String.class);
-                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
-                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("answerText").getValue(String.class);
-                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
-                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("answerText").getValue(String.class);
-                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionTitle = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("questionTitle").getValue(String.class);
+                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer1").child("answerText").getValue(String.class);
+                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer2").child("answerText").getValue(String.class);
+                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer3").child("answerText").getValue(String.class);
+                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
+                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer4").child("answerText").getValue(String.class);
+                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
 
                     // set the textviews with the data for the first question
-                    actualQuestionNumber = 1;
                     numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
                     question_textview.setText(actualQuestionTitle);
                     answer1_textview.setText(actualQuestionAnswer1);
@@ -270,15 +272,15 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    actualQuestionTitle = dataSnapshot.child(String.valueOf(actualQuestionID)).child("questionTitle").getValue(String.class);
-                                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("answerText").getValue(String.class);
-                                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
-                                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("answerText").getValue(String.class);
-                                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
-                                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("answerText").getValue(String.class);
-                                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
-                                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("answerText").getValue(String.class);
-                                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(actualQuestionID)).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionTitle = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("questionTitle").getValue(String.class);
+                                    actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer1").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer2").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer3").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
+                                    actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer4").child("answerText").getValue(String.class);
+                                    actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber])).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
 
                                     // set the textviews with the data for the questions
                                     numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
