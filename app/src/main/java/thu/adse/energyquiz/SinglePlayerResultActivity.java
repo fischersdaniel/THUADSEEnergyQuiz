@@ -97,7 +97,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
         home_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SinglePlayerResultActivity.this, MainActivity.class));
+                startActivity(new Intent(SinglePlayerResultActivity.this, HomeScreenActivity.class));
             }
         });
     }

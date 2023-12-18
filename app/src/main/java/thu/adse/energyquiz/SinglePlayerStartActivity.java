@@ -1,16 +1,17 @@
 package thu.adse.energyquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
 
 
-public class SinglePlayerStartActivity extends AppCompatActivity {
+public class SinglePlayerStartActivity extends AppCompatActivity{
 
-    private Button startSinglePlayerGame_button;
     private int numberQuestionsPerRound;
 
     @Override
@@ -18,7 +19,19 @@ public class SinglePlayerStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_start);
 
+        CardView cardViewSinglePlayerStartBack = findViewById(R.id.cardViewSinglePlayerStartBack);
+        CardView cardViewSinglePlayerStartPlayButton = findViewById(R.id.cardViewSinglePlayerStartPlayButton);
+        CardView cardViewSinglePlayerStartPlus = findViewById(R.id.cardViewSinglePlayerStartPlus);
+        CardView cardViewSinglePlayerStartMinus = findViewById(R.id.cardViewSinglePlayerStartMinus);
+        TextView TextViewSinglePlayerStartNumberInput = findViewById(R.id.TextViewSinglePlayerStartNumberInput);
+
+        cardViewSinglePlayerStartBack.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
+        });
+
         // Standard number of numberQuestionsPerRound
+
         numberQuestionsPerRound = 5;
 
         // get the passed integer value "numberQuestionsPerRound" from the previous activity
@@ -26,15 +39,34 @@ public class SinglePlayerStartActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             numberQuestionsPerRound = extras.getInt("numberQuestionsPerRound");
+            TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
             //The key argument here must match that used in the other activity
         }
 
-        startSinglePlayerGame_button = findViewById(R.id.startSinglePlayerGame_button);
+        cardViewSinglePlayerStartPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Erhöhe numberQuestionsPerRound um 1 bei Drücken der "Plus"-cardView
+                numberQuestionsPerRound++;
+                TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+            }
+        });
 
-        // TODO: numberQuestionsPerRound muss durch Logik von Linus Mockup beschrieben werden, Code muss in diese Activity eingepasst werden
+        cardViewSinglePlayerStartMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Erhöhe numberQuestionsPerRound um 1 bei Drücken der "Plus"-cardView
+                if (numberQuestionsPerRound > 1) {
+                    numberQuestionsPerRound--;
+                    TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+                }
+            }
+        });
+
+
         // display the variable numberQuestionsPerRound and buttons for logic -/+
 
-        startSinglePlayerGame_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerStartPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Pass the number of questions to the next activity

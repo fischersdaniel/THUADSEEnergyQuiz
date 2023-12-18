@@ -3,20 +3,143 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SinglePlayerStartActivity">
+    android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartBack"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/startSinglePlayerGame_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/slateblue"
-        android:text="@string/startSinglePlayerGame_button"
-        android:textSize="18sp"
-        app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="146dp" />
+        <ImageView
+            android:id="@+id/imagePrevious"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/previous_inv"/>
 
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartText"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartMinus"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartBack">
+
+        <TextView
+            android:id="@+id/editTextSinglePlayerStartQuestionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Fragen"
+            android:textSize="30sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartNumberInput"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardViewSinglePlayerStartText"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartBack">
+
+        <TextView
+            android:id="@+id/TextViewSinglePlayerStartNumberInput"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text=""
+            android:hint="5"
+            android:textSize="40sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartPlus"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartMinus"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartText">
+
+        <ImageView
+            android:id="@+id/imageAdd"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/add" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartMinus"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardViewSinglePlayerStartPlus"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartNumberInput">
+
+        <ImageView
+            android:id="@+id/imageMinus"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/minus" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSinglePlayerStartPlayButton"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartPlus">
+
+        <ImageView
+            android:id="@+id/imageStartButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/start_button" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
