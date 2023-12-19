@@ -101,9 +101,9 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                         nextRank = 500; // not possible
                     }
 
-                    textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
+                    textViewStatisticsPointsDB.setText(String.valueOf(score));
                     textViewStatisticsRankCalculated.setText(rank);
-                    textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
+                    textViewStatisticsNextRankCalculated.setText(nextRank);
 
 
                     if (totalCorrectAnswers != null) {
