@@ -2,11 +2,15 @@ package thu.adse.energyquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import android.util.Log;
 import android.widget.TextView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,8 +27,9 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     private TextView textViewStatisticsNextRankCalculated;
     private DatabaseReference databaseReference;
 
+    private Integer nextRank;
     private String rank;
-    private int nextRank;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,21 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         textViewQuoteCalculated = findViewById(R.id.textViewQuoteCalculated);
         textViewStatisticsNextRankCalculated = findViewById(R.id.textViewStatisticsNextRankCalculated);
 
-        String userId = "1";
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Log.d("current User", "Test");
+
+        if (currentUser != null) {
+            userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            Log.d("current User", "succesfully getting userID:" + userId);
+        } else {
+            textViewStatisticsNextRankCalculated.setText("Bitte Anmelden");   // Es ist kein Benutzer angemeldet
+            Log.d("current User", "Bitte Anmelden");
+        }
+
+
+//        String userId = "uS1tAnKecagUmZOCXjcq5KlSws72";
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -54,57 +73,41 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     Integer score = dataSnapshot.child("score").getValue(Integer.class);
                     Integer totalCorrectAnswers = dataSnapshot.child("totalCorrectAnswers").getValue(Integer.class);
                     Integer totalAnswers = dataSnapshot.child("totalAnswers").getValue(Integer.class);
-                    String rank = dataSnapshot.child("Rank").getValue(String.class);
+                    String rank = dataSnapshot.child("rank").getValue(String.class);
 
-                    /*
                     if (score != null) {
                         textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
 
-                        String rank;
-                        Integer nextRank;
-                        if (score >= 1 && score < 500) {
+                        if (score >= 1 && score < 20) {
                             rank = "Anfänger";
-                            nextRank = 500;
-                        } else if (score >= 500 && score < 1000) {
+                            nextRank = 20;
+                        }
+                        else if (score < 50) {
                             rank = "Halb-Profi";
-                            nextRank = 1000;
-                        } else {
+                            nextRank = 50;
+                        }
+                        else if (score < 100) {
                             rank = "Experte";
-                            nextRank = 99999;
+                            nextRank = 100;
+                        }
+                        else if (score < 200) {
+                            rank = "Experte";
+                            nextRank = 200;
+                        }
+                        else if (score < 500) {
+                            rank = "Experte";
+                            nextRank = 500;
+                        }
+                        else{
+                            nextRank = 500; // nicht möglich
                         }
                         textViewStatisticsRankCalculated.setText(rank);
                         textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
-                        databaseReference.child("Rank").setValue(rank);
+                        databaseReference.child("rank").setValue(rank);
 
                     } else {
                         textViewStatisticsPointsDB.setText("N/A");
                     }
-                    */
-
-                    // Check rank on the basis of the scoring system / user score
-                    if(score < 20){
-                        nextRank = 20;
-                    }
-                    else if(score < 50){
-                        nextRank = 50;
-                    }
-                    else if(score < 100){
-                        nextRank = 100;
-                    }
-                    else if(score < 200){
-                        nextRank = 200;
-                    }
-                    else if(score < 500){
-                        nextRank = 500;
-                    }
-                    else{
-                        nextRank = 500; // not possible
-                    }
-
-                    textViewStatisticsPointsDB.setText(String.valueOf(score));
-                    textViewStatisticsRankCalculated.setText(rank);
-                    textViewStatisticsNextRankCalculated.setText(nextRank);
-
 
                     if (totalCorrectAnswers != null) {
                         textViewStatisticsCorrectAnswersDB.setText(String.valueOf(totalCorrectAnswers));
@@ -127,10 +130,12 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                 }
 
                 else {
-                        textViewStatisticsPointsDB.setText("ID not found");
-                        textViewStatisticsCorrectAnswersDB.setText("ID not found");
-                        textViewStatisticsTotalAnswersDB.setText("ID not found");
-                        textViewQuoteCalculated.setText("ID not found");
+                        textViewStatisticsPointsDB.setText("ID nicht gefunden");
+                        textViewStatisticsCorrectAnswersDB.setText("ID nicht gefunden");
+                        textViewStatisticsTotalAnswersDB.setText("ID nicht gefunden");
+                        textViewQuoteCalculated.setText("ID nicht gefunden");
+                        textViewStatisticsRankCalculated.setText("ID nicht gefunden");
+                        textViewStatisticsNextRankCalculated.setText("ID nicht gefunden");
                     }
                 }
             @Override
