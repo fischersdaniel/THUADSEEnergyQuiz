@@ -38,10 +38,13 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
 
     String adminpasswordDB;
 
-
-
     public QuestionQuestionCatalog selectedQuestion;
-
+    enum CatalogueChange
+    {
+        ADD_QUESTION,
+        EDIT_QUESTION,
+        DELETE_QUESTION
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,31 +91,11 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
 
 
         buttonToNewQuestionActivity = findViewById(R.id.buttonToNewQuestion);
-        buttonToNewQuestionActivity.setOnClickListener(view -> {
-            //Hier wird der Playerrank oder das Admin Passwort abgefragt
-            //DB Path definieren
-            databaseAdmin = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Adminpassword");
-            databaseAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot adminsnapshot)
-                {
-                    if (adminsnapshot.exists())
-                    {
-                        adminpasswordDB = adminsnapshot.getValue().toString();
-                        Log.d("myTag", adminpasswordDB);
-                        showStringInputDialog(MainActivityQuestionCatalog.this::onadminpasswordentered);
-                    };
-
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error)
-                {
-                    Log.e("myTag", "Error reading data: " + error.getMessage());
-                }
-            });
-            //openNewQuestion();
+        buttonToNewQuestionActivity.setOnClickListener(view ->
+        {
+            CheckCataloguePermission(CatalogueChange.ADD_QUESTION, null);
         });
+
         dialog = new Dialog(MainActivityQuestionCatalog.this);
         dialog.setContentView(R.layout.edit_delete_dialog_box_question_catalog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -131,12 +114,14 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         buttonDialogCancel.setOnClickListener(view -> dialog.dismiss());
 
         buttonDialogEdit.setOnClickListener(view -> {
-            openEditQuestion(selectedQuestion);
+            CheckCataloguePermission(CatalogueChange.EDIT_QUESTION, selectedQuestion);
+            // openEditQuestion(selectedQuestion);
             dialog.dismiss();
         });
 
         buttonDialogDelete.setOnClickListener(view -> {
-            deleteQuestion(selectedQuestion);
+            CheckCataloguePermission(CatalogueChange.DELETE_QUESTION, selectedQuestion);
+            // deleteQuestion(selectedQuestion);
             dialog.dismiss();
             //Option: Dialog "Sind Sie sicher, dass Sie die Frage löschen wollen?" einfügen
         });
@@ -165,24 +150,68 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     public void deleteQuestion(QuestionQuestionCatalog question) {
         database.child(question.getKey()).removeValue();
     }
-    public void onadminpasswordentered(String adminpasswordUser){
-        if(adminpasswordUser != null) {
-            Log.d("myTag", adminpasswordUser);
-            if(adminpasswordUser.equals(adminpasswordDB)){
-                openNewQuestion();
+
+    public void ReadadminpasswordDB(CatalogueChange requestedChange, QuestionQuestionCatalog question){
+        //Hier wird der Playerrank oder das Admin Passwort abgefragt
+        //DB Path definieren
+        databaseAdmin = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Adminpassword");
+        databaseAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot adminsnapshot)
+            {
+                if (adminsnapshot.exists())
+                {
+                    adminpasswordDB = adminsnapshot.getValue().toString();
+                    Log.d("myTag", adminpasswordDB);
+                    showStringInputDialog(MainActivityQuestionCatalog.this::onAdminPasswordEntered, requestedChange, question);
+                };
+
             }
-               else{
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+                Log.e("myTag", "Error reading data: " + error.getMessage());
+            }
+        });
+    }
+    public void onAdminPasswordEntered(String adminpasswordUser, CatalogueChange requestedChange, QuestionQuestionCatalog question){
+        if(adminpasswordUser != null)
+        {
+            Log.d("myTag", adminpasswordUser);
+
+            if(adminpasswordUser.equals(adminpasswordDB))
+            {
+                switch(requestedChange)
+                {
+                    case EDIT_QUESTION:
+                        openEditQuestion(question);
+                        break;
+
+                    case ADD_QUESTION:
+                        openNewQuestion();
+                        break;
+
+                    case DELETE_QUESTION:
+                        deleteQuestion(question);
+                        break;
+                }
+            }
+
+            else
+            {
                 Toast.makeText(getApplicationContext(), "Passwort falsch", Toast.LENGTH_SHORT).show();
-                showStringInputDialog(MainActivityQuestionCatalog.this::onadminpasswordentered);
+                showStringInputDialog(MainActivityQuestionCatalog.this::onAdminPasswordEntered, requestedChange, question);
             }
         }
     }
     public interface inputTextCallback{
-        void onadminpasswordentered(String adminpasswordUser);
+        void onAdminPasswordEntered(String adminpasswordUser,final CatalogueChange requestedChange,final QuestionQuestionCatalog question);
     };
 
     // Method to create and display the pop-up window
-    private void showStringInputDialog(final inputTextCallback Callback) {
+    private void showStringInputDialog(final inputTextCallback Callback, final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -197,7 +226,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
                     public void onClick(DialogInterface dialog, int which) {
                         String inputstring = editText.getText().toString();
                         // Due to Asychronous processes we need to wait for the String Input
-                        Callback.onadminpasswordentered(inputstring);
+                        Callback.onAdminPasswordEntered(inputstring, requestedChange, question);
                         // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
                     }
                 })
@@ -210,7 +239,37 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         // Create and show the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
+    {
+        //Hier wird der Spielerrang noch abgefragt
+
+        // read playerrank
+        boolean adminRequired = true; //readPlayerRank() // returns false if player rank to low
+
+        if (adminRequired)
+        {
+            ReadadminpasswordDB(requestedChange, question);
         }
 
+        else
+        {
+            switch(requestedChange)
+            {
+                case EDIT_QUESTION:
+                    openEditQuestion(question);
+                    break;
+
+                case ADD_QUESTION:
+                    openNewQuestion();
+                    break;
+
+                case DELETE_QUESTION:
+                    deleteQuestion(question);
+                    break;
+            }
+        }
+    }
 }
 
