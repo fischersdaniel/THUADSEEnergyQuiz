@@ -4,11 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,14 +25,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
-public class MainActivityQuestionCatalog extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
+
+public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
 
     RecyclerView recyclerView;
     DatabaseReference database;
+    DatabaseReference databaseAdmin;
     QuestionAdapterQuestionCatalog questionAdapter;
     ArrayList<QuestionQuestionCatalog> list;
     Dialog dialog;
     Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
+
+    String adminpasswordDB;
 
 
 
@@ -75,7 +88,31 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
 
         buttonToNewQuestionActivity = findViewById(R.id.buttonToNewQuestion);
-        buttonToNewQuestionActivity.setOnClickListener(view -> openNewQuestion());
+        buttonToNewQuestionActivity.setOnClickListener(view -> {
+            //Hier wird der Playerrank oder das Admin Passwort abgefragt
+            //DB Path definieren
+            databaseAdmin = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Adminpassword");
+            databaseAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot adminsnapshot)
+                {
+                    if (adminsnapshot.exists())
+                    {
+                        adminpasswordDB = adminsnapshot.getValue().toString();
+                        Log.d("myTag", adminpasswordDB);
+                        showStringInputDialog(MainActivityQuestionCatalog.this::onadminpasswordentered);
+                    };
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error)
+                {
+                    Log.e("myTag", "Error reading data: " + error.getMessage());
+                }
+            });
+            //openNewQuestion();
+        });
         dialog = new Dialog(MainActivityQuestionCatalog.this);
         dialog.setContentView(R.layout.edit_delete_dialog_box_question_catalog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -128,4 +165,52 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     public void deleteQuestion(QuestionQuestionCatalog question) {
         database.child(question.getKey()).removeValue();
     }
+    public void onadminpasswordentered(String adminpasswordUser){
+        if(adminpasswordUser != null) {
+            Log.d("myTag", adminpasswordUser);
+            if(adminpasswordUser.equals(adminpasswordDB)){
+                openNewQuestion();
+            }
+               else{
+                Toast.makeText(getApplicationContext(), "Passwort falsch", Toast.LENGTH_SHORT).show();
+                showStringInputDialog(MainActivityQuestionCatalog.this::onadminpasswordentered);
+            }
+        }
+    }
+    public interface inputTextCallback{
+        void onadminpasswordentered(String adminpasswordUser);
+    };
+
+    // Method to create and display the pop-up window
+    private void showStringInputDialog(final inputTextCallback Callback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        View dialogView = inflater.inflate(R.layout.dialog_signin_admin, null);
+        final EditText editText = dialogView.findViewById(R.id.edit_text_input);
+
+        // Set the dialog title, view, and buttons
+        builder.setTitle("Bitte geben Sie das Adminpasswort ein")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String inputstring = editText.getText().toString();
+                        // Due to Asychronous processes we need to wait for the String Input
+                        Callback.onadminpasswordentered(inputstring);
+                        // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        // Create and show the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        }
+
 }
+
