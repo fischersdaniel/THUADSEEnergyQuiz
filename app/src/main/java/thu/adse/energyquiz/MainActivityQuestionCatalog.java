@@ -18,13 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-
 
 public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
 
@@ -37,6 +38,9 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
 
     String adminpasswordDB;
+
+    Boolean playerrankacess = false;
+    Boolean playerrankreceived = false;
 
     public QuestionQuestionCatalog selectedQuestion;
     enum CatalogueChange
@@ -244,15 +248,25 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
     {
         //Hier wird der Spielerrang noch abgefragt
-
         // read playerrank
-        boolean adminRequired = true; //readPlayerRank() // returns false if player rank to low
-
-        if (adminRequired)
+        boolean adminRequired = true; // CheckPlayerRank(); // returns false if player rank to low
+        /*CheckPlayerRank();
+        while (playerrankreceived == false)
+        {
+            try
+            {
+                Thread.sleep(20);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+        playerrankreceived = false;
+        adminRequired = playerrankacess; */
+        if (adminRequired = true)
         {
             ReadadminpasswordDB(requestedChange, question);
         }
-
         else
         {
             switch(requestedChange)
@@ -270,6 +284,63 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
                     break;
             }
         }
+    }
+    public void CheckPlayerRank(){
+        //Hier werden lokale Variablen definiert
+        String userId = "";
+
+
+        //Hier werden Konstanten definiert
+        final String ADMINRANK = "Experte";
+        //Hier werden Datenbankinstanzen initialisiert
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //DB Path definieren
+        DatabaseReference ref = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference("Users");
+
+        // Hier lesen wir den "rank" des Benutzers mit der angegebenen Benutzer-ID aus
+        if (currentUser == null)
+        {
+            Toast.makeText(getApplicationContext(), "Bitte anmelden!", Toast.LENGTH_LONG).show(); // Es ist kein Benutzer angemeldet
+            Log.d("current User", "Bitte Anmelden");
+
+        }
+            userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            Log.d("current User", "succesfully getting userID:" + userId);
+
+        //Hier wird der Rank des aktuell angemeldeten Users ausgelesen
+        ref.child(userId).child("rank").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    String userIdRank;
+                    userIdRank = dataSnapshot.getValue(String.class);
+                    Log.d("Userrank", "Rang des Benutzers: " + userIdRank);
+                    if (userIdRank.equals(ADMINRANK)){
+                        playerrankacess = true;
+                        playerrankreceived = true;
+                    }
+                    else {
+                        playerrankacess = false;
+                        playerrankreceived = true;
+                    }
+                }
+                else
+                {
+                    Log.d("Error", "Kein Nutzer gefunden");
+                    playerrankacess = false;
+                    playerrankreceived = true;
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Error", "Kein Nutzer gefunden"+ databaseError.getMessage());
+                playerrankacess = false;
+                playerrankreceived = true;
+            }
+        });
     }
 }
 
