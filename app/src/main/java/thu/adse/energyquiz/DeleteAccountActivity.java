@@ -23,7 +23,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
     private Button confirmDeleteAcc_button;
     private TextView cancelDeleteAcc_textview;
     private String userID;
-    private DatabaseReference userDatabaseReference;
+    private DatabaseReference usersDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,10 @@ public class DeleteAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+                usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
                 // Delete the user specific DB entries
                 userID = FirebaseAuth.getInstance().getUid();
-                userDatabaseReference.child(userID).removeValue();
+                usersDatabaseReference.child(userID).removeValue();
                 // Delete the firebase user itself
                 user.delete()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {

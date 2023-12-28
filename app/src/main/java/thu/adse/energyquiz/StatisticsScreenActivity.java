@@ -25,7 +25,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     private TextView textViewStatisticsTotalAnswersDB;
     private TextView textViewQuoteCalculated;
     private TextView textViewStatisticsNextRankCalculated;
-    private DatabaseReference databaseReference;
+    private DatabaseReference usersDatabaseReference;
 
     private Integer nextRank;
     private String rank;
@@ -64,9 +64,9 @@ public class StatisticsScreenActivity extends AppCompatActivity {
 
 
 //        String userId = "uS1tAnKecagUmZOCXjcq5KlSws72";
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        usersDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -103,7 +103,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                         }
                         textViewStatisticsRankCalculated.setText(rank);
                         textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
-                        databaseReference.child("rank").setValue(rank);
+                        usersDatabaseReference.child("rank").setValue(rank);
 
                     } else {
                         textViewStatisticsPointsDB.setText("N/A");
