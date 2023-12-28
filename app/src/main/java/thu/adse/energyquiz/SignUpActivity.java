@@ -107,18 +107,18 @@ public class SignUpActivity extends AppCompatActivity {
                                 userID = FirebaseAuth.getInstance().getUid();
 
                                 // create a new child the DB part users
-                                usersDatabaseReference.child(userID + "DB").push();
+                                usersDatabaseReference.child(userID).push();
                                 // create a list with a non relevant item for the usedSessionIDs
                                 // questionID = 0 does not exist
                                 usedSessionIDsInit.add(0);
                                 // Write into the DB
-                                usersDatabaseReference.child(userID+ "DB").child("userName").setValue("testUserName");
-                                usersDatabaseReference.child(userID+ "DB").child("remainLogIn").setValue(false);
-                                usersDatabaseReference.child(userID+ "DB").child("usedSessionIDs").setValue(usedSessionIDsInit);
-                                usersDatabaseReference.child(userID+ "DB").child("score").setValue(0);
-                                usersDatabaseReference.child(userID+ "DB").child("rank").setValue("Anfänger");
-                                usersDatabaseReference.child(userID+ "DB").child("totalAnswers").setValue(0);
-                                usersDatabaseReference.child(userID+ "DB").child("totalCorrectAnswers").setValue(0);
+                                usersDatabaseReference.child(userID).child("userName").setValue("testUserName");
+                                usersDatabaseReference.child(userID).child("remainLogIn").setValue(false);
+                                usersDatabaseReference.child(userID).child("usedSessionIDs").setValue(usedSessionIDsInit);
+                                usersDatabaseReference.child(userID).child("score").setValue(0);
+                                usersDatabaseReference.child(userID).child("rank").setValue("Anfänger");
+                                usersDatabaseReference.child(userID).child("totalAnswers").setValue(0);
+                                usersDatabaseReference.child(userID).child("totalCorrectAnswers").setValue(0);
 
                                 Toast.makeText(SignUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));

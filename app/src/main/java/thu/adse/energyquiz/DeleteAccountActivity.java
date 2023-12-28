@@ -40,7 +40,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
                 // Delete the user specific DB entries
                 userID = FirebaseAuth.getInstance().getUid();
-                userDatabaseReference.child(userID+ "DB").removeValue();
+                userDatabaseReference.child(userID).removeValue();
                 // Delete the firebase user itself
                 user.delete()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
