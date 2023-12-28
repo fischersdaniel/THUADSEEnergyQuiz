@@ -28,7 +28,6 @@ import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
     private EditText signupEmail, signupPassword, signupConfirmPassword;
     private Button signUp_button;
     private TextView loginRedirectSignUp_textview;
@@ -42,9 +41,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        //Initialize the FirebaseAuth instance in the onCreate()
-        //auth = FirebaseAuth.getInstance();
 
         // Initialize the GUI
         signupEmail = findViewById(R.id.signup_email);
@@ -120,10 +116,11 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(confirmPass.isEmpty()) {
                     signupPassword.setError("Confirmation password cannot be empty");
                 } else{
-                    auth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                Log.d("current User", "Create user in firebase authenticator erfolgreich");
                                 // with the sign up a user specific DB entry is created to save some attributes like the score etc., init with zeros
                                 userID = FirebaseAuth.getInstance().getUid();
                                 // Set the DB reference
@@ -142,6 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 usersDatabaseReference.child(userID).child("totalAnswers").setValue(0);
                                 usersDatabaseReference.child(userID).child("totalCorrectAnswers").setValue(0);
 
+                                Log.d("current User", "Create user in database erfolgreich");
                                 Toast.makeText(SignUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             } else{
