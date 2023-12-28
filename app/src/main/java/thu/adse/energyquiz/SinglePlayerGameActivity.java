@@ -113,22 +113,30 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         // +1, because max is excluded
                         int randID = randomQuestionID.nextInt((max - min) + 1) + min;
                         Log.d("current User", "randID:" + randID);
-                        // Since app start asked questions should not be part of the round
-                        // randomQuestionID should not be within the user specific DB entry [array:int:usedSessionIDs]
-                        counterUsedSessionIDs = 0;
-                        Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
-                        IDchecked = true;
-                        while(counterUsedSessionIDs < usedSessionIDsLocal.size()){
-                            Log.d("current User", "counterUsedSessionIDs:" + counterUsedSessionIDs);
-                            if(usedSessionIDsLocal.get(counterUsedSessionIDs) == randID){
-                                // do not use the randID because it was used since app start
-                                Log.d("current User", "IDchecked inside:" + IDchecked);
-                                IDchecked = false;
-                                break;
+                        // Check, that it is a possible to solve problem and no endless repetition without the chance of solving the problem
+                        if(11 - usedSessionIDsLocal.size() > numberQuestionsPerRound){
+                            // Since app start asked questions should not be part of the round
+                            // randomQuestionID should not be within the user specific DB entry [array:int:usedSessionIDs]
+                            counterUsedSessionIDs = 0;
+                            Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
+                            IDchecked = true;
+                            while(counterUsedSessionIDs < usedSessionIDsLocal.size()){
+                                Log.d("current User", "counterUsedSessionIDs:" + counterUsedSessionIDs);
+                                if(usedSessionIDsLocal.get(counterUsedSessionIDs) == randID){
+                                    // do not use the randID because it was used since app start
+                                    Log.d("current User", "IDchecked inside:" + IDchecked);
+                                    IDchecked = false;
+                                    break;
+                                }
+                                Log.d("current User", "IDchecked:" + IDchecked);
+                                counterUsedSessionIDs++;
                             }
-                            Log.d("current User", "IDchecked:" + IDchecked);
-                            counterUsedSessionIDs++;
                         }
+                        else{
+                            // every ID is okay, no checks if already used
+                            IDchecked = true;
+                        }
+
                         if(true == IDchecked){
                             // check if the while search in the usedSessionIDsLocal was okay
                             // a question is only one time per round allowed, so add it to the usedSessionIDsLocal to check next repeat if already used
