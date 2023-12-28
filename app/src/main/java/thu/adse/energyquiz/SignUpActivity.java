@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,22 +17,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
+    FirebaseAuth auth;
     private EditText signupEmail, signupPassword, signupConfirmPassword;
     private Button signUp_button;
     private TextView loginRedirectSignUp_textview;
 
     private String userID;
     private List<Integer> usedSessionIDsInit = new ArrayList<>();
-
+    private boolean remainLogInLocal;
     private DatabaseReference usersDatabaseReference;
 
     @Override
@@ -40,9 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         //Initialize the FirebaseAuth instance in the onCreate()
-        auth = FirebaseAuth.getInstance();
-        // Set the DB reference
-        usersDatabaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        //auth = FirebaseAuth.getInstance();
+
         // Initialize the GUI
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
@@ -50,33 +53,51 @@ public class SignUpActivity extends AppCompatActivity {
         signUp_button = findViewById(R.id.signup_button);
         loginRedirectSignUp_textview = findViewById(R.id.loginRedirectSignUp_textview);
 
-        //Instance of class LoginActivity for getter of remainLoggedInFlag
-        LoginActivity logAct = new LoginActivity();
-
         //When while opening the app a user is still logged in, there is no need to log in again
         //remain logged in had to be chosen in the login screen
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is logged in
-            // Could be checked in the SplashScreen
-            if(logAct.isRemainLoggedInFlag()){
-                // User stays logged in
-                Toast.makeText(SignUpActivity.this, "User is logged in.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-            }
-            else{
-                auth.signOut();
-                  /*  .then(function(){
-//loggt stand jetzt immer aus, da VAriable nicht persistent: Lösung: in DB abspeichern
-                    }
-                    .catch(function(error) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-            });*/
-            }
-        }
-        else{
-            // No user is loggen in, sign up is neede
+        Log.d("current User", "Test");
+
+        if (currentUser != null) {
+            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            Log.d("current User", "succesfully getting userID:" + userID);
+
+            usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+            usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Log.d("current User", "datasnapshot exists");
+                        remainLogInLocal = dataSnapshot.child("remainLogIn").getValue(boolean.class);
+                        if(true == remainLogInLocal){
+                            Log.d("current User", "remainLogIn true");
+                            // User stays logged in
+                            Toast.makeText(SignUpActivity.this, "User is logged in.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                        }
+                        else{
+                            Log.d("current User", "remainLogIn false");
+                            // User gets logged out
+                            //auth.signOut();
+                            mAuth.signOut();
+                        }
+                    }
+                    else{
+                        Log.d("current User", "datasnapshot does not exist");
+                        //not found
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
+                }
+            });
+        } else {
+            // No user is logged in, sign up is needed
             // no_operation
+            Log.d("current User", "Bitte Anmelden");
         }
 
         signUp_button.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +126,8 @@ public class SignUpActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 // with the sign up a user specific DB entry is created to save some attributes like the score etc., init with zeros
                                 userID = FirebaseAuth.getInstance().getUid();
-
+                                // Set the DB reference
+                                usersDatabaseReference = FirebaseDatabase.getInstance().getReference("Users");
                                 // create a new child the DB part users
                                 usersDatabaseReference.child(userID).push();
                                 // create a list with a non relevant item for the usedSessionIDs

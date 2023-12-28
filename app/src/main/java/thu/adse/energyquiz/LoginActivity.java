@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,12 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private Switch remainLoggedInSwitch;
     private TextView signUpRedirectText, forgotPasswordRedirectText;
     private Button loginButton;
-
-    public boolean isRemainLoggedInFlag() {
-        return remainLoggedInFlag;
-    }
-
-    private boolean remainLoggedInFlag;
+    private String userID;
+    private DatabaseReference usersDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +54,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = loginEmail.getText().toString();
                 String pass = loginPassword.getText().toString();
-                if (remainLoggedInSwitch.isChecked()){
-                    remainLoggedInFlag = true;
-                    //nothing to do, log in will remain automaticly
-                }
-                else {
-                    remainLoggedInFlag = false;
-                    //not so easy to logout while appkill, so just logout by appstart in signupacitivity (because first screen here)
-                }
 
                 if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     if (!pass.isEmpty()) {
@@ -66,6 +61,47 @@ public class LoginActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                     @Override
                                     public void onSuccess(AuthResult authResult) {
+                                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                                        Log.d("current User", "Test");
+
+                                        if (currentUser != null) {
+                                            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+                                            Log.d("current User", "succesfully getting userID:" + userID);
+                                        } else {
+                                            Log.d("current User", "Bitte Anmelden");
+                                        }
+
+                                        // DB pull
+                                        // pull of old user values
+                                        //String userID = "1"; //muss flex werden
+                                        usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
+                                        usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.exists()) {
+                                                    if (remainLoggedInSwitch.isChecked()){
+                                                        usersDatabaseReference.child("remainLogIn").setValue(true);
+                                                        //nothing to do, log in will remain automaticly
+                                                    }
+                                                    else {
+                                                        usersDatabaseReference.child("remainLogIn").setValue(false);
+                                                        //not so easy to logout while appkill, so just logout by appstart in signupacitivity (because first screen here)
+                                                    }
+                                                }
+                                                else{
+                                                    //not found
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
+                                            }
+                                        });
+
+
                                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class ));
                                         finish();
@@ -101,9 +137,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             }
         });
-    }
-
-    public boolean getRemainLoggedInFlag(){
-        return remainLoggedInFlag;
     }
 }
