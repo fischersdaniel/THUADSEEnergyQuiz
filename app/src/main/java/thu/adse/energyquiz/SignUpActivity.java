@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -24,6 +29,11 @@ public class SignUpActivity extends AppCompatActivity {
     private Button signUp_button;
     private TextView loginRedirectSignUp_textview;
 
+    private String userID;
+    private List<Integer> usedSessionIDsInit = new ArrayList<>();
+
+    private DatabaseReference usersDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +41,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Initialize the FirebaseAuth instance in the onCreate()
         auth = FirebaseAuth.getInstance();
+        // Set the DB reference
+        usersDatabaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        // Initialize the GUI
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupConfirmPassword = findViewById((R.id.signup_confirmpassword));
@@ -90,6 +103,23 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                // with the sign up a user specific DB entry is created to save some attributes like the score etc., init with zeros
+                                userID = FirebaseAuth.getInstance().getUid();
+
+                                // create a new child the DB part users
+                                usersDatabaseReference.child(userID + "DB").push();
+                                // create a list with a non relevant item for the usedSessionIDs
+                                // questionID = 0 does not exist
+                                usedSessionIDsInit.add(0);
+                                // Write into the DB
+                                usersDatabaseReference.child(userID+ "DB").child("userName").setValue("testUserName");
+                                usersDatabaseReference.child(userID+ "DB").child("remainLogIn").setValue(false);
+                                usersDatabaseReference.child(userID+ "DB").child("usedSessionIDs").setValue(usedSessionIDsInit);
+                                usersDatabaseReference.child(userID+ "DB").child("score").setValue(0);
+                                usersDatabaseReference.child(userID+ "DB").child("rank").setValue("Anfänger");
+                                usersDatabaseReference.child(userID+ "DB").child("totalAnswers").setValue(0);
+                                usersDatabaseReference.child(userID+ "DB").child("totalCorrectAnswers").setValue(0);
+
                                 Toast.makeText(SignUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             } else{
