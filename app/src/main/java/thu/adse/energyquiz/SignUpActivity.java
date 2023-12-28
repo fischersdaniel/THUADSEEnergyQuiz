@@ -70,6 +70,10 @@ public class SignUpActivity extends AppCompatActivity {
                         if(true == remainLogInLocal){
                             Log.d("current User", "remainLogIn true");
                             // User stays logged in
+                            // delete the used session IDs in the user DB, IDs are only from app start to app kill needed
+                            // if an overall check of used IDs is requested, the following 2 lines code be excluded / deleted
+                            usedSessionIDsInit.add(0);
+                            usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsInit);
                             Toast.makeText(SignUpActivity.this, "User is logged in.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         }
