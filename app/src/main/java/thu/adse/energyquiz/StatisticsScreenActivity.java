@@ -78,32 +78,33 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     if (score != null) {
                         textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
 
-                        if (score >= 1 && score < 20) {
-                            rank = "Anfänger";
+                        if (score >= 0 && score < 20) {
+                            rank = getString(R.string.userRank_0);
                             nextRank = 20;
                         }
                         else if (score < 50) {
-                            rank = "Halb-Profi";
+                            rank = getString(R.string.userRank_1);
                             nextRank = 50;
                         }
                         else if (score < 100) {
-                            rank = "Experte";
+                            rank = getString(R.string.userRank_2);
                             nextRank = 100;
                         }
                         else if (score < 200) {
-                            rank = "Experte";
+                            rank = getString(R.string.userRank_3);
                             nextRank = 200;
                         }
                         else if (score < 500) {
-                            rank = "Experte";
+                            rank = getString(R.string.userRank_4);
                             nextRank = 500;
                         }
                         else{
+                            rank = getString(R.string.userRank_5);
                             nextRank = 500; // nicht möglich
                         }
                         textViewStatisticsRankCalculated.setText(rank);
                         textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
-                        usersDatabaseReference.child("rank").setValue(rank);
+                        //usersDatabaseReference.child("rank").setValue(rank);
 
                     } else {
                         textViewStatisticsPointsDB.setText("N/A");
