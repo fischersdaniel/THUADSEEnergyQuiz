@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,9 +23,9 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
     private Button repeatNewGame_button, home_button;
 
     private int numberQuestionsPerRound, numberCorrectAnswersRound, scoreRound, scoreUserLocal, totalCorrectAnswersLocal, totalAnswersLocal;
-    private String userRankLocal;
+    private String userID, userRankLocal;
 
-    private DatabaseReference databaseReference;
+    private DatabaseReference usersDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,24 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
         scoreRound = 0;
         scoreUserLocal = 0;
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Log.d("current User", "Test");
+
+        if (currentUser != null) {
+            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            Log.d("current User", "succesfully getting userID:" + userID);
+        } else {
+            Log.d("current User", "Bitte Anmelden");
+        }
+
         // DB pull
             // pull of old user values
-        String userId = "1"; //muss flex werden
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        //String userID = "1"; //muss flex werden
+        usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -106,10 +121,10 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
 
                     // DB push
                     //push of new user values
-                    databaseReference.child("score").setValue(scoreUserLocal);
-                    databaseReference.child("Rank").setValue(userRankLocal);
-                    databaseReference.child("totalCorrectAnswers").setValue(totalCorrectAnswersLocal);
-                    databaseReference.child("totalAnswers").setValue(totalAnswersLocal);
+                    usersDatabaseReference.child("score").setValue(scoreUserLocal);
+                    usersDatabaseReference.child("rank").setValue(userRankLocal);
+                    usersDatabaseReference.child("totalCorrectAnswers").setValue(totalCorrectAnswersLocal);
+                    usersDatabaseReference.child("totalAnswers").setValue(totalAnswersLocal);
                 }
             }
             @Override
