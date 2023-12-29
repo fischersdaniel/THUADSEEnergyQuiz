@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
             userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userID);
 
-            usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+            usersDatabaseReference = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(userID);
             usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,7 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 // questionID = 0 does not exist
                                 usedSessionIDsInit.add(0);
                                 // Write into the DB
-                                usersDatabaseReference.child(userID).child("userName").setValue("testUserName");
+                                usersDatabaseReference.child(userID).child("userName").setValue("testUserName"); //TODO: Username über Anmeldung abfragen
                                 usersDatabaseReference.child(userID).child("remainLogIn").setValue(false);
                                 usersDatabaseReference.child(userID).child("usedSessionIDs").setValue(usedSessionIDsInit);
                                 usersDatabaseReference.child(userID).child("score").setValue(0);
@@ -145,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 Log.d("current User", "Create user in database erfolgreich");
                                 Toast.makeText(SignUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                startActivity(new Intent(SignUpActivity.this, HomeScreenActivity.class));
                             } else{
                                 Toast.makeText(SignUpActivity.this, "Signup Failed" + " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }

@@ -86,4 +86,11 @@
     <string name="buttonDialogCancel">Abbrechen</string>
     <string name="buttonBackToMenu">Menü</string>
 
+    <string name="multiPlayerLobbyscreenHeader">Mehrspieler</string>
+    <string name="buttonBackToHome">Zurück</string>
+    <string name="buttonCreateLobby">Spiel erstellen</string>
+    <string name="buttonJoinLobby">Beitreten</string>
+
+
+
 </resources>

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnergyQuiz"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MultiPlayerLobbyScreen"
+            android:exported="false" />
         <activity
             android:name=".MultiPlayerStartActivity"
             android:exported="false" />

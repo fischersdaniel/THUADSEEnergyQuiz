@@ -44,7 +44,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(HomeScreenActivity.this, SinglePlayerStartActivity.class));
         } else if (v.getId() == R.id.cardViewHomeMulti) {
             // Aktionen für cardMulti
-            startActivity(new Intent(HomeScreenActivity.this, Loginscreen.class));
+            startActivity(new Intent(HomeScreenActivity.this, MultiPlayerLobbyScreen.class));
         } else if (v.getId() == R.id.cardViewHomeStatistics) {
             // Aktionen für cardStats
             startActivity(new Intent(HomeScreenActivity.this, StatisticsScreenActivity.class));
