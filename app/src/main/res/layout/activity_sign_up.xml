@@ -34,6 +34,18 @@
                 android:textColor="@color/slateblue"
                 />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_userName"
+                android:background="@drawable/custom_edittext"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="@string/signup_userName"
+                android:drawableLeft="@drawable/person"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black" />
 
             <EditText
                 android:layout_width="match_parent"

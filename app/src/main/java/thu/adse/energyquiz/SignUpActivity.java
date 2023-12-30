@@ -28,7 +28,7 @@ import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText signupEmail, signupPassword, signupConfirmPassword;
+    private EditText signupUserName, signupEmail, signupPassword, signupConfirmPassword;
     private Button signUp_button;
     private TextView loginRedirectSignUp_textview;
 
@@ -43,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // Initialize the GUI
+        signupUserName = findViewById(R.id.signup_userName);
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupConfirmPassword = findViewById((R.id.signup_confirmpassword));
@@ -103,6 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUp_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userName = signupUserName.getText().toString().trim();
                 String user = signupEmail.getText().toString().trim();
                 String pass = signupPassword.getText().toString().trim();
                 String confirmPass = signupConfirmPassword.getText().toString().trim();
@@ -110,6 +112,9 @@ public class SignUpActivity extends AppCompatActivity {
                 if(!confirmPass.equals(pass)) {
                     signupPassword.setError("Password and confirmation must be the same");
                     signupConfirmPassword.setError("Password and confirmation must be the same");
+                }
+                else if (userName.isEmpty()){
+                    signupUserName.setError("Username cannot be empty");
                 }
                 else if (user.isEmpty()){
                     signupEmail.setError("Email cannot be empty");
@@ -135,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 // questionID = 0 does not exist
                                 usedSessionIDsInit.add(0);
                                 // Write into the DB
-                                usersDatabaseReference.child(userID).child("userName").setValue("testUserName"); //TODO: Username über Anmeldung abfragen
+                                usersDatabaseReference.child(userID).child("userName").setValue(userName);
                                 usersDatabaseReference.child(userID).child("remainLogIn").setValue(false);
                                 usersDatabaseReference.child(userID).child("usedSessionIDs").setValue(usedSessionIDsInit);
                                 usersDatabaseReference.child(userID).child("score").setValue(0);

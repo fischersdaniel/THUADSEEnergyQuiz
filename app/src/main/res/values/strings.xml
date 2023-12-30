@@ -10,6 +10,7 @@
     <string name="signUpRedirectText">Noch nicht registriert?\nHier registrieren!</string>
 
     <string name="signUp">Registrierung</string>
+    <string name="signup_userName">Nutzername</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Passwort</string>
     <string name="signup_confirmpassword">Wiederhole Passwort</string>
