@@ -32,6 +32,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     RecyclerView recyclerView;
     DatabaseReference database;
     DatabaseReference databaseAdmin;
+    DatabaseReference databaseRank;
     QuestionAdapterQuestionCatalog questionAdapter;
     ArrayList<QuestionQuestionCatalog> list;
     Dialog dialog;
@@ -247,7 +248,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
 
     public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
     {
-        //Hier wird der Spielerrang noch abgefragt
+        //Hier wird der Spielerrang abgefragt
         // read playerrank
         boolean adminRequired = true; // CheckPlayerRank(); // returns false if player rank to low
         /*CheckPlayerRank();
@@ -262,7 +263,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
             }
         }
         playerrankreceived = false;
-        adminRequired = playerrankacess; */
+        adminRequired = playerrankacess;*/
         if (adminRequired = true)
         {
             ReadadminpasswordDB(requestedChange, question);
@@ -289,58 +290,81 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         //Hier werden lokale Variablen definiert
         String userId = "";
 
-
         //Hier werden Konstanten definiert
         final String ADMINRANK = "Experte";
         //Hier werden Datenbankinstanzen initialisiert
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //DB Path definieren
-        DatabaseReference ref = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("Users");
 
         // Hier lesen wir den "rank" des Benutzers mit der angegebenen Benutzer-ID aus
         if (currentUser == null)
         {
             Toast.makeText(getApplicationContext(), "Bitte anmelden!", Toast.LENGTH_LONG).show(); // Es ist kein Benutzer angemeldet
             Log.d("current User", "Bitte Anmelden");
-
         }
+        else
+        {
             userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userId);
+            //DB Path definieren
+        }
 
-        //Hier wird der Rank des aktuell angemeldeten Users ausgelesen
-        ref.child(userId).child("rank").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
-                    String userIdRank;
-                    userIdRank = dataSnapshot.getValue(String.class);
-                    Log.d("Userrank", "Rang des Benutzers: " + userIdRank);
-                    if (userIdRank.equals(ADMINRANK)){
-                        playerrankacess = true;
-                        playerrankreceived = true;
+        databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            databaseRank.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        String rank = snapshot.child("rank").getValue(String.class);
+                        Log.d("UserRank", "UserRank:" + rank);
                     }
-                    else {
+                    else Log.d("UserRankError", "Keinen Datensatz gefunden");
+                    {
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("UserRankError", "Keinen Datensatz gefunden");
+                }
+            });
+    }
+}
+
+
+/*databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+
+            //Hier wird der Rank des aktuell angemeldeten Users ausgelesen
+            databaseRank.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists())
+                    {
+                        String userIdRank = dataSnapshot.child("rank").getValue(String.class);
+                        Log.d("Userrank", "Rang des Benutzers: " + userIdRank);
+                        if (userIdRank.equals(ADMINRANK)){
+                            playerrankacess = true;
+                            playerrankreceived = true;
+                        }
+                        else {
+                            playerrankacess = false;
+                            playerrankreceived = true;
+                        }
+                    }
+                    else
+                    {
+                        Log.d("Error", "Kein Nutzer gefunden");
                         playerrankacess = false;
                         playerrankreceived = true;
                     }
                 }
-                else
-                {
-                    Log.d("Error", "Kein Nutzer gefunden");
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("Error", "Kein Nutzer gefunden"+ databaseError.getMessage());
                     playerrankacess = false;
                     playerrankreceived = true;
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("Error", "Kein Nutzer gefunden"+ databaseError.getMessage());
-                playerrankacess = false;
-                playerrankreceived = true;
-            }
-        });
-    }
-}
-
+            });
+        }*/
