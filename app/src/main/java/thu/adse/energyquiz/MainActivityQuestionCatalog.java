@@ -307,28 +307,90 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
             userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userId);
             //DB Path definieren
-        }
 
-        databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            databaseRank = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("Users/"); //.child("Users").child(userId);
+            //databaseRank.child("Users").child(userId).child("Status").setValue("active");
+            String finalUserId = userId;
+            databaseRank.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            String rank = snapshot.getValue().toString();
+                            Log.d("UserRank", "UserRank:" + rank);
+                        }
+                        else
+                        {
+                            Log.d("UserRankError", "Keinen Datensatz gefunden");
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("UserRankError", "Keinen Datensatz gefunden");
+                    }
+                });
+            /*databaseRank = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference().child("Users").child(userId);
+            //databaseRank.child("Test").setValue("Test");
+
             databaseRank.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists())
-                    {
-                        String rank = snapshot.child("rank").getValue(String.class);
-                        Log.d("UserRank", "UserRank:" + rank);
-                    }
-                    else Log.d("UserRankError", "Keinen Datensatz gefunden");
-                    {
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Integer score = dataSnapshot.child("score").getValue(Integer.class);
+                        Integer totalCorrectAnswers = dataSnapshot.child("totalCorrectAnswers").getValue(Integer.class);
+                        Integer totalAnswers = dataSnapshot.child("totalAnswers").getValue(Integer.class);
+                        String rank = dataSnapshot.child("rank").getValue(String.class);
 
+                        if (score != null) {
+
+                            if (score >= 0 && score < 20)
+                            {
+                                rank = getString(R.string.userRank_0);
+                                Log.d("UserRank", rank);
+                            }
+                            else if (score < 50)
+                            {
+                                rank = getString(R.string.userRank_1);
+                                Log.d("UserRank", rank);
+                            }
+                            else if (score < 100)
+                            {
+                                rank = getString(R.string.userRank_2);
+                                Log.d("UserRank", rank);
+                            }
+                            else if (score < 200)
+                            {
+                                rank = getString(R.string.userRank_3);
+                                Log.d("UserRank", rank);
+                            }
+                            else if (score < 500)
+                            {
+                                rank = getString(R.string.userRank_4);
+                                Log.d("UserRank", rank);
+                            }
+                            else
+                            {
+                                rank = getString(R.string.userRank_5);
+                                Log.d("UserRank", rank);
+                            }
+                            //usersDatabaseReference.child("rank").setValue(rank);
+
+                        }
+                        else
+                        {
+                            Log.d("UserRankError", "Keinen Datensatz gefunden");
+                        }
                     }
                 }
-
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d("UserRankError", "Keinen Datensatz gefunden");
+                public void onCancelled(DatabaseError databaseError) {
+                    // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
                 }
-            });
+            });*/
+        }
+
     }
 }
 
