@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.MultiPlayer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,16 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import thu.adse.energyquiz.R;
+
 public class MultiPlayerStartActivity extends AppCompatActivity {
 
     private int numberQuestionsPerRound;
     FirebaseAuth auth;
     DatabaseReference lobbyDbRef, usersDbRef, questionsDbRef;
     FirebaseUser UserCreator;
-    String userNameCreator, userIdCreator;
-    List<Integer> possibleQuestions = new ArrayList<>();
-    List<Integer> usedQuestions = new ArrayList<>();
-    List<Integer> allQuestions = new ArrayList<>();
+    public String userNameCreator, userIdCreator;
+    List<Long> possibleQuestions = new ArrayList<>();
+    List<Long> usedQuestions = new ArrayList<>();
+    List<Long> allQuestions = new ArrayList<>();
 
 
     @Override
@@ -53,14 +55,14 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
         UserCreator = auth.getCurrentUser();
         userIdCreator = UserCreator.getUid();
-        userNameCreator = usersDbRef.child(userIdCreator).child("userName").toString();
+        //userNameCreator = usersDbRef.child(userIdCreator).child("userName").toString();
 
         cardViewMultiPlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerLobbyScreen.class);
             startActivity(intent);
         });
 
-        numberQuestionsPerRound = 5;
+        numberQuestionsPerRound = 5; //Standardwert Fragen pro Runde festgelegt
 
 
         Bundle extras = getIntent().getExtras();
@@ -73,6 +75,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numberQuestionsPerRound++;
                 TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+                //numberQuestionsPerRound = Integer.parseInt(TextViewMultiPlayerStartNumberInput.getText().toString());
             }
         });
 
@@ -111,12 +114,12 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
         });
 
-        usersDbRef.child("userName").addListenerForSingleValueEvent(new ValueEventListener(){
+        usersDbRef.child(userIdCreator).addListenerForSingleValueEvent(new ValueEventListener(){
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    userNameCreator = snapshot.getValue(String.class);
+                    userNameCreator = snapshot.child("userName").getValue(String.class);
                     getUsedQuestionsFromUserDb(snapshot);
                 }
             }
@@ -134,21 +137,22 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         String numberQuesttionsPerRoundString= String.valueOf(numberQuestionsPerRound);
         lobbyDbRef.child("open").child(userIdCreator).push();
         lobbyDbRef.child("open").child(userIdCreator).child("numberQuestionsPerRound").setValue(numberQuesttionsPerRoundString);
+        lobbyDbRef.child("open").child(userIdCreator).child("userNameCreator").setValue(userNameCreator);
         getPossibleQuestions();
 
-        Map<String, Integer> questionsMap = new HashMap<>();
-        for (Integer i : possibleQuestions) {
+
+        Map<String, Long> questionsMap = new HashMap<>();
+        for (Long i : possibleQuestions) {
             questionsMap.put(String.valueOf(i), i);
         }
 
         lobbyDbRef.child("open").child(userIdCreator).child("possibleQuestions").setValue(questionsMap);
 
-
     }
 
     private void getAllQuestionIDs(DataSnapshot snapshot) {
         for (DataSnapshot ds: snapshot.getChildren()){
-            allQuestions.add(Integer.parseInt(ds.getKey()));
+            allQuestions.add(Long.parseLong(ds.getKey()));
         }
         possibleQuestions = allQuestions;
 
@@ -156,12 +160,12 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
     private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
         for (DataSnapshot ds: snapshot.child(userIdCreator).child("usedSessionIDs").getChildren()){
-            usedQuestions.add(Integer.parseInt(ds.getValue().toString()));
+            usedQuestions.add(Long.parseLong(ds.getValue().toString()));
         }
     }
 
     private void getPossibleQuestions(){
-        for (Integer i: usedQuestions){
+        for (Long i: usedQuestions){
             possibleQuestions.remove(i);
         }
     }

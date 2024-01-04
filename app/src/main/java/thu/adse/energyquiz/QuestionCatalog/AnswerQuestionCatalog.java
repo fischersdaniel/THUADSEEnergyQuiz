@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.QuestionCatalog;
 
 import java.io.Serializable;
 

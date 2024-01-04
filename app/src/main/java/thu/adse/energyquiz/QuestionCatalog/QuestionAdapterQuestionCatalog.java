@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.QuestionCatalog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import thu.adse.energyquiz.R;
+
 public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<QuestionAdapterQuestionCatalog.QuestionViewHolder> {
     private final RecyclerViewInterfaceQuestionCatalog recyclerViewInterface;
 
@@ -19,7 +21,6 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
 
     ArrayList<QuestionQuestionCatalog> list;
 
-    public static int pos;
 
     public QuestionAdapterQuestionCatalog(Context context, ArrayList<QuestionQuestionCatalog> list,
                            RecyclerViewInterfaceQuestionCatalog recyclerViewInterface) {
@@ -32,7 +33,7 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
     @Override
     public QuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewHolder = LayoutInflater.from(context).inflate(R.layout.question_item_question_catalog,parent,false);
-        return  new QuestionViewHolder(viewHolder, recyclerViewInterface);
+        return  new QuestionViewHolder(viewHolder);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
 
         TextView questionTitle, answerText1, answerText2, answerText3, answerText4;
 
-        public QuestionViewHolder(@NonNull View itemView, RecyclerViewInterfaceQuestionCatalog recyclerViewInterface) {
+        public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
 

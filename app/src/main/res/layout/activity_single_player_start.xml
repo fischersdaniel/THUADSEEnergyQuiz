@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartBack">
 
         <TextView
-            android:id="@+id/TextViewSinglePlayerStartNumberInput"
+            android:id="@+id/textViewLobbyCreatorUserName"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

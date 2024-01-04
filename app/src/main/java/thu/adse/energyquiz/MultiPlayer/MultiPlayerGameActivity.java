@@ -1,8 +1,10 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.MultiPlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import thu.adse.energyquiz.R;
 
 public class MultiPlayerGameActivity extends AppCompatActivity {
 

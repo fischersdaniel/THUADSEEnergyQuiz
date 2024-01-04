@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.EditText;
 
 
 public class SinglePlayerStartActivity extends AppCompatActivity{
@@ -23,7 +22,7 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
         CardView cardViewSinglePlayerStartPlayButton = findViewById(R.id.cardViewSinglePlayerStartPlayButton);
         CardView cardViewSinglePlayerStartPlus = findViewById(R.id.cardViewSinglePlayerStartPlus);
         CardView cardViewSinglePlayerStartMinus = findViewById(R.id.cardViewSinglePlayerStartMinus);
-        TextView TextViewSinglePlayerStartNumberInput = findViewById(R.id.TextViewSinglePlayerStartNumberInput);
+        TextView TextViewSinglePlayerStartNumberInput = findViewById(R.id.textViewLobbyCreatorUserName);
 
         cardViewSinglePlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);

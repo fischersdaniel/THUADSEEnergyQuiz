@@ -1,6 +1,8 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.QuestionCatalog;
 
 import java.io.Serializable;
+
+import thu.adse.energyquiz.QuestionCatalog.AnswerQuestionCatalog;
 
 public class QuestionQuestionCatalog  implements Serializable {
 

@@ -92,6 +92,13 @@
     <string name="buttonCreateLobby">Spiel erstellen</string>
     <string name="buttonJoinLobby">Beitreten</string>
 
+    <string name="buttonDialogYes">Ja</string>
+    <string name="buttonDialogNo">Nein</string>
+    <string name="textViewLobbyScreenTitleDialog">Möchtest du dem Raum beitreten?</string>
+
+
+
+
 
 
 </resources>
