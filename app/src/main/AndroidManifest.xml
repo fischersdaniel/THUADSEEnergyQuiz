@@ -13,13 +13,13 @@
         android:theme="@style/Theme.EnergyQuiz"
         tools:targetApi="31">
         <activity
-            android:name=".MultiPlayerLobbyScreen"
+            android:name=".MultiPlayer.MultiPlayerLobbyScreen"
             android:exported="false" />
         <activity
-            android:name=".MultiPlayerStartActivity"
+            android:name=".MultiPlayer.MultiPlayerStartActivity"
             android:exported="false" />
         <activity
-            android:name=".MultiPlayerResultActivity"
+            android:name=".MultiPlayer.MultiPlayerResultActivity"
             android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"
@@ -37,7 +37,7 @@
             android:name=".StatisticsScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".MultiPlayerGameActivity"
+            android:name=".MultiPlayer.MultiPlayerGameActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsScreenActivity"
@@ -46,13 +46,13 @@
             android:name=".HomeScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".EditQuestionQuestionCatalog"
+            android:name=".QuestionCatalog.EditQuestionQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".NewQuestionQuestionCatalog"
+            android:name=".QuestionCatalog.NewQuestionQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".MainActivityQuestionCatalog"
+            android:name=".QuestionCatalog.MainActivityQuestionCatalog"
             android:exported="false" />
         <activity
             android:name=".SinglePlayerStartActivity"

@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.QuestionCatalog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+
+import thu.adse.energyquiz.HomeScreenActivity;
+import thu.adse.energyquiz.R;
 
 public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
 
@@ -101,24 +104,25 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
             CheckCataloguePermission(CatalogueChange.ADD_QUESTION, null);
         });
 
+        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
+        buttonBackToMenu.setOnClickListener(view -> backToMenu());
+
         dialog = new Dialog(MainActivityQuestionCatalog.this);
         dialog.setContentView(R.layout.edit_delete_dialog_box_question_catalog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
         dialog.setCancelable(true);
 
-        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
-        buttonBackToMenu.setOnClickListener(view -> backToMenu());
-
-
 
         buttonDialogEdit = dialog.findViewById(R.id.buttonDialogEdit);
         buttonDialogDelete = dialog.findViewById(R.id.buttonDialogDelete);
         buttonDialogCancel = dialog.findViewById(R.id.buttonDialogCancel);
 
-        buttonDialogCancel.setOnClickListener(view -> dialog.dismiss());
+        buttonDialogCancel.setOnClickListener((View view) -> {
+            dialog.dismiss();
+        });
 
-        buttonDialogEdit.setOnClickListener(view -> {
+        buttonDialogEdit.setOnClickListener((View view) -> {
             CheckCataloguePermission(CatalogueChange.EDIT_QUESTION, selectedQuestion);
             // openEditQuestion(selectedQuestion);
             dialog.dismiss();
@@ -128,7 +132,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
             CheckCataloguePermission(CatalogueChange.DELETE_QUESTION, selectedQuestion);
             // deleteQuestion(selectedQuestion);
             dialog.dismiss();
-            //Option: Dialog "Sind Sie sicher, dass Sie die Frage löschen wollen?" einfügen
+            //Optional: Dialog: "Sind Sie sicher, dass Sie die Frage löschen wollen?"
         });
     }
     public void openEditQuestion(QuestionQuestionCatalog question) {

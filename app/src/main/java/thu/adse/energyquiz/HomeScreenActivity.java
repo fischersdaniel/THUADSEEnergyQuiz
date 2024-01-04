@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
+import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
+
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

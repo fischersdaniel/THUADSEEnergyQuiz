@@ -5,7 +5,7 @@
     android:id="@+id/newQuestionText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewQuestionQuestionCatalog">
+    tools:context=".QuestionCatalog.NewQuestionQuestionCatalog">
 
 
     <CheckBox

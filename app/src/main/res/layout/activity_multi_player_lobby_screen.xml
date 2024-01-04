@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MultiPlayerLobbyScreen">
+    tools:context=".MultiPlayer.MultiPlayerLobbyScreen">
 
     <TextView
         android:id="@+id/textViewMultiPlayerLobbyscreenHeader"
@@ -22,11 +22,11 @@
         android:id="@+id/recyclerViewLobbyscreen"
         android:layout_width="409dp"
         android:layout_height="550dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMultiPlayerLobbyscreenHeader"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeaderNumberOfQuestionsPerRound"
         app:layout_constraintVertical_bias="0.100000024" />
 
     <Button
@@ -48,5 +48,27 @@
         android:text="@string/buttonCreateLobby"
         app:layout_constraintStart_toEndOf="@+id/buttonBackToHome"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewLobbyscreen" />
+
+    <TextView
+        android:id="@+id/textViewHeaderUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="10dp"
+        android:text="Spieler"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMultiPlayerLobbyscreenHeader" />
+
+    <TextView
+        android:id="@+id/textViewHeaderNumberOfQuestionsPerRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="10dp"
+        android:text="Anzahl Fragen"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewHeaderUserName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMultiPlayerLobbyscreenHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
