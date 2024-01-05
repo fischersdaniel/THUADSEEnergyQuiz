@@ -138,12 +138,10 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         else{
                             // every ID is okay, no checks if already used since app start
                             // only check, if used in the round (no question more than one time per round)
+                            IDchecked = true;
                             for(int counterCheckRound=0; counterCheckRound<numberQuestionsPerRound; counterCheckRound++){
                                 if(questionIDsPerRound[counterCheckRound] == randID){
                                     IDchecked = false;
-                                }
-                                else{
-                                    IDchecked = true;
                                 }
                             }
                             // no need to add the questionID more than once to the usedSessionIDs
