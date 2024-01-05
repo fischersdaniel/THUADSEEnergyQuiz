@@ -21,13 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import thu.adse.energyquiz.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 public class MultiPlayerLobbyScreen extends AppCompatActivity implements RecyclerViewInterfaceMultiPlayerLobby {
 
-    DatabaseReference lobbyDbRef;
+    DatabaseReference lobbyDbRefOpen, lobbyDbRefFull,usersDbRef;
     RecyclerView recyclerViewLobbyscreen;
     MultiPlayerLobbyAdapter lobbyAdapter;
     ArrayList<MultiPlayerLobby> lobbyList;
@@ -38,6 +39,11 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     MultiPlayerLobby selectedLobby;
 
+    String joinedUserID;
+
+    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),allQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,24 +53,30 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         recyclerViewLobbyscreen.setHasFixedSize(true);
         recyclerViewLobbyscreen.setLayoutManager(new LinearLayoutManager(this));
 
+        auth = FirebaseAuth.getInstance();
 
-        lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies").child("open");
+        JoinedUser=auth.getCurrentUser();
+        joinedUserID=JoinedUser.getUid();
+
+        lobbyDbRefOpen = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies").child("open");
+        lobbyDbRefFull=  FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies").child("full");
+        usersDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users");
+
 
         lobbyList=new ArrayList<>();
         lobbyAdapter = new MultiPlayerLobbyAdapter(this, this, lobbyList);
         recyclerViewLobbyscreen.setAdapter(lobbyAdapter);
 
-        lobbyDbRef.addValueEventListener(new ValueEventListener() {
+        lobbyDbRefOpen.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 lobbyList.clear();
 
                 for (DataSnapshot lobbysnapshot: snapshot.getChildren()) {
-                    ArrayList<Long> possibleQuestions = new ArrayList<>();
                     for (DataSnapshot questionsnapshot: lobbysnapshot.child("possibleQuestions").getChildren()) {
                         possibleQuestions.add(questionsnapshot.getValue(Long.class));
                     }
-                    MultiPlayerLobby lobby = new MultiPlayerLobby(lobbysnapshot.child("numberQuestionsPerRound").getValue(String.class), lobbysnapshot.child("userNameCreator").getValue(String.class), possibleQuestions);
+                    MultiPlayerLobby lobby = new MultiPlayerLobby(lobbysnapshot.child("numberQuestionsPerRound").getValue(String.class), lobbysnapshot.child("userNameCreator").getValue(String.class), lobbysnapshot.getKey(), possibleQuestions);
                     lobbyList.add(lobby);
                 }
                 lobbyAdapter.notifyDataSetChanged();
@@ -75,6 +87,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
             }
         });
+
 
 
         buttonCreateLobby = findViewById(R.id.buttonCreateLobby);
@@ -89,15 +102,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         buttonDialogYes = dialog.findViewById(R.id.buttonDialogYes);
         buttonDialogNo = dialog.findViewById(R.id.buttonDialogNo);
 
-        buttonDialogNo.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
-
-        buttonDialogYes.setOnClickListener(view -> {
-            addPlayerToLobby(selectedLobby);
-        });
-
-
 
 
         buttonCreateLobby.setOnClickListener(view -> {
@@ -110,7 +114,19 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
             startActivity(intent);
         });
 
+    usersDbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+            getUsedQuestionsFromUserDb(snapshot);
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    }); ;
 
 
 
@@ -124,6 +140,15 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     public void onItemClick(int position, MultiPlayerLobby lobby) {
         selectedLobby = lobby;
         dialog.show();
+
+        buttonDialogNo.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        buttonDialogYes.setOnClickListener(view -> {
+            addPlayerToLobby(selectedLobby);
+        });
+
     }
 
     void addPlayerToLobby(MultiPlayerLobby lobby) {
@@ -132,10 +157,24 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     void moveLobbyToFull(MultiPlayerLobby lobby) {
         JoinedUser = auth.getCurrentUser();
-        lobbyDbRef.child("full").child(lobby.userNameCreator).child("numberQuestionsPerRound").setValue(lobby.numberQuestionsPerRound);
-        lobbyDbRef.child("full").child(lobby.userNameCreator).child("userNameCreator").setValue(lobby.userNameCreator);
-        lobbyDbRef.child("full").child(lobby.userNameCreator).child("userIDPlayer2").setValue(JoinedUser.getUid());
-        lobbyDbRef.child("full").child(lobby.userNameCreator).child("possibleQuestions").setValue(lobby.possibleQuestionsList);
-        lobbyDbRef.child("open").child(lobby.userNameCreator).removeValue();
+        lobbyDbRefFull.child(lobby.userIDCreator).child("numberQuestionsPerRound").setValue(lobby.numberQuestionsPerRound);
+        lobbyDbRefFull.child(lobby.userIDCreator).child("userNameCreator").setValue(lobby.userNameCreator);
+        lobbyDbRefFull.child(lobby.userIDCreator).child("userIDPlayer2").setValue(JoinedUser.getUid());
+        getPossibleQuestions(lobby.possibleQuestionsList);
+        lobbyDbRefFull.child(lobby.userIDCreator).child("possibleQuestions").setValue(possibleQuestions2Players);
+        lobbyDbRefOpen.child(lobby.userIDCreator).removeValue();
+    }
+
+    private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
+        usedQuestions.clear();
+        for (DataSnapshot ds: snapshot.child(joinedUserID).child("usedSessionIDs").getChildren()){
+            usedQuestions.add(Long.parseLong(ds.getValue().toString()));
+        }
+    }
+    private void getPossibleQuestions(ArrayList<Long> possibleQuestions){
+        possibleQuestions2Players=possibleQuestions;
+        for (Long i: usedQuestions){
+            possibleQuestions2Players.remove(i);
+        }
     }
 }

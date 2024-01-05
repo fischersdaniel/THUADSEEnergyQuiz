@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MultiPlayerLobby { ;
-    String userNameCreator;
-    String numberQuestionsPerRound;
+    String userNameCreator,numberQuestionsPerRound, userIDCreator;
     ArrayList<Long> possibleQuestionsList;
 
 
-    public MultiPlayerLobby(String numberQuestionsPerRound, String userNameCreator, ArrayList<Long> possibleQuestionsList) {
+    public MultiPlayerLobby(String numberQuestionsPerRound, String userNameCreator, String userIDCreator,ArrayList<Long> possibleQuestionsList) {
         this.numberQuestionsPerRound = numberQuestionsPerRound;
         this.userNameCreator = userNameCreator;
         this.possibleQuestionsList = possibleQuestionsList;
+        this.userIDCreator=userIDCreator;
     }
 
     public String getNumberQuestionsPerRound() {

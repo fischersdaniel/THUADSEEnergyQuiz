@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     List<Long> allQuestions = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +57,13 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
         UserCreator = auth.getCurrentUser();
         userIdCreator = UserCreator.getUid();
-        //userNameCreator = usersDbRef.child(userIdCreator).child("userName").toString();
 
         cardViewMultiPlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerLobbyScreen.class);
             startActivity(intent);
         });
 
-        numberQuestionsPerRound = 5; //Standardwert Fragen pro Runde festgelegt
+        numberQuestionsPerRound = 5; //Standardwert Fragen pro Runde wird hier festgelegt
 
 
         Bundle extras = getIntent().getExtras();
@@ -75,7 +76,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numberQuestionsPerRound++;
                 TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
-                //numberQuestionsPerRound = Integer.parseInt(TextViewMultiPlayerStartNumberInput.getText().toString());
             }
         });
 
@@ -93,11 +93,9 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         cardViewMultiPlayerStartPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Datenbankeintrag numberQuestionsPerRound erstellen
                 createNewLobby();
-                Intent intent = new Intent(MultiPlayerStartActivity.this, MultiPlayerGameActivity.class); //TODO: Loading Screen (bis ein anderer Spieler der Lobby beigetreten ist)
-                startActivity(intent);
-                //TODO: Müssen hier lokal auch Variablen weitergegeben werden?
+                MultiPlayerLoadingScreenAlert loadingScreenAlert = new MultiPlayerLoadingScreenAlert(MultiPlayerStartActivity.this);
+                loadingScreenAlert.startLoadingScreenAlertDialog();
             }
         });
 
@@ -118,10 +116,9 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
                     userNameCreator = snapshot.child("userName").getValue(String.class);
                     getUsedQuestionsFromUserDb(snapshot);
-                }
+
             }
 
             @Override
