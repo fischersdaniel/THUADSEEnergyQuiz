@@ -108,6 +108,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                     int max = 11;
                     int min = 1;
                     boolean IDchecked = true;
+                    boolean IDUsedOncechecked;
                     while(counterRandomQuestions < numberQuestionsPerRound){
                         Log.d("current User", "counterRandomQuestions:" + counterRandomQuestions);
                         // normal random function: [0, n-1], here: [1, n]
@@ -132,18 +133,33 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 Log.d("current User", "IDchecked:" + IDchecked);
                                 counterUsedSessionIDs++;
                             }
+                            IDUsedOncechecked = false;
                         }
                         else{
-                            // every ID is okay, no checks if already used
-                            IDchecked = true;
+                            // every ID is okay, no checks if already used since app start
+                            // only check, if used in the round (no question more than one time per round)
+                            for(int counterCheckRound=0; counterCheckRound<numberQuestionsPerRound; counterCheckRound++){
+                                if(questionIDsPerRound[counterCheckRound] == randID){
+                                    IDchecked = false;
+                                }
+                                else{
+                                    IDchecked = true;
+                                }
+                            }
+                            // no need to add the questionID more than once to the usedSessionIDs
+                            IDUsedOncechecked = true;
                         }
 
                         if(true == IDchecked){
                             // check if the while search in the usedSessionIDsLocal was okay
                             // a question is only one time per round allowed, so add it to the usedSessionIDsLocal to check next repeat if already used
-                            usedSessionIDsLocal.add(randID);
                             questionIDsPerRound[counterRandomQuestions] = randID;
                             counterRandomQuestions++;
+                            // no need to add the questionID more than once to the usedSessionIDs
+                            if(false == IDUsedOncechecked){
+                                usedSessionIDsLocal.add(randID);
+                            }
+
                         }
                     }
 
