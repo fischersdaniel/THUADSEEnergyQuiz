@@ -269,7 +269,6 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         {
             userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userId);
-            userId = null;
         }
         if (userId == null){
             ReadadminpasswordDB(requestedChange, question);
