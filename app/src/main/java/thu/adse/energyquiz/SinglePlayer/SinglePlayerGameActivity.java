@@ -31,7 +31,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     private Button confirm_next_button;
     private int color_green, color_red, color_white, color_grey;
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
-    private int numberQuestionsPerRound, counterRandomQuestions, actualQuestionNumber, actualQuestionID, numberCorrectAnswersRound, counterUsedSessionIDs, counterSameRandomIDs;
+    private int numberQuestionsPerRound, counterRandomQuestions, actualQuestionNumber, numberCorrectAnswersRound, counterUsedSessionIDs;
+    private long countQuestionChilds;
     private String actualQuestionTitle, actualQuestionAnswer1, actualQuestionAnswer2, actualQuestionAnswer3, actualQuestionAnswer4;
     private Boolean actualQuestionAnswer1Correct, actualQuestionAnswer2Correct, actualQuestionAnswer3Correct, actualQuestionAnswer4Correct;
     private int[] questionIDsPerRound;
@@ -75,7 +76,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         color_grey = Color.parseColor("#B9BBBE");
 
         actualQuestionNumber = 0;
-        actualQuestionID = 0;
         numberCorrectAnswersRound = 0;
         switchConfirmNextButton = false;
 
@@ -93,92 +93,98 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Type indicator here is needed to read the array from the database
-                    GenericTypeIndicator<ArrayList<Integer>> typeIndi = new GenericTypeIndicator<ArrayList<Integer>>() {};
-                    //ArrayList<Integer> yourStringArray = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
-                    usedSessionIDsLocal = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
-                    Log.d("current User", "usedSessionIDsLocal:" + usedSessionIDsLocal);
-                    Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
-
-                    // Generate random question IDs within the question catalog
-                    // 10 must be maxnumber ID from DB
-                    questionIDsPerRound = new int[numberQuestionsPerRound];
-                    Random randomQuestionID = new Random();
-                    counterRandomQuestions = 0;
-                    int max = 11;
-                    int min = 1;
-                    boolean IDchecked = true;
-                    boolean IDUsedOncechecked;
-                    while(counterRandomQuestions < numberQuestionsPerRound){
-                        Log.d("current User", "counterRandomQuestions:" + counterRandomQuestions);
-                        // normal random function: [0, n-1], here: [1, n]
-                        // +1, because max is excluded
-                        int randID = randomQuestionID.nextInt((max - min) + 1) + min;
-                        Log.d("current User", "randID:" + randID);
-                        // Check, that it is a possible to solve problem and no endless repetition without the chance of solving the problem
-                        if(11 - usedSessionIDsLocal.size() > numberQuestionsPerRound){
-                            // Since app start asked questions should not be part of the round
-                            // randomQuestionID should not be within the user specific DB entry [array:int:usedSessionIDs]
-                            counterUsedSessionIDs = 0;
-                            Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
-                            IDchecked = true;
-                            while(counterUsedSessionIDs < usedSessionIDsLocal.size()){
-                                Log.d("current User", "counterUsedSessionIDs:" + counterUsedSessionIDs);
-                                if(usedSessionIDsLocal.get(counterUsedSessionIDs) == randID){
-                                    // do not use the randID because it was used since app start
-                                    Log.d("current User", "IDchecked inside:" + IDchecked);
-                                    IDchecked = false;
-                                    break;
-                                }
-                                Log.d("current User", "IDchecked:" + IDchecked);
-                                counterUsedSessionIDs++;
-                            }
-                            IDUsedOncechecked = false;
-                        }
-                        else{
-                            // every ID is okay, no checks if already used since app start
-                            // only check, if used in the round (no question more than one time per round)
-                            IDchecked = true;
-                            for(int counterCheckRound=0; counterCheckRound<numberQuestionsPerRound; counterCheckRound++){
-                                if(questionIDsPerRound[counterCheckRound] == randID){
-                                    IDchecked = false;
-                                }
-                            }
-                            // no need to add the questionID more than once to the usedSessionIDs
-                            IDUsedOncechecked = true;
-                        }
-
-                        if(true == IDchecked){
-                            // check if the while search in the usedSessionIDsLocal was okay
-                            // a question is only one time per round allowed, so add it to the usedSessionIDsLocal to check next repeat if already used
-                            questionIDsPerRound[counterRandomQuestions] = randID;
-                            counterRandomQuestions++;
-                            // no need to add the questionID more than once to the usedSessionIDs
-                            if(false == IDUsedOncechecked){
-                                usedSessionIDsLocal.add(randID);
-                            }
-
-                        }
-                    }
-
-                    // Question DB pull
-                    //actualQuestionID = 1;
-                    actualQuestionNumber = 1;
-                    // databaseReference = FirebaseDatabase.getInstance().getReference().child("Questions").child(actualQuestionIDString);
+                    //when the User DB is loaded, pull the question DB
                     questionsDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Questions");
                     questionsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                actualQuestionTitle = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("questionTitle").getValue(String.class);
-                                actualQuestionAnswer1 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer1").child("answerText").getValue(String.class);
-                                actualQuestionAnswer1Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
-                                actualQuestionAnswer2 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer2").child("answerText").getValue(String.class);
-                                actualQuestionAnswer2Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
-                                actualQuestionAnswer3 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer3").child("answerText").getValue(String.class);
-                                actualQuestionAnswer3Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
-                                actualQuestionAnswer4 = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer4").child("answerText").getValue(String.class);
-                                actualQuestionAnswer4Correct = dataSnapshot.child(String.valueOf(questionIDsPerRound[actualQuestionNumber-1])).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
+                        public void onDataChange(DataSnapshot dataSnapshotQuestions) {
+                            if (dataSnapshotQuestions.exists()) {
+                                // get the number of questions in the question DB
+                                countQuestionChilds = dataSnapshotQuestions.getChildrenCount();
+                                Log.d("current User", "countQuestionChilds " + countQuestionChilds);
+
+                                // Type indicator here is needed to read the array from the database
+                                GenericTypeIndicator<ArrayList<Integer>> typeIndi = new GenericTypeIndicator<ArrayList<Integer>>() {
+                                };
+                                //ArrayList<Integer> yourStringArray = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
+                                usedSessionIDsLocal = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
+                                Log.d("current User", "usedSessionIDsLocal:" + usedSessionIDsLocal);
+                                Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
+
+                                // Generate random question IDs within the question catalog
+                                // 10 must be maxnumber ID from DB
+                                questionIDsPerRound = new int[numberQuestionsPerRound];
+                                Random randomQuestionID = new Random();
+                                counterRandomQuestions = 0;
+                                //int max = 11;
+                                int max = (int) countQuestionChilds;
+                                Log.d("current User", "max = countQuestionChilds " + max);
+                                int min = 1;
+                                boolean IDchecked = true;
+                                boolean IDUsedOncechecked;
+                                while (counterRandomQuestions < numberQuestionsPerRound) {
+                                    Log.d("current User", "counterRandomQuestions:" + counterRandomQuestions);
+                                    // normal random function: [0, n-1], here: [1, n]
+                                    // +1, because max is excluded
+                                    int randID = randomQuestionID.nextInt((max - min) + 1) + min;
+                                    Log.d("current User", "randID:" + randID);
+                                    // Check, that it is a possible to solve problem and no endless repetition without the chance of solving the problem
+                                    if (max - usedSessionIDsLocal.size() > numberQuestionsPerRound) {
+                                        // Since app start asked questions should not be part of the round
+                                        // randomQuestionID should not be within the user specific DB entry [array:int:usedSessionIDs]
+                                        counterUsedSessionIDs = 0;
+                                        Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
+                                        IDchecked = true;
+                                        while (counterUsedSessionIDs < usedSessionIDsLocal.size()) {
+                                            Log.d("current User", "counterUsedSessionIDs:" + counterUsedSessionIDs);
+                                            if (usedSessionIDsLocal.get(counterUsedSessionIDs) == randID) {
+                                                // do not use the randID because it was used since app start
+                                                Log.d("current User", "IDchecked inside:" + IDchecked);
+                                                IDchecked = false;
+                                                break;
+                                            }
+                                            Log.d("current User", "IDchecked:" + IDchecked);
+                                            counterUsedSessionIDs++;
+                                        }
+                                        IDUsedOncechecked = false;
+                                    } else {
+                                        // every ID is okay, no checks if already used since app start
+                                        // only check, if used in the round (no question more than one time per round)
+                                        IDchecked = true;
+                                        for (int counterCheckRound = 0; counterCheckRound < numberQuestionsPerRound; counterCheckRound++) {
+                                            if (questionIDsPerRound[counterCheckRound] == randID) {
+                                                IDchecked = false;
+                                            }
+                                        }
+                                        // no need to add the questionID more than once to the usedSessionIDs
+                                        IDUsedOncechecked = true;
+                                    }
+
+                                    if (true == IDchecked) {
+                                        // check if the while search in the usedSessionIDsLocal was okay
+                                        // a question is only one time per round allowed, so add it to the usedSessionIDsLocal to check next repeat if already used
+                                        questionIDsPerRound[counterRandomQuestions] = randID;
+                                        counterRandomQuestions++;
+                                        // no need to add the questionID more than once to the usedSessionIDs
+                                        if (false == IDUsedOncechecked) {
+                                            usedSessionIDsLocal.add(randID);
+                                        }
+
+                                    }
+                                }
+
+                                // Question DB first question child
+                                actualQuestionNumber = 1;
+
+                                actualQuestionTitle = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("questionTitle").getValue(String.class);
+                                actualQuestionAnswer1 = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer1").child("answerText").getValue(String.class);
+                                actualQuestionAnswer1Correct = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer1").child("correctAnswer").getValue(Boolean.class);
+                                actualQuestionAnswer2 = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer2").child("answerText").getValue(String.class);
+                                actualQuestionAnswer2Correct = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer2").child("correctAnswer").getValue(Boolean.class);
+                                actualQuestionAnswer3 = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer3").child("answerText").getValue(String.class);
+                                actualQuestionAnswer3Correct = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer3").child("correctAnswer").getValue(Boolean.class);
+                                actualQuestionAnswer4 = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer4").child("answerText").getValue(String.class);
+                                actualQuestionAnswer4Correct = dataSnapshotQuestions.child(String.valueOf(questionIDsPerRound[actualQuestionNumber - 1])).child("answers").child("answer4").child("correctAnswer").getValue(Boolean.class);
 
                                 // set the textviews with the data for the first question
                                 numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
@@ -188,8 +194,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 answer3_textview.setText(actualQuestionAnswer3);
                                 answer4_textview.setText(actualQuestionAnswer4);
                                 confirm_next_button.setText(getString(R.string.confirm_button));
-                            }
-                            else{
+                            } else {
+                                //not found
                                 question_textview.setText("Not found");
                                 answer1_textview.setText("Not found");
                                 answer2_textview.setText("Not found");
@@ -197,14 +203,12 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 answer4_textview.setText("Not found");
                             }
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
                         }
                     });
-
-                } else {
-                    //not found
                 }
             }
             @Override
@@ -212,16 +216,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
             }
         });
-
-        /*
-        // Test array, check on the right array logic
-        questionIDsPerRound[0] = 1;
-        questionIDsPerRound[1] = 2;
-        questionIDsPerRound[2] = 3;
-        questionIDsPerRound[3] = 4;
-        questionIDsPerRound[4] = 5;
-        */
-
 
         // set the text views with the default data
         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
@@ -236,8 +230,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         answer2_choosen = false;
         answer3_choosen = false;
         answer4_choosen = false;
-
-
 
 
         //------------
