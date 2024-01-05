@@ -1,8 +1,10 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import thu.adse.energyquiz.R;
 
 public class SettingsScreenActivity extends AppCompatActivity {
 

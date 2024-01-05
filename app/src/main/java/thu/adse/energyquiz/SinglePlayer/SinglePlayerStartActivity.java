@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.SinglePlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import thu.adse.energyquiz.HomeScreenActivity;
+import thu.adse.energyquiz.R;
 
 
 public class SinglePlayerStartActivity extends AppCompatActivity{

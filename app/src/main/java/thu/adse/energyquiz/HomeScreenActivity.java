@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import thu.adse.energyquiz.Miscellaneous.SettingsScreenActivity;
+import thu.adse.energyquiz.Miscellaneous.StatisticsScreenActivity;
 import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
+import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
+import thu.adse.energyquiz.UserManagement.LoginActivity;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 

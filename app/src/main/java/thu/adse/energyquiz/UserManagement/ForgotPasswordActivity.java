@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import thu.adse.energyquiz.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 

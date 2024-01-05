@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".DeleteAccountActivity">
+    tools:context=".UserManagement.DeleteAccountActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -1,8 +1,7 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.SinglePlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import thu.adse.energyquiz.R;
 
 public class SinglePlayerGameActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,9 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import thu.adse.energyquiz.HomeScreenActivity;
+import thu.adse.energyquiz.R;
 
 
 public class SplashScreenActivity extends AppCompatActivity {

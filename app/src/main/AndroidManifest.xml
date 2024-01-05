@@ -22,7 +22,7 @@
             android:name=".MultiPlayer.MultiPlayerResultActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".Miscellaneous.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,13 +34,13 @@
             android:name=".CatalogScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".StatisticsScreenActivity"
+            android:name=".Miscellaneous.StatisticsScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MultiPlayer.MultiPlayerGameActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsScreenActivity"
+            android:name=".Miscellaneous.SettingsScreenActivity"
             android:exported="false" />
         <activity
             android:name=".HomeScreenActivity"
@@ -55,31 +55,31 @@
             android:name=".QuestionCatalog.MainActivityQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".SinglePlayerStartActivity"
+            android:name=".SinglePlayer.SinglePlayerStartActivity"
             android:exported="false" />
         <activity
-            android:name=".DeleteAccountActivity"
+            android:name=".UserManagement.DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".SinglePlayerResultActivity"
+            android:name=".SinglePlayer.SinglePlayerResultActivity"
             android:exported="false" />
         <activity
-            android:name=".SinglePlayerGameActivity"
+            android:name=".SinglePlayer.SinglePlayerGameActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".UserManagement.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UserManagement.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".UserManagement.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".UserManagement.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".UserManagement.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".Loginscreen"

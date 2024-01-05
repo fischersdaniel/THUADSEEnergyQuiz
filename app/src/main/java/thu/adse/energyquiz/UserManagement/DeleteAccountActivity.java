@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import thu.adse.energyquiz.R;
 
 
 public class DeleteAccountActivity extends AppCompatActivity {

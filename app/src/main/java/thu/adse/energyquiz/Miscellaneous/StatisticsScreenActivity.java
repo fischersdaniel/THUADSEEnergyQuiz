@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -16,6 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import thu.adse.energyquiz.HomeScreenActivity;
+import thu.adse.energyquiz.R;
 
 public class StatisticsScreenActivity extends AppCompatActivity {
 
