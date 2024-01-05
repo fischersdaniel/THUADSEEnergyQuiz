@@ -71,20 +71,20 @@ public class SignUpActivity extends AppCompatActivity {
                 String confirmPass = signupConfirmPassword.getText().toString().trim();
 
                 if(!confirmPass.equals(pass)) {
-                    signupPassword.setError("Password and confirmation must be the same");
-                    signupConfirmPassword.setError("Password and confirmation must be the same");
+                    signupPassword.setError(getString(R.string.passwordsNotEqual));
+                    signupConfirmPassword.setError(getString(R.string.passwordsNotEqual));
                 }
                 else if (userName.isEmpty()){
-                    signupUserName.setError("Username cannot be empty");
+                    signupUserName.setError(getString(R.string.userNameEmpty));
                 }
                 else if (user.isEmpty()){
-                    signupEmail.setError("Email cannot be empty");
+                    signupEmail.setError(getString(R.string.emailEmpty));
                 }
                 else if(pass.isEmpty()) {
-                    signupPassword.setError("Password cannot be empty");
+                    signupPassword.setError(getString(R.string.passwordEmpty));
                 }
                 else if(confirmPass.isEmpty()) {
-                    signupPassword.setError("Confirmation password cannot be empty");
+                    signupPassword.setError(getString(R.string.confirmationPasswordEmpty));
                 } else{
                     mAuth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override

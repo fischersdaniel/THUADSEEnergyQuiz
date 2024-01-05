@@ -44,14 +44,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String confirmNewPassword = confirmNewPassword_text.getText().toString();
 
                 if(!confirmNewPassword.equals(newPassword)) {
-                    newPassword_text.setError("Password and confirmation must be the same");
-                    confirmNewPassword_text.setError("Password and confirmation must be the same");
+                    newPassword_text.setError(getString(R.string.passwordsNotEqual));
+                    confirmNewPassword_text.setError(getString(R.string.passwordsNotEqual));
                 }
                 else if (newPassword.isEmpty()){
-                    newPassword_text.setError("Password cannot be empty");
+                    newPassword_text.setError(getString(R.string.passwordEmpty));
                 }
                 else if (confirmNewPassword.isEmpty()) {
-                    confirmNewPassword_text.setError("Password cannot be empty");
+                    confirmNewPassword_text.setError(getString(R.string.confirmationPasswordEmpty));
                 }
                 else {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

@@ -115,13 +115,13 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                     } else {
-                        loginPassword.setError("Password cannot be empty");
+                        loginPassword.setError(getString(R.string.passwordEmpty));
                     }
 
                 } else if (email.isEmpty()) {
-                    loginEmail.setError("Email cannot be empty");
+                    loginEmail.setError(getString(R.string.emailEmpty));
                 } else {
-                    loginEmail.setError("Please enter a valid email");
+                    loginEmail.setError(getString(R.string.emailNotValid));
                 }
             }
         });

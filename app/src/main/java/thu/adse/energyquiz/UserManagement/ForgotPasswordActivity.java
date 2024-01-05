@@ -57,9 +57,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 }
                             });
                 } else if (email.isEmpty()) {
-                    sendNewPassword_email.setError("Email cannot be empty");
+                    sendNewPassword_email.setError(getString(R.string.emailEmpty));
                 } else {
-                    sendNewPassword_email.setError("Please enter a valid email");
+                    sendNewPassword_email.setError(getString(R.string.emailNotValid));
                 }
             }
         });
