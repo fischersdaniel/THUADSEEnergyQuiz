@@ -58,15 +58,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                             // if an overall check of used IDs is requested, the following 2 lines code be excluded / deleted
                             usedSessionIDsInit.add(0);
                             usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsInit);
-                            Toast.makeText(SplashScreenActivity.this, "User is logged in.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SplashScreenActivity.this, getString(R.string.userIsLoggedIn), Toast.LENGTH_SHORT).show();
                            // startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         }
                         else{
                             Log.d("current User", "remainLogIn false");
                             // User gets logged out
-                            //auth.signOut();
                             mAuth.signOut();
-                            Log.d("current User", "user signed out");
+                            Log.d("current User", getString(R.string.userIsLoggedOut));
+                            Toast.makeText(SplashScreenActivity.this, getString(R.string.userIsLoggedOut), Toast.LENGTH_SHORT).show();
                         }
                     }
                     else{

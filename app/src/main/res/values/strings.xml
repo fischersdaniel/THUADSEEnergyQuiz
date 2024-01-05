@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">EnergyQuiz</string>
 
+    <string name="userIsLoggedIn">Nutzer ist angemeldet.</string>
+    <string name="userIsLoggedOut">Nutzer ist abgemeldet.</string>
+    <string name="logOutSuccessfull">Abmeldung erfolgreich.</string>
+    <string name="logInSuccessfull">Anmeldung erfolgreich.</string>
+    <string name="logInFailed">Anmeldung fehlgeschlagen.</string>
+    <string name="signUpSuccessfull">Registierung erfolgreich.</string>
+    <string name="signUpFailed">Registrierung fehlgeschlagen.</string>
+    <string name="deleteAccountSuccessfull">Löschung des Accounts erfolreich.</string>
+    <string name="deleteAccountFailed">Löschung des Accounts fehlgeschlagen.</string>
+    <string name="resetEmailSuccessfull">Email zum Zurücksetzen gesendet.</string>
+    <string name="resetEmailFailed">Email zum Zurücksetzen fehlgeschlagen.</string>
+    <string name="passwordChangeSuccessfull">Passwortänderung erfolgreich.</string>
+    <string name="passwordChangeFailed">Passwortänderung fehlgeschlagen.</string>
+
     <string name="login">Anmeldung</string>
     <string name="login_email">Email</string>
     <string name="login_password">Passwort</string>

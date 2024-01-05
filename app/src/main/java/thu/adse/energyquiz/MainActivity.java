@@ -38,25 +38,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.logOutSuccessfull), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class ));
                 finish();
-
-                // cannot be catched because its a void?
-                        /*
-                        .addOnFailureListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, MainActivity.class ));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MainActivity.this, "Logout Failed", Toast.LENGTH_SHORT).show();
-                            }
-                        });*/
             }
         });
 

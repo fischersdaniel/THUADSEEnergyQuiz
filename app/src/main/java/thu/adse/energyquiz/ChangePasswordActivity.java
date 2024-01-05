@@ -58,12 +58,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ChangePasswordActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeSuccessfull), Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(ChangePasswordActivity.this, MainActivity.class));
                                         finish();
                                     }
                                     else {
-                                        Toast.makeText(ChangePasswordActivity.this, "Password change failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeFailed), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

@@ -47,12 +47,12 @@ public class DeleteAccountActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(DeleteAccountActivity.this, "User account deleted", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DeleteAccountActivity.this, getString(R.string.deleteAccountSuccessfull), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(DeleteAccountActivity.this, SignUpActivity.class));
                                     finish();
                                 }
                                 else {
-                                    Toast.makeText(DeleteAccountActivity.this, "User account deleting failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DeleteAccountActivity.this, getString(R.string.deleteAccountFailed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

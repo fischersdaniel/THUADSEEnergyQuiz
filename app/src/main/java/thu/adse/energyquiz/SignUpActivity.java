@@ -110,10 +110,10 @@ public class SignUpActivity extends AppCompatActivity {
                                 usersDatabaseReference.child(userID).child("totalCorrectAnswers").setValue(0);
 
                                 Log.d("current User", "Create user in database erfolgreich");
-                                Toast.makeText(SignUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, getString(R.string.signUpSuccessfull), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, HomeScreenActivity.class));
                             } else{
-                                Toast.makeText(SignUpActivity.this, "Signup Failed" + " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, getString(R.string.signUpFailed) + " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
