@@ -31,10 +31,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText signupUserName, signupEmail, signupPassword, signupConfirmPassword;
     private Button signUp_button;
     private TextView loginRedirectSignUp_textview;
-
     private String userID;
     private List<Integer> usedSessionIDsInit = new ArrayList<>();
-    private boolean remainLogInLocal;
     private DatabaseReference usersDatabaseReference;
 
     @Override
@@ -50,52 +48,15 @@ public class SignUpActivity extends AppCompatActivity {
         signUp_button = findViewById(R.id.signup_button);
         loginRedirectSignUp_textview = findViewById(R.id.loginRedirectSignUp_textview);
 
-        //When while opening the app a user is still logged in, there is no need to log in again
-        //remain logged in had to be chosen in the login screen
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         Log.d("current User", "Test");
-
         if (currentUser != null) {
             userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userID);
-
-            usersDatabaseReference = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users").child(userID);
-            usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        Log.d("current User", "datasnapshot exists");
-                        remainLogInLocal = dataSnapshot.child("remainLogIn").getValue(boolean.class);
-                        if(true == remainLogInLocal){
-                            Log.d("current User", "remainLogIn true");
-                            // User stays logged in
-                            // delete the used session IDs in the user DB, IDs are only from app start to app kill needed
-                            // if an overall check of used IDs is requested, the following 2 lines code be excluded / deleted
-                            usedSessionIDsInit.add(0);
-                            usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsInit);
-                            Toast.makeText(SignUpActivity.this, "User is logged in.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                        }
-                        else{
-                            Log.d("current User", "remainLogIn false");
-                            // User gets logged out
-                            //auth.signOut();
-                            mAuth.signOut();
-                        }
-                    }
-                    else{
-                        Log.d("current User", "datasnapshot does not exist");
-                        //not found
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
-                }
-            });
-        } else {
+        } else
+        {
             // No user is logged in, sign up is needed
             // no_operation
             Log.d("current User", "Bitte Anmelden");
