@@ -43,6 +43,7 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="@string/signup_userName"
+                android:inputType="text"
                 android:drawableLeft="@drawable/person"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black" />
@@ -56,6 +57,7 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="@string/signup_email"
+                android:inputType="textEmailAddress"
                 android:drawableLeft="@drawable/person"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black" />
@@ -69,6 +71,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="@string/signup_password"
+                android:inputType="textPassword"
                 android:drawableLeft="@drawable/lock"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
@@ -83,6 +86,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="@string/signup_confirmpassword"
+                android:inputType="textPassword"
                 android:drawableLeft="@drawable/lock"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
