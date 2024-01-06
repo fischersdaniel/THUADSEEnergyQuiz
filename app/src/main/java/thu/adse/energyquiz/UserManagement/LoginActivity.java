@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import thu.adse.energyquiz.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -105,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                         Toast.makeText(LoginActivity.this, getString(R.string.logInSuccessfull), Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class ));
+                                        startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class ));
                                         finish();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

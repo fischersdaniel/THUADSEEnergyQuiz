@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import thu.adse.energyquiz.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 auth.signOut();
                 Toast.makeText(MainActivity.this, getString(R.string.logOutSuccessfull), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class ));
+                startActivity(new Intent(MainActivity.this, HomeScreenActivity.class ));
                 finish();
             }
         });

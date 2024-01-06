@@ -7,12 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import thu.adse.energyquiz.Miscellaneous.SettingsScreenActivity;
 import thu.adse.energyquiz.Miscellaneous.StatisticsScreenActivity;
 import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
+import thu.adse.energyquiz.UserManagement.MainActivity;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,7 +49,13 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(HomeScreenActivity.this, SettingsScreenActivity.class));
         } else if (v.getId() == R.id.cardViewHomeUser) {
             // Aktionen für cardUser
-            startActivity(new Intent(HomeScreenActivity.this, LoginActivity.class));
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                startActivity(new Intent(HomeScreenActivity.this, MainActivity.class));
+            } else {
+                startActivity(new Intent(HomeScreenActivity.this, LoginActivity.class));
+            }
         } else if (v.getId() == R.id.cardViewHomeSingle) {
             // Aktionen für cardSingle
             startActivity(new Intent(HomeScreenActivity.this, SinglePlayerStartActivity.class));
@@ -59,7 +69,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             // Aktionen für cardCatalog
             startActivity(new Intent(HomeScreenActivity.this, MainActivityQuestionCatalog.class));
         } else {
-            // Standardaktion, wenn keine Übereinstimmung gefunden wurde
+            // Do Nothing // Standardaktion, wenn keine Übereinstimmung gefunden wurde
         }
     }
 }
