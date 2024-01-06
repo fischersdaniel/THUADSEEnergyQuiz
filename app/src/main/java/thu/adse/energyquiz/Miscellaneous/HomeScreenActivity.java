@@ -1,4 +1,4 @@
-package thu.adse.energyquiz;
+package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -10,10 +10,9 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import thu.adse.energyquiz.Miscellaneous.SettingsScreenActivity;
-import thu.adse.energyquiz.Miscellaneous.StatisticsScreenActivity;
 import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
+import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
 import thu.adse.energyquiz.UserManagement.MainActivity;

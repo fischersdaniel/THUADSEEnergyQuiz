@@ -43,7 +43,7 @@
             android:name=".Miscellaneous.SettingsScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".Miscellaneous.HomeScreenActivity"
             android:exported="false" />
         <activity
             android:name=".QuestionCatalog.EditQuestionQuestionCatalog"

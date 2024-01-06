@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import thu.adse.energyquiz.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 public class StatisticsScreenActivity extends AppCompatActivity {

@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import thu.adse.energyquiz.HomeScreenActivity;
+import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 
