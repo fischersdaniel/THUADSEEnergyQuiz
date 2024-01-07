@@ -122,7 +122,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
 
 //                    results_textview.setText(getString(R.string.results_textview));
                     textViewSinglePlayerResultsUser1QuotePlaceholder.setText(String.valueOf(numberCorrectAnswersRound) + " / " + String.valueOf(numberQuestionsPerRound));
-                    textViewSinglePlayerResultsUser1PointsEarnedPlaceholder.setText(String.valueOf("+" + scoreRound));
+                    textViewSinglePlayerResultsUser1PointsEarnedPlaceholder.setText(String.valueOf(scoreRound));
                     textViewSinglePlayerResultsUser1AllPointsPlaceholder.setText(String.valueOf(scoreUserLocal));
                     textViewSinglePlayerResultsUser1RankPlaceholder.setText(userRankLocal);
 
