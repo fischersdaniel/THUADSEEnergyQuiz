@@ -1,12 +1,14 @@
 package thu.adse.energyquiz.SinglePlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
+//import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,8 +24,10 @@ import thu.adse.energyquiz.R;
 
 public class SinglePlayerResultActivity extends AppCompatActivity {
 
-    private TextView results_textview, numberCorrectAnswers_textview, roundScore_textview, userScore_textview, userRank_textview;
-    private Button repeatNewGame_button, home_button;
+//    private TextView results_textview, numberCorrectAnswers_textview, roundScore_textview, userScore_textview, userRank_textview;
+//    private Button repeatNewGame_button, home_button;
+    private TextView textViewSinglePlayerResultsUser1QuotePlaceholder, textViewSinglePlayerResultsUser1PointsEarnedPlaceholder, textViewSinglePlayerResultsUser1AllPointsPlaceholder, textViewSinglePlayerResultsUser1RankPlaceholder;
+    private CardView cardViewSinglePlayerResultsPlayAgain, cardViewSinglePlayerResultsGoHome;
 
     private int numberQuestionsPerRound, numberCorrectAnswersRound, scoreRound, scoreUserLocal, totalCorrectAnswersLocal, totalAnswersLocal;
     private String userID, userRankLocal;
@@ -33,15 +37,15 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_player_result);
+        setContentView(R.layout.activity_single_player_result_v2);
 
-        results_textview = findViewById(R.id.results_textview);
-        numberCorrectAnswers_textview = findViewById(R.id.numberCorrectAnswers_textview);
-        roundScore_textview = findViewById(R.id.roundScore_textview);
-        userScore_textview = findViewById(R.id.userScore_textview);
-        userRank_textview = findViewById(R.id.userRank_textview);
-        repeatNewGame_button = findViewById(R.id.repeatNewGame_button);
-        home_button = findViewById(R.id.home_button);
+//        results_textview = findViewById(R.id.results_textview);
+        textViewSinglePlayerResultsUser1QuotePlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1QuotePlaceholder);
+        textViewSinglePlayerResultsUser1PointsEarnedPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1PointsEarnedPlaceholder);
+        textViewSinglePlayerResultsUser1AllPointsPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1AllPointsPlaceholder);
+        textViewSinglePlayerResultsUser1RankPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1RankPlaceholder);
+        cardViewSinglePlayerResultsPlayAgain = findViewById(R.id.cardViewSinglePlayerResultsPlayAgain);
+        cardViewSinglePlayerResultsGoHome = findViewById(R.id.cardViewSinglePlayerResultsGoHome);
 
         numberQuestionsPerRound = 0;
         numberCorrectAnswersRound = 0;
@@ -116,11 +120,11 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
                     totalCorrectAnswersLocal = totalCorrectAnswersLocal + numberCorrectAnswersRound;
                     totalAnswersLocal = totalAnswersLocal + numberQuestionsPerRound;
 
-                    results_textview.setText(getString(R.string.results_textview));
-                    numberCorrectAnswers_textview.setText(getString(R.string.numberCorrectAnswers_textview) + "\n" + String.valueOf(numberCorrectAnswersRound) + " / " + String.valueOf(numberQuestionsPerRound));
-                    roundScore_textview.setText(getString(R.string.roundScore_textview) + "\n" + String.valueOf(scoreRound));
-                    userScore_textview.setText(getString(R.string.userScore_textview) + "\n" + String.valueOf(scoreUserLocal));
-                    userRank_textview.setText(getString(R.string.userRank_textview) + "\n" + userRankLocal);
+//                    results_textview.setText(getString(R.string.results_textview));
+                    textViewSinglePlayerResultsUser1QuotePlaceholder.setText(String.valueOf(numberCorrectAnswersRound) + " / " + String.valueOf(numberQuestionsPerRound));
+                    textViewSinglePlayerResultsUser1PointsEarnedPlaceholder.setText(String.valueOf("+" + scoreRound));
+                    textViewSinglePlayerResultsUser1AllPointsPlaceholder.setText(String.valueOf(scoreUserLocal));
+                    textViewSinglePlayerResultsUser1RankPlaceholder.setText(userRankLocal);
 
                     // DB push
                     //push of new user values
@@ -136,7 +140,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
             }
         });
 
-        repeatNewGame_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerResultsPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Pass the number of questions to the next activity to directly start a new game round
@@ -146,7 +150,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
             }
         });
 
-        home_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerResultsGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SinglePlayerResultActivity.this, HomeScreenActivity.class));

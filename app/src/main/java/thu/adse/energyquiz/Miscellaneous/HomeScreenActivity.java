@@ -25,7 +25,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_home_screen);
 
         // Findet und initialisiere die CardView-Elemente
-        CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
+//        CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
         CardView cardViewHomeUser = findViewById(R.id.cardViewHomeUser);
         CardView cardViewHomeSingle = findViewById(R.id.cardViewHomeSingle);
         CardView cardViewHomeMulti = findViewById(R.id.cardViewHomeMulti);
@@ -33,7 +33,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         CardView cardViewHomeCatalog = findViewById(R.id.cardViewHomeCatalog);
 
         // Weist allen CardViews denselben OnClickListener zu, um Klickereignisse zu erfassen
-        cardViewHomeSettings.setOnClickListener(this);
+//        cardViewHomeSettings.setOnClickListener(this);
         cardViewHomeUser.setOnClickListener(this);
         cardViewHomeSingle.setOnClickListener(this);
         cardViewHomeMulti.setOnClickListener(this);
@@ -43,10 +43,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.cardViewHomeSettings) {
-            // Aktionen für cardSetting
-            startActivity(new Intent(HomeScreenActivity.this, SettingsScreenActivity.class));
-        } else if (v.getId() == R.id.cardViewHomeUser) {
+//        if (v.getId() == R.id.cardViewHomeSettings) {
+//            // Aktionen für cardSetting
+//            startActivity(new Intent(HomeScreenActivity.this, SettingsScreenActivity.class));
+//        } else
+
+            if (v.getId() == R.id.cardViewHomeUser) {
             // Aktionen für cardUser
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();

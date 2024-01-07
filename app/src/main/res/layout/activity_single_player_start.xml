@@ -26,6 +26,16 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/singlePlayerTextViewHeader"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewSinglePlayerStartBack"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewSinglePlayerStartNumberInput"
+        app:layout_constraintStart_toEndOf="@+id/cardViewSinglePlayerStartBack"
+        app:layout_constraintTop_toTopOf="@+id/cardViewSinglePlayerStartBack" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSinglePlayerStartText"
         android:layout_width="0dp"
