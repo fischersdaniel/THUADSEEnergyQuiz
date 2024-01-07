@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="night">#FF000F08</color>
+    <color name="darkgrey">#FF333533</color>
+    <color name="grey">#FF474947</color>
+    <color name="middlegrey">#FF797B79</color>
+    <color name="lightgrey">#FFBFC0C0</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="preussianblue">#FF142B3E</color>
+    <color name="gunmetal">#FF143642</color>
+    <color name="paynegrey">#FF2E5E76</color>
     <color name="slateblue"> #6F58C9</color>
+
+    <color name="cornellred">#FFA8201A</color>
+    <color name="cardinalred">#FFCE123E</color>
+    <color name="red">#FFFF0000</color>
+    <color name="orangepantone">#FFFE5F00</color>
+    <color name="tangerine">#FFF58A07</color>
+    <color name="selectiveyellow">#FFFFB10A</color>
+
+    <color name="green1">#FF359845</color>
+    <color name="mint">#FF17B890</color>
+    <color name="malachit">#FF04E762</color>
+    <color name="right1">#FF04E762</color>
+    <color name="chartreuse">#FF89FC00</color>
+
+    <color name="strokeon">#FF000000</color>
+    <color name="strokeoff">#00FFFFFF</color>
+    <color name="selectedbg">#FFCACBCB</color>
+
+    <color name="rightstroke">#FF17B890</color>
+    <color name="wrongstroke">#FFD83232</color>
+    <color name="rightbg">#FF17B890</color>
+    <color name="wrongbg">#FFD83232</color>
+
 </resources>

@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSinglePlayerStartBack"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         app:cardCornerRadius="35dp"
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/imagePrevious"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/previous_inv"/>
@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
