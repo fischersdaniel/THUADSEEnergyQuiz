@@ -49,8 +49,10 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 // Erhöhe numberQuestionsPerRound um 1 bei Drücken der "Plus"-cardView
-                numberQuestionsPerRound++;
-                TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+                if(numberQuestionsPerRound < 10) {
+                    numberQuestionsPerRound++;
+                    TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+                }
             }
         });
 

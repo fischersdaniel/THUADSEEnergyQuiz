@@ -117,6 +117,10 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 };
                                 //ArrayList<Integer> yourStringArray = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
                                 usedSessionIDsLocal = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
+                                // delete the init of the array with item 0 because it is not part of the actual questionIDs
+                                if(usedSessionIDsLocal.get(0) == 0){
+                                    usedSessionIDsLocal.clear();
+                                }
                                 Log.d("current User", "usedSessionIDsLocal:" + usedSessionIDsLocal);
                                 Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
 
@@ -131,6 +135,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 int min = 1;
                                 boolean IDchecked = true;
                                 boolean IDUsedOncechecked;
+                                // used for the dynamic check, if the big check could be made, if not use the small check
+                                int counterNumberQuestionsPerRound = numberQuestionsPerRound;
+
                                 while (counterRandomQuestions < numberQuestionsPerRound) {
                                     Log.d("current User", "counterRandomQuestions:" + counterRandomQuestions);
                                     // normal random function: [0, n-1], here: [1, n]
@@ -138,7 +145,10 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                     int randID = randomQuestionID.nextInt((max - min) + 1) + min;
                                     Log.d("current User", "randID:" + randID);
                                     // Check, that it is a possible to solve problem and no endless repetition without the chance of solving the problem
-                                    if (max - usedSessionIDsLocal.size() > numberQuestionsPerRound) {
+                                    // dynamic check, if the big check could be made when there is a questionID left, if not use the small check
+                                    if ((max - usedSessionIDsLocal.size()) >= 1) {
+                                        counterNumberQuestionsPerRound --;
+                                        Log.d("current User", "Big check");
                                         // Since app start asked questions should not be part of the round
                                         // randomQuestionID should not be within the user specific DB entry [array:int:usedSessionIDs]
                                         counterUsedSessionIDs = 0;
@@ -157,6 +167,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                         }
                                         IDUsedOncechecked = false;
                                     } else {
+                                        Log.d("current User", "Small check");
                                         // every ID is okay, no checks if already used since app start
                                         // only check, if used in the round (no question more than one time per round)
                                         IDchecked = true;
@@ -181,6 +192,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
                                     }
                                 }
+                                Log.d("current User", "usedSessionIDs after while: " + usedSessionIDsLocal);
 
                                 // Question DB first question child
                                 actualQuestionNumber = 1;
@@ -502,13 +514,18 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         // Push of new IDs of the asked questions to the user DB
                         // At the end of the activity because then the questions were really asked
                         //usedSessionIDsLocal.add(0);
-                        usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsLocal);
-
+                        //usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsLocal);
+                        Log.d("current User", "To be pushed usedSessionIDs in user DB: " + usedSessionIDsLocal);
+                        usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsLocal, (error, ref) -> {
+                            // this part works like a on-complete-listener because the data has to be pushed completly
+                            Log.d("current User", "Successfully pushed usedSessionIDs in user DB: " + usedSessionIDsLocal);
+                            // a too early switch to the new activity causes some data not to be pushed
+                        });
                         //Pass the results of the round to the next activity (result screen)
-                        Intent i = new Intent(SinglePlayerGameActivity.this, SinglePlayerResultActivity.class);
-                        i.putExtra("numberQuestionsPerRound", numberQuestionsPerRound);
-                        i.putExtra("numberCorrectAnswersRound", numberCorrectAnswersRound);
-                        startActivity(i);
+                        Intent intent_next_activity = new Intent(SinglePlayerGameActivity.this, SinglePlayerResultActivity.class);
+                        intent_next_activity.putExtra("numberQuestionsPerRound", numberQuestionsPerRound);
+                        intent_next_activity.putExtra("numberCorrectAnswersRound", numberCorrectAnswersRound);
+                        startActivity(intent_next_activity);
                     }
                 }
             }
