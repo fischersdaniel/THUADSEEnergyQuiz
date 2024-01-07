@@ -1,19 +1,20 @@
 package thu.adse.energyquiz.SinglePlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,13 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 public class SinglePlayerGameActivity extends AppCompatActivity {
 
-    private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview;
-    private Button confirm_next_button;
-    private int color_green, color_red, color_white, color_grey;
+    private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview, confirm_next_textview;
+    private MaterialCardView cardViewSinglePlayerAnswer1, cardViewSinglePlayerAnswer2, cardViewSinglePlayerAnswer3, cardViewSinglePlayerAnswer4, cardViewSinglePlayerSubmitAnswer;
+
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
     private int numberQuestionsPerRound, counterRandomQuestions, actualQuestionNumber, numberCorrectAnswersRound, counterUsedSessionIDs;
     private long countQuestionChilds;
@@ -46,7 +48,13 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_player_game);
+        setContentView(R.layout.activity_single_player_game_v2);
+
+        CardView cardViewSinglePlayerGameBack = findViewById(R.id.cardViewSinglePlayerGameBack);
+        cardViewSinglePlayerGameBack.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
+        });
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -70,11 +78,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
             numberQuestionsPerRound = 4; //for testing
         }
 
-        color_green = Color.parseColor("#25e712");
-        color_red = Color.parseColor("#c51d34");
-        color_white = Color.parseColor("#FFFFFF");
-        color_grey = Color.parseColor("#B9BBBE");
-
         actualQuestionNumber = 0;
         numberCorrectAnswersRound = 0;
         switchConfirmNextButton = false;
@@ -85,7 +88,13 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         answer2_textview = findViewById(R.id.answer2_textview);
         answer3_textview = findViewById(R.id.answer3_textview);
         answer4_textview = findViewById(R.id.answer4_textview);
-        confirm_next_button = findViewById(R.id.confirm_next_button);
+        confirm_next_textview = findViewById(R.id.confirm_next_textview);
+
+        cardViewSinglePlayerAnswer1 = findViewById(R.id.cardViewSinglePlayerAnswer1);
+        cardViewSinglePlayerAnswer2 = findViewById(R.id.cardViewSinglePlayerAnswer2);
+        cardViewSinglePlayerAnswer3 = findViewById(R.id.cardViewSinglePlayerAnswer3);
+        cardViewSinglePlayerAnswer4 = findViewById(R.id.cardViewSinglePlayerAnswer4);
+        cardViewSinglePlayerSubmitAnswer = findViewById(R.id.cardViewSinglePlayerSubmitAnswer);
 
         // Get the user DB
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
@@ -193,7 +202,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 answer2_textview.setText(actualQuestionAnswer2);
                                 answer3_textview.setText(actualQuestionAnswer3);
                                 answer4_textview.setText(actualQuestionAnswer4);
-                                confirm_next_button.setText(getString(R.string.confirm_button));
+                                confirm_next_textview.setText(getString(R.string.confirm_button));
                             } else {
                                 //not found
                                 question_textview.setText("Not found");
@@ -219,12 +228,17 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
         // set the text views with the default data
         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
-        confirm_next_button.setText(getString(R.string.confirm_button));
+        confirm_next_textview.setText(getString(R.string.confirm_button));
 
-        answer1_textview.setBackgroundColor(color_white);
-        answer2_textview.setBackgroundColor(color_white);
-        answer3_textview.setBackgroundColor(color_white);
-        answer4_textview.setBackgroundColor(color_white);
+        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+
+        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
+        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
+        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
+        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
 
         answer1_choosen = false;
         answer2_choosen = false;
@@ -234,97 +248,184 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
         //------------
 
-        answer1_textview.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer1_choosen = !answer1_choosen;
                     if(answer1_choosen){
-                        answer1_textview.setBackgroundColor(color_grey);
+                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
+                        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
                     }
                     else{
-                        answer1_textview.setBackgroundColor(color_white);
+                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                     }
                 }
             }
         });
-        answer2_textview.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerAnswer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer2_choosen = !answer2_choosen;
                     if(answer2_choosen){
-                        answer2_textview.setBackgroundColor(color_grey);
+                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
+                        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
                     }
                     else{
-                        answer2_textview.setBackgroundColor(color_white);
+                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                     }
                 }
             }
         });
-        answer3_textview.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerAnswer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer3_choosen = !answer3_choosen;
                     if(answer3_choosen){
-                        answer3_textview.setBackgroundColor(color_grey);
+                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
+                        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
                     }
                     else{
-                        answer3_textview.setBackgroundColor(color_white);
+                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                     }
                 }
             }
         });
-        answer4_textview.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerAnswer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer4_choosen = !answer4_choosen;
                     if(answer4_choosen){
-                        answer4_textview.setBackgroundColor(color_grey);
+                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
+                        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
                     }
                     else{
-                        answer4_textview.setBackgroundColor(color_white);
+                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                     }
                 }
             }
         });
-        confirm_next_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSinglePlayerSubmitAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // first click confirms the choosen answers and shows if the answers are right
                 // second click (else) loads the next question or goes to the result screen
                 if (false == switchConfirmNextButton) {
                     switchConfirmNextButton = true;
-                    confirm_next_button.setText(getString(R.string.next_button));
-                    if (answer1_choosen == actualQuestionAnswer1Correct) {
-                        answer1_textview.setBackgroundColor(color_green);
+                    confirm_next_textview.setText(getString(R.string.next_button));
+
+                    if (actualQuestionAnswer1Correct == true) {
+                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+                        if (answer1_choosen == true) {
+                            cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
+                        } else {
+                            cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        }
                     } else {
-                        answer1_textview.setBackgroundColor(color_red);
+                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
-                    if (answer2_choosen == actualQuestionAnswer2Correct) {
-                        answer2_textview.setBackgroundColor(color_green);
+                    if (actualQuestionAnswer2Correct == true) {
+                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+                        if (answer2_choosen == true) {
+                            cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
+                        } else {
+                            cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        }
                     } else {
-                        answer2_textview.setBackgroundColor(color_red);
+                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
-                    if (answer3_choosen == actualQuestionAnswer3Correct) {
-                        answer3_textview.setBackgroundColor(color_green);
+                    if (actualQuestionAnswer3Correct == true) {
+                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+                        if (answer3_choosen == true) {
+                            cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
+                        } else {
+                            cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        }
                     } else {
-                        answer3_textview.setBackgroundColor(color_red);
+                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
-                    if (answer4_choosen == actualQuestionAnswer4Correct) {
-                        answer4_textview.setBackgroundColor(color_green);
+                    if (actualQuestionAnswer4Correct == true) {
+                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+                        if (answer4_choosen == true) {
+                            cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
+                        } else {
+                            cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        }
                     } else {
-                        answer4_textview.setBackgroundColor(color_red);
+                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
+
+
+//                    if (answer1_choosen == actualQuestionAnswer1Correct) {
+//                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+//
+//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is correct", "Der Wert von answer1_choosen ist: " + answer1_choosen);
+//                        Log.d("is correct", "Der Wert von actualQuestionAnswer1Correct ist: " + actualQuestionAnswer1Correct);
+//                    } else {
+//                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
+//
+//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is not correct", "Der Wert von answer1_choosen ist: " + answer1_choosen);
+//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer1Correct ist: " + actualQuestionAnswer1Correct);
+//                    }
+//
+//                    if (answer2_choosen == actualQuestionAnswer2Correct) {
+//                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+//
+//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is correct", "Der Wert von answer2_choosen ist: " + answer2_choosen);
+//                        Log.d("is correct", "Der Wert von actualQuestionAnswer2Correct ist: " + actualQuestionAnswer2Correct);
+//                    } else {
+//                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
+//
+//
+//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is not correct", "Der Wert von answer2_choosen ist: " + answer2_choosen);
+//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer2Correct ist: " + actualQuestionAnswer2Correct);
+//                    }
+//
+//                    if (answer3_choosen == actualQuestionAnswer3Correct) {
+//                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+//
+//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is correct", "Der Wert von answer3_choosen ist: " + answer3_choosen);
+//                        Log.d("is correct", "Der Wert von actualQuestionAnswer3Correct ist: " + actualQuestionAnswer3Correct);
+//                    } else {
+//                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
+//
+//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is not correct", "Der Wert von answer3_choosen ist: " + answer3_choosen);
+//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer3Correct ist: " + actualQuestionAnswer3Correct);
+//                    }
+//
+//                    if (answer4_choosen == actualQuestionAnswer4Correct) {
+//                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
+//
+//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is correct", "Der Wert von answer4_choosen ist: " + answer4_choosen);
+//                        Log.d("is correct", "Der Wert von actualQuestionAnswer4Correct ist: " + actualQuestionAnswer4Correct);
+//                    } else {
+//                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
+//
+//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
+//                        Log.d("is not correct", "Der Wert von answer4_choosen ist: " + answer4_choosen);
+//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer4Correct ist: " + actualQuestionAnswer4Correct);
+//                    }
 
                     if (answer1_choosen == actualQuestionAnswer1Correct & answer2_choosen == actualQuestionAnswer2Correct & answer3_choosen == actualQuestionAnswer3Correct & answer4_choosen == actualQuestionAnswer4Correct) {
                         numberCorrectAnswersRound = numberCorrectAnswersRound + 1;
@@ -344,10 +445,15 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
                         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
 
-                        answer1_textview.setBackgroundColor(color_white);
-                        answer2_textview.setBackgroundColor(color_white);
-                        answer3_textview.setBackgroundColor(color_white);
-                        answer4_textview.setBackgroundColor(color_white);
+                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
+
+                        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+                        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
 
                         answer1_choosen = false;
                         answer2_choosen = false;
@@ -375,7 +481,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                     answer2_textview.setText(actualQuestionAnswer2);
                                     answer3_textview.setText(actualQuestionAnswer3);
                                     answer4_textview.setText(actualQuestionAnswer4);
-                                    confirm_next_button.setText(getString(R.string.confirm_button));
+                                    confirm_next_textview.setText(getString(R.string.confirm_button));
                                 }
                                 else{
                                     question_textview.setText("Not found");
@@ -383,7 +489,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                     answer2_textview.setText("Not found");
                                     answer3_textview.setText("Not found");
                                     answer4_textview.setText("Not found");
-                                    confirm_next_button.setText(getString(R.string.confirm_button));
+                                    confirm_next_textview.setText(getString(R.string.confirm_button));
                                 }
                             }
                             @Override
