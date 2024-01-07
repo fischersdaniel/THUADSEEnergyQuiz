@@ -8,11 +8,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewMultiPlayerStartBack"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        app:cardCornerRadius="35dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
         <ImageView
             android:id="@+id/imagePrevious"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/previous_inv"/>
@@ -32,12 +32,12 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cardViewMultiPlayerStartMinus"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewMultiPlayerStartPlus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartBack">
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Fragen"
+            android:text="@string/multiPlayerGameStartTextViewFragen"
             android:textSize="30sp"/>
 
     </androidx.cardview.widget.CardView>
@@ -55,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
@@ -70,13 +70,13 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text=""
-            android:hint="5"
+            android:hint="@string/multiPlayerGameStartTextViewDefaultNr"
             android:textSize="40sp"/>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMultiPlayerStartPlus"
+        android:id="@+id/cardViewMultiPlayerStartMinus"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
@@ -85,7 +85,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cardViewMultiPlayerStartMinus"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewMultiPlayerStartPlus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartText">
 
         <ImageView
@@ -94,12 +94,12 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/add" />
+            app:srcCompat="@drawable/minus" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMultiPlayerStartMinus"
+        android:id="@+id/cardViewMultiPlayerStartPlus"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginEnd="50dp"
@@ -107,7 +107,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardViewMultiPlayerStartPlus"
+        app:layout_constraintStart_toEndOf="@id/cardViewMultiPlayerStartMinus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartNumberInput">
 
         <ImageView
@@ -116,7 +116,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/minus" />
+            app:srcCompat="@drawable/add" />
 
     </androidx.cardview.widget.CardView>
 

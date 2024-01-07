@@ -36,7 +36,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartMinus"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartPlus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartBack">
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Fragen"
+            android:text="@string/singlePlayerGameStartTextViewFragen"
             android:textSize="30sp"/>
 
     </androidx.cardview.widget.CardView>
@@ -69,13 +69,13 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text=""
-            android:hint="5"
+            android:hint="@string/singlePlayerGameStartTextViewDefaultNr"
             android:textSize="40sp"/>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewSinglePlayerStartPlus"
+        android:id="@+id/cardViewSinglePlayerStartMinus"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
@@ -84,7 +84,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartMinus"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewSinglePlayerStartPlus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartText">
 
         <ImageView
@@ -93,12 +93,12 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/add" />
+            app:srcCompat="@drawable/minus" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewSinglePlayerStartMinus"
+        android:id="@+id/cardViewSinglePlayerStartPlus"
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginEnd="50dp"
@@ -106,7 +106,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardViewSinglePlayerStartPlus"
+        app:layout_constraintStart_toEndOf="@id/cardViewSinglePlayerStartMinus"
         app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartNumberInput">
 
         <ImageView
@@ -115,7 +115,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/minus" />
+            app:srcCompat="@drawable/add" />
 
     </androidx.cardview.widget.CardView>
 

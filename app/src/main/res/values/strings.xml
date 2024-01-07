@@ -116,9 +116,15 @@
     <string name="buttonDialogNo">Nein</string>
     <string name="textViewLobbyScreenTitleDialog">Möchtest du dem Raum beitreten?</string>
 
+    <string name="singlePlayerGameStartTextViewFragen">Fragen</string>
+    <string name="singlePlayerGameStartTextViewDefaultNr">5</string>
 
+    <string name="multiPlayerGameStartTextViewFragen">Fragen</string>
+    <string name="multiPlayerGameStartTextViewDefaultNr">5</string>
 
-
-
+    <string name="homeScreenTextViewCard1">Einzelspieler</string>
+    <string name="homeScreenTextViewCard2">Mehrspieler</string>
+    <string name="homeScreenTextViewCard3">Spielstatistik</string>
+    <string name="homeScreenTextViewCard4">Fragenkatalog</string>
 
 </resources>

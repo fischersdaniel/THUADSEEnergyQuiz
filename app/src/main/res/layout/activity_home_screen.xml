@@ -13,26 +13,26 @@
         android:paddingBottom="50dp"
         android:clipToPadding="false">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewHomeSettings"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            app:cardCornerRadius="35dp"
-            app:cardElevation="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardViewHomeSettings"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            app:cardCornerRadius="35dp"-->
+<!--            app:cardElevation="10dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-            <ImageView
-                android:id="@+id/imageSettings"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/settingsv2"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/imageSettings"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                app:srcCompat="@drawable/settingsv2"/>-->
 
-        </androidx.cardview.widget.CardView>
+<!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewHomeUser"
@@ -66,7 +66,7 @@
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardViewHomeSettings">
+            app:layout_constraintTop_toBottomOf="@id/cardViewHomeUser">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,12 +76,13 @@
 
                 <TextView
                     android:id="@+id/textSingle"
+                    android:paddingStart="20dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Einzelspieler"
-                    android:textSize="24sp"/>
+                    android:text="@string/homeScreenTextViewCard1"
+                    android:textSize="20sp"/>
 
                 <ImageView
                     android:id="@+id/imageSingle"
@@ -118,12 +119,13 @@
 
                 <TextView
                     android:id="@+id/textMulti"
+                    android:paddingStart="20dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Mehrspieler"
-                    android:textSize="24sp"/>
+                    android:text="@string/homeScreenTextViewCard2"
+                    android:textSize="20sp"/>
 
                 <ImageView
                     android:id="@+id/imageMulti"
@@ -168,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Spielstatistik"
+                    android:text="@string/homeScreenTextViewCard3"
                     android:textSize="18sp"/>
 
             </LinearLayout>
@@ -204,12 +206,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Fragenkatalog"
+                    android:text="@string/homeScreenTextViewCard4"
                     android:textSize="18sp"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
