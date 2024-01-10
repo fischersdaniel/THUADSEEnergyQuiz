@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
@@ -37,9 +38,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     MultiPlayerLobby selectedLobby;
 
-    String joinedUserID;
+    static String joinedUserID, userIDCreator;
 
-    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),allQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>();
+    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),allQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
 
 
     @Override
@@ -150,14 +151,10 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         });
 
         buttonDialogYes.setOnClickListener(view -> {
-            addPlayerToLobby(selectedLobby);
+            moveLobbyToFull(selectedLobby);
             startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class));
         });
 
-    }
-
-    void addPlayerToLobby(MultiPlayerLobby lobby) {
-        moveLobbyToFull(lobby);
     }
 
     void moveLobbyToFull(MultiPlayerLobby lobby) {
@@ -167,9 +164,10 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("userIDPlayer2").setValue(JoinedUser.getUid());
         getPossibleQuestions(lobby.possibleQuestionsList);
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("possibleQuestions").setValue(possibleQuestions2Players);
+        getRandomizedQuestions(lobby.numberQuestionsPerRound);
+        lobbyDbRef.child("full").child(lobby.userIDCreator).child("questionsForThisRound").setValue(questionIDsForThisRound);
+        userIDCreator=lobby.userIDCreator;
         lobbyDbRef.child("open").child(lobby.userIDCreator).removeValue();
-        //TODO: Randomized List with Question (Shuffeld List)
-
 
     }
 
@@ -197,12 +195,15 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         lobbyDbRef.child("full").child(currentUserID).removeValue();
 
-/*
-        if (snapshot.child("full").child(currentUserID).exists()){
-            lobbyDbRef.child("full").child(currentUserID).removeValue();
+    }
+
+    public void getRandomizedQuestions(String numberQuestionsPerRound){
+        randomizedQuestions.clear();
+        randomizedQuestions=possibleQuestions2Players;
+        Collections.shuffle(randomizedQuestions);
+
+        for (int i = 0; i < Integer.parseInt(numberQuestionsPerRound); i++) {
+               questionIDsForThisRound.add(randomizedQuestions.get(i));
         }
-        if (snapshot.child("open").child(currentUserID).exists()){
-            lobbyDbRef.child("open").child(currentUserID).removeValue();
-        }*/
     }
 }
