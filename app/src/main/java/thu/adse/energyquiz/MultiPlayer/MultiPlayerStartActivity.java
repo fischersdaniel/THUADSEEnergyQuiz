@@ -29,12 +29,13 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
     private int numberQuestionsPerRound;
     FirebaseAuth auth;
-    DatabaseReference lobbyDbRef, usersDbRef, questionsDbRef;
+    DatabaseReference lobbyDbRef, usersDbRef, questionsDbRef, dbRef;
     FirebaseUser UserCreator;
     public String userNameCreator, userIdCreator;
     List<Long> possibleQuestions = new ArrayList<>();
     List<Long> usedQuestions = new ArrayList<>();
     List<Long> allQuestions = new ArrayList<>();
+    boolean playerJoined;
 
 
 
@@ -52,6 +53,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
         usersDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users");
         questionsDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Questions");
+        dbRef=FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
 
         auth = FirebaseAuth.getInstance();
 
@@ -99,26 +101,28 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             }
         });
 
-        questionsDbRef.addListenerForSingleValueEvent(new ValueEventListener(){
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                getAllQuestionIDs(snapshot);
+                    userNameCreator = snapshot.child("Users").child(userIdCreator).child("userName").getValue(String.class);
+                    getUsedQuestionsFromUserDb(snapshot);
+                    getAllQuestionIDs(snapshot.child("Questions"));
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
-
-        usersDbRef.child(userIdCreator).addListenerForSingleValueEvent(new ValueEventListener(){
-
+        lobbyDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    userNameCreator = snapshot.child("userName").getValue(String.class);
-                    getUsedQuestionsFromUserDb(snapshot);
-
+                if (checkIfPlayerJoined(snapshot)){
+                    startActivity(new Intent(MultiPlayerStartActivity.this, MultiPlayerGameActivity.class));
+                }
             }
 
             @Override
@@ -156,7 +160,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     }
 
     private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
-        for (DataSnapshot ds: snapshot.child(userIdCreator).child("usedSessionIDs").getChildren()){
+        for (DataSnapshot ds: snapshot.child("Users").child(userIdCreator).child("usedSessionIDs").getChildren()){
             usedQuestions.add(Long.parseLong(ds.getValue().toString()));
         }
     }
@@ -165,6 +169,14 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         for (Long i: usedQuestions){
             possibleQuestions.remove(i);
         }
+    }
+
+    private boolean checkIfPlayerJoined(DataSnapshot snapshot){
+        playerJoined = false;
+        if (snapshot.child("full").child(userIdCreator).exists()){
+            playerJoined=true;
+        }
+        return playerJoined;
     }
 
 }
