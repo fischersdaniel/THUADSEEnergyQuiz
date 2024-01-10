@@ -56,6 +56,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         JoinedUser=auth.getCurrentUser();
         joinedUserID=JoinedUser.getUid();
 
+
         lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
         usersDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users");
         dbRef=FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
@@ -93,9 +94,13 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         recyclerViewLobbyscreen.setAdapter(lobbyAdapter);
 
 
+
+
+
         lobbyDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 lobbyList.clear();
 
                 for (DataSnapshot lobbysnapshot: snapshot.child("open").getChildren()) {
@@ -108,9 +113,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
                 lobbyAdapter.notifyDataSetChanged();
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -128,7 +133,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         }
     });
-
 
 
 
@@ -164,6 +168,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         getPossibleQuestions(lobby.possibleQuestionsList);
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("possibleQuestions").setValue(possibleQuestions2Players);
         lobbyDbRef.child("open").child(lobby.userIDCreator).removeValue();
+        //TODO: Randomized List with Question (Shuffeld List)
+
+
     }
 
     private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
@@ -177,5 +184,25 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         for (Long i: usedQuestions){
             possibleQuestions2Players.remove(i);
         }
+    }
+    public static void deletePossibleLobbyEntries(){
+        FirebaseUser currentUser;
+        DatabaseReference lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+        String currentUserID = currentUser.getUid();
+
+        lobbyDbRef.child("open").child(currentUserID).removeValue();
+
+        lobbyDbRef.child("full").child(currentUserID).removeValue();
+
+/*
+        if (snapshot.child("full").child(currentUserID).exists()){
+            lobbyDbRef.child("full").child(currentUserID).removeValue();
+        }
+        if (snapshot.child("open").child(currentUserID).exists()){
+            lobbyDbRef.child("open").child(currentUserID).removeValue();
+        }*/
     }
 }

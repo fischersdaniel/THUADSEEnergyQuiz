@@ -17,6 +17,7 @@ import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
 import thu.adse.energyquiz.UserManagement.MainActivity;
 
+import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -63,6 +64,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         } else if (v.getId() == R.id.cardViewHomeMulti) {
             // Aktionen für cardMulti
             startActivity(new Intent(HomeScreenActivity.this, MultiPlayerLobbyScreen.class));
+            MultiPlayerLobbyScreen.deletePossibleLobbyEntries();
         } else if (v.getId() == R.id.cardViewHomeStatistics) {
             // Aktionen für cardStats
             startActivity(new Intent(HomeScreenActivity.this, StatisticsScreenActivity.class));
