@@ -67,6 +67,8 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 submitNewQuestion();
+                Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
+                startActivity(intent);
             }
 
         });
@@ -116,6 +118,8 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         questionsDbRef.child(Integer.toString(newQuestionId)).child("questionTitle").setValue(newQuestionTitle);
 
         Toast.makeText(NewQuestionQuestionCatalog.this, "Daten gespeichert", Toast.LENGTH_SHORT).show();
+
+
     }
 
     public void defineID(DataSnapshot dataSnapshot) {
