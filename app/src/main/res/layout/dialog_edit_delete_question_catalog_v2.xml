@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:paddingBottom="10dp"
@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/PopUpEditDeleteTextViewHeader"
-            android:textSize="20sp"
+            android:textSize="27sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
@@ -30,8 +30,8 @@
             android:layout_width="00dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/buttonDialogEdit" />
+                android:text="@string/buttonDialogEdit"
+                android:textSize="18sp"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -51,7 +52,7 @@
             android:id="@+id/cardViewPopUpEDDelete"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintStart_toEndOf="@+id/cardViewPopUpEDEdit"
@@ -63,7 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/buttonDialogDelete" />
+                android:text="@string/buttonDialogDelete"
+                android:textSize="18sp"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -74,7 +76,7 @@
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="@+id/cardViewPopUpEDEdit"
             app:layout_constraintEnd_toEndOf="@+id/cardViewPopUpEDDelete"
             app:layout_constraintTop_toBottomOf="@+id/cardViewPopUpEDEdit"
@@ -85,7 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/buttonDialogCancel" />
+                android:text="@string/buttonDialogCancel"
+                android:textSize="18sp"/>
 
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

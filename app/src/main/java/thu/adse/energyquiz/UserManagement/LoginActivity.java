@@ -2,13 +2,14 @@ package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -34,25 +35,32 @@ public class LoginActivity extends AppCompatActivity {
     private EditText loginEmail, loginPassword;
     private Switch remainLoggedInSwitch;
     private TextView signUpRedirectText, forgotPasswordRedirectText;
-    private Button loginButton;
+//    private Button loginButton;
+    private CardView cardViewLoginCardLoginButton, cardViewLoginBack;
     private String userID;
     private DatabaseReference usersDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_v2);
 
         auth = FirebaseAuth.getInstance();
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
-        loginButton = findViewById(R.id.login_button);
+//        loginButton = findViewById(R.id.login_button);
+        cardViewLoginCardLoginButton = findViewById(R.id.cardViewLoginCardLoginButton);
+        cardViewLoginBack = findViewById(R.id.cardViewLoginBack);
         forgotPasswordRedirectText = findViewById(R.id.forgotPasswordRedirectText);
         signUpRedirectText = findViewById(R.id.signUpRedirectText);
         remainLoggedInSwitch = findViewById(R.id.remainLoggedIn_switch);
 
+        cardViewLoginBack.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
+        });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        cardViewLoginCardLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = loginEmail.getText().toString();

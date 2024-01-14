@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewLoginBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imagePrevious"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/previous_inv"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewLoginBack"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewLoginCard"
+        app:layout_constraintStart_toEndOf="@+id/cardViewLoginBack"
+        app:layout_constraintTop_toTopOf="@+id/cardViewLoginBack"/>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewLoginCard"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewLoginCardMail"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/middlegrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start|center"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/profile_user_inv"/>
+
+                <EditText
+                    android:id="@+id/login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="8dp"
+                    android:textSize="16sp"
+                    android:hint="@string/login_email"
+                    android:inputType="textEmailAddress"
+                    android:background="@android:color/transparent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewLoginCardPassword"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/middlegrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewLoginCardMail">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start|center"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/lock"/>
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="8dp"
+                    android:hint="@string/login_password"
+                    android:textSize="16sp"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <Switch
+                android:id="@+id/remainLoggedIn_switch"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                app:layout_constraintStart_toStartOf="@+id/cardViewLoginCardPassword"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewLoginCardPassword" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textSize="16sp"
+                android:gravity="start|center"
+                android:text="@string/remainLoggedIn"
+                app:layout_constraintBottom_toBottomOf="@+id/remainLoggedIn_switch"
+                app:layout_constraintStart_toEndOf="@+id/remainLoggedIn_switch"
+                app:layout_constraintTop_toTopOf="@+id/remainLoggedIn_switch" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewLoginCardLoginButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/remainLoggedIn_switch">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/login_button"
+                    android:textSize="16sp"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/forgotPasswordRedirectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="@string/forgotPasswordRedirectText"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewLoginCardLoginButton" />
+
+            <TextView
+                android:id="@+id/signUpRedirectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="8dp"
+                android:text="@string/signUpRedirectText"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forgotPasswordRedirectText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@
     <string name="login">Anmeldung</string>
     <string name="login_email">Email</string>
     <string name="login_password">Passwort</string>
-    <string name="remainLoggedIn">Angemeldet bleiben.</string>
+    <string name="remainLoggedIn">Angemeldet bleiben</string>
     <string name="login_button">Anmelden</string>
     <string name="forgotPasswordRedirectText">Passwort vergessen?</string>
     <string name="signUpRedirectText">Noch nicht registriert?\nHier registrieren!</string>
