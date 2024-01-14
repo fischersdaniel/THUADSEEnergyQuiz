@@ -2,14 +2,15 @@ package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,21 +23,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText sendNewPassword_email;
-    private Button sendNewPassword_button;
-    private TextView loginRedirectForgotPasswordText;
+//    private Button sendNewPassword_button;
+    private CardView cardViewSendPWButton, cardViewForgotPWBack;
+//    private TextView loginRedirectForgotPasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        setContentView(R.layout.activity_forgot_password_v2);
 
         auth = FirebaseAuth.getInstance();
         sendNewPassword_email = findViewById(R.id.sendNewPassword_email);
-        sendNewPassword_button = findViewById(R.id.sendNewPassword_button);
-        loginRedirectForgotPasswordText = findViewById(R.id.loginRedirectForgotPasswordText);
+//        sendNewPassword_button = findViewById(R.id.sendNewPassword_button);
+        cardViewSendPWButton = findViewById(R.id.cardViewSendPWButton);
+//        loginRedirectForgotPasswordText = findViewById(R.id.loginRedirectForgotPasswordText);
+        cardViewForgotPWBack = findViewById(R.id.cardViewForgotPWBack);
 
 
-        sendNewPassword_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSendPWButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = sendNewPassword_email.getText().toString();
@@ -64,7 +68,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        loginRedirectForgotPasswordText.setOnClickListener(new View.OnClickListener() {
+        cardViewForgotPWBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
