@@ -18,7 +18,7 @@ public class MultiPlayerLoadingScreenAlert {
     Activity activity;
     AlertDialog dialog;
     Button buttonLoadingScreenCancelLobby;
-    DatabaseReference lobbyDbRef  = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
+    DatabaseReference lobbyDbRef  = FirebaseDatabase.getInstance().getReference().child("Lobbies");
     FirebaseAuth auth;
 
 

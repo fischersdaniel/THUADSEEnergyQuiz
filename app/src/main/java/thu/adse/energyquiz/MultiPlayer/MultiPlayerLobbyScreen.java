@@ -36,9 +36,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     FirebaseAuth auth;
     FirebaseUser JoinedUser;
 
-    MultiPlayerLobby selectedLobby;
-
-    static String joinedUserID, userIDCreator;
+     MultiPlayerLobby selectedLobby;
+     String joinedUserID, userIDCreator;
 
     ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),allQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
 
@@ -58,9 +57,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         joinedUserID=JoinedUser.getUid();
 
 
-        lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
-        usersDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Users");
-        dbRef=FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+        lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
+        usersDbRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        dbRef=FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -152,7 +151,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         buttonDialogYes.setOnClickListener(view -> {
             moveLobbyToFull(selectedLobby);
-            startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class));
+            startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class).putExtra("lobbyname",selectedLobby.userIDCreator));
         });
 
     }
