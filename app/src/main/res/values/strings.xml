@@ -50,6 +50,8 @@
 
     <string name="deleteAccount">Account löschen?</string>
     <string name="confirmDeleteAcc_button">Account löschen</string>
+    <string name="reminderDeleteAccount">ALLE Einstellungen &amp; Daten unwiderruflich löschen!</string>
+
     <string name="cancelDeleteAcc_textview">Doch nicht löschen?\nGehe zurück!</string>
 
     <string name="main">Quiz zu Energie!</string>

@@ -135,12 +135,11 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <Switch
                 android:id="@+id/remainLoggedIn_switch"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="-5dp"
                 android:checked="false"
                 app:layout_constraintStart_toStartOf="@+id/cardViewLoginCardPassword"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewLoginCardPassword" />

@@ -2,12 +2,13 @@ package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+//import android.widget.Button;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,20 +23,19 @@ import thu.adse.energyquiz.R;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
-    private Button confirmDeleteAcc_button;
-    private TextView cancelDeleteAcc_textview;
+    private CardView cardViewConfirmDeleteAcc_button, cardViewDeleteAccountBack;
     private String userID;
     private DatabaseReference userDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_account);
+        setContentView(R.layout.activity_delete_account_v2);
 
-        confirmDeleteAcc_button = findViewById(R.id.confirmDeleteAcc_button);
-        cancelDeleteAcc_textview = findViewById(R.id.cancelDeleteAcc_textview);
+        cardViewConfirmDeleteAcc_button = findViewById(R.id.cardViewConfirmDeleteAcc_button);
+        cardViewDeleteAccountBack = findViewById(R.id.cardViewDeleteAccountBack);
 
-        confirmDeleteAcc_button.setOnClickListener(new View.OnClickListener() {
+        cardViewConfirmDeleteAcc_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -61,12 +61,11 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
 
-        cancelDeleteAcc_textview.setOnClickListener(new View.OnClickListener() {
+        cardViewDeleteAccountBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DeleteAccountActivity.this, MainActivity.class));
             }
         });
-
     }
 }
