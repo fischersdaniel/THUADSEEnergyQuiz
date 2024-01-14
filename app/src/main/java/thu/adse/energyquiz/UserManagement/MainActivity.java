@@ -1,40 +1,85 @@
 package thu.adse.energyquiz.UserManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
-import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-    private Button logoutButton, deleteAccButton, changePasswordMain_button, startSingleplayer_button;
+    private CardView cardViewSettingsBack, cardViewUserSettingsLogout, cardViewUserSettingsPassword, cardViewUserSettingsDeleteUser;
+    private TextView textViewSettingsUserMailDB, textViewSettingsUsernameDB;
+    String userEmail, userName, userId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_settings);
 
-        auth = FirebaseAuth.getInstance();
-        logoutButton = findViewById(R.id.logout_button);
-        deleteAccButton = findViewById(R.id.deleteAcc_button);
-        changePasswordMain_button = findViewById(R.id.changePasswordMain_button);
-        startSingleplayer_button = findViewById(R.id.startSingleplayer_button);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
 
+        cardViewSettingsBack = findViewById(R.id.cardViewSettingsBack);
+        cardViewUserSettingsLogout = findViewById(R.id.cardViewUserSettingsLogout);
+        cardViewUserSettingsPassword = findViewById(R.id.cardViewUserSettingsPassword);
+        cardViewUserSettingsDeleteUser = findViewById(R.id.cardViewUserSettingsDeleteUser);
 
+        textViewSettingsUserMailDB = findViewById(R.id.textViewSettingsUserMailDB);
+        textViewSettingsUsernameDB = findViewById(R.id.textViewSettingsUsernameDB);
 
+        if (currentUser != null) {
+            userEmail = currentUser.getEmail();
+            textViewSettingsUserMailDB.setText(userEmail);
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+            userId = currentUser.getUid();
+            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("userName");
+
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        userName = dataSnapshot.getValue(String.class);
+                        textViewSettingsUsernameDB.setText(userName);
+                    } else {
+                        // nothing
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("Fehler beim Lesen der Datenbank: " + databaseError.getMessage());
+                }
+            });
+
+        } else {
+            // kein User angemeldet
+        }
+
+        cardViewSettingsBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, HomeScreenActivity.class));
+            }
+        });
+
+        cardViewUserSettingsLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
@@ -44,23 +89,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        deleteAccButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, DeleteAccountActivity.class));
-            }
-        });
-
-        changePasswordMain_button.setOnClickListener(new View.OnClickListener() {
+        cardViewUserSettingsPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ChangePasswordActivity.class));
             }
         });
-        startSingleplayer_button.setOnClickListener(new View.OnClickListener() {
+
+        cardViewUserSettingsDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SinglePlayerStartActivity.class));
+                startActivity(new Intent(MainActivity.this, DeleteAccountActivity.class));
             }
         });
     }
