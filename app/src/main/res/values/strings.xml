@@ -26,7 +26,7 @@
     <string name="login_password">Passwort</string>
     <string name="remainLoggedIn">Angemeldet bleiben</string>
     <string name="login_button">Anmelden</string>
-    <string name="forgotPasswordRedirectText">Passwort vergessen?</string>
+    <string name="forgotPasswordRedirectText">Passwort vergessen</string>
     <string name="signUpRedirectText">Noch nicht registriert?\nHier registrieren!</string>
 
     <string name="signUp">Registrierung</string>
@@ -37,12 +37,12 @@
     <string name="signup_button">Registrieren</string>
     <string name="loginRedirectSignUpText">Bereits registriert? Hier anmelden!</string>
 
-    <string name="forgotPassword">Passwort vergessen?</string>
+    <string name="forgotPassword">Passwort vergessen</string>
     <string name="sendNewPassword_email">Email</string>
     <string name="sendNewPassword_button">Neues Passwort anfordern</string>
     <string name="loginRedirectForgotPasswordText">Doch nicht vergessen?\nHier anmelden!</string>
 
-    <string name="changePassword">Passwort ändern?</string>
+    <string name="changePassword">Passwort ändern</string>
     <string name="newPassword_text">Passwort</string>
     <string name="confirmNewPassword_text">Wiederhole Passwort</string>
     <string name="changePassword_button">Passwort ändern</string>

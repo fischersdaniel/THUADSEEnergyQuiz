@@ -2,13 +2,14 @@ package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,21 +24,24 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText newPassword_text, confirmNewPassword_text;
-    private Button changePassword_button;
-    private TextView loginRedirectChangePasswordText;
+//    private Button changePassword_button;
+    private CardView cardViewChangePWButton, cardViewChangePWBack;
+//    private TextView loginRedirectChangePasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.activity_change_password_v2);
 
         auth = FirebaseAuth.getInstance();
         newPassword_text = findViewById(R.id.newPassword_text);
         confirmNewPassword_text = findViewById(R.id.confirmNewPassword_text);
-        changePassword_button = findViewById(R.id.changePassword_button);
-        loginRedirectChangePasswordText = findViewById(R.id.loginRedirectChangePasswordText);
+//        changePassword_button = findViewById(R.id.changePassword_button);
+        cardViewChangePWButton = findViewById(R.id.cardViewChangePWButton);
+//        loginRedirectChangePasswordText = findViewById(R.id.loginRedirectChangePasswordText);
+        cardViewChangePWBack = findViewById(R.id.cardViewChangePWBack);
 
-        changePassword_button.setOnClickListener(new View.OnClickListener() {
+        cardViewChangePWButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newPassword = newPassword_text.getText().toString();
@@ -73,7 +77,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
 
-        loginRedirectChangePasswordText.setOnClickListener(new View.OnClickListener() {
+        cardViewChangePWBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ChangePasswordActivity.this, MainActivity.class));
