@@ -6,4 +6,278 @@
     android:layout_height="match_parent"
     tools:context=".MultiPlayer.MultiPlayerResultActivity">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerHome"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/singlePlayerResultsTextViewHeader"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewMultiPlayerHome"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewMultiPlayerResults1"
+        app:layout_constraintStart_toStartOf="@+id/cardViewMultiPlayerResults1"
+        app:layout_constraintTop_toTopOf="@+id/cardViewMultiPlayerHome" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerResults1"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1Quote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/singlePlayerResultsUser1TextViewQuote"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1QuotePlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser2Quote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/singlePlayerResultsUser2TextViewQuote"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser2QuotePlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1PointsEarned"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/singlePlayerResultsUser1TextViewPointsEarned"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1PointsEarnedPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1AllPoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/singlePlayerResultsUser1TextViewAllPoints"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1AllPointsPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1Rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/singlePlayerResultsUser1TextViewRank"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textViewMultiPlayerResultsUser1RankPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerResultsPlayAgain"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewMultiPlayerResultsGoHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerResults1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageMultiPlayerPlayAgain"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:paddingTop="35dp"
+                app:srcCompat="@drawable/refresh_button_inv" />
+
+            <TextView
+                android:id="@+id/textViewMultiPlayerResultsUser1PlayAgain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/singlePlayerResultsUser1TextViewPlayAgain"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerResultsGoHome"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardViewMultiPlayerResultsPlayAgain"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerResults1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageCatalog"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:paddingTop="35dp"
+                app:srcCompat="@drawable/home" />
+
+            <TextView
+                android:id="@+id/textCatalog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/singlePlayerResultsUser1TextViewGoHome"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textViewWinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Auf anderen Spieler warten."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewMultiPlayerResults1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black"-->
+
+

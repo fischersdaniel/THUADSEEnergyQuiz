@@ -6,17 +6,217 @@
     android:layout_height="match_parent"
     tools:context=".MultiPlayer.MultiPlayerGameActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMultiPlayerGameBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imagePrevious"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/close" />
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Multiplayer Game Activity"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/multiPlayerTextViewHeader"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewMultiPlayerGameBack"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewQuestion"
+        app:layout_constraintStart_toEndOf="@+id/cardViewMultiPlayerGameBack"
+        app:layout_constraintTop_toTopOf="@+id/cardViewMultiPlayerGameBack" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewQuestion"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintTop_toBottomOf="@id/cardViewMultiPlayerGameBack">
+
+        <TextView
+            android:id="@+id/textViewNumberQuestionsProgress"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/numberQuestionsProgress_textview"
+            android:layout_gravity="center|bottom" />
+
+        <TextView
+            android:id="@+id/textViewQuestion"
+            android:maxLines="3"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/question_textview" />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerAnswer1"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewQuestion">
+
+        <TextView
+            android:id="@+id/textViewAnswer1"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer1_textview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerAnswer2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMultiPlayerAnswer1">
+
+        <TextView
+            android:id="@+id/textViewAnswer2"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer2_textview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerAnswer3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMultiPlayerAnswer2">
+
+        <TextView
+            android:id="@+id/textViewAnswer3"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer3_textview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerAnswer4"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMultiPlayerAnswer3">
+
+        <TextView
+            android:id="@+id/textViewAnswer4"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer4_textview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewMultiPlayerSubmitAnswer"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMultiPlayerAnswer4">
+
+        <TextView
+            android:id="@+id/textViewConfirmNext"
+            android:maxLines="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/confirm_next_button" />
+
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black"-->
