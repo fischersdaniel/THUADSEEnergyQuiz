@@ -128,12 +128,11 @@
     <string name="homeScreenTextViewCard4">Fragenkatalog</string>
 
     <string name="UserLoginTextViewHeader">Einloggen</string>
-    <string name="UserSettingsTextViewHeader">Konto-Einstellungen</string>
+    <string name="UserSettingsTextViewHeader">Nutzerkonto</string>
     <string name="statisticsTextViewHeader">Spielstatistik</string>
     <string name="singlePlayerTextViewHeader">Einzelspieler</string>
     <string name="singlePlayerResultsTextViewHeader">Ergebnis</string>
     <string name="multiPlayerTextViewHeader">Mehrspieler</string>
-
 
     <string name="singlePlayerResultsUser1TextViewQuote">Richtig beantwortet:</string>
     <string name="singlePlayerResultsUser1TextViewPointsEarned">Verdiente Punkte:</string>
@@ -141,6 +140,13 @@
     <string name="singlePlayerResultsUser1TextViewRank">Aktueller Rang: </string>
     <string name="singlePlayerResultsUser1TextViewPlayAgain">Nochmal!</string>
     <string name="singlePlayerResultsUser1TextViewGoHome">Beenden</string>
+
+    <string name="settingsTextViewUsername">Benutzername:</string>
+    <string name="settingsTextViewUserMail">E-Mail:</string>
+
+    <string name="settingsTextViewPassword">Passwort ändern</string>
+    <string name="settingsTextViewLogout">Ausloggen</string>
+    <string name="settingsTextViewDeleteUser">Account löschen</string>
 
 
 

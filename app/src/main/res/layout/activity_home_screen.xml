@@ -10,7 +10,7 @@
     android:paddingBottom="50dp"
     android:clipToPadding="false">
 
-<!--    <androidx.cardview.widget.CardView-->
+<!--    <com.google.android.material.card.MaterialCardView-->
 <!--        android:id="@+id/cardViewHomeSettings"-->
 <!--        android:layout_width="60dp"-->
 <!--        android:layout_height="60dp"-->
@@ -29,9 +29,9 @@
 <!--            android:adjustViewBounds="true"-->
 <!--            app:srcCompat="@drawable/settingsv2"/>-->
 
-<!--    </androidx.cardview.widget.CardView>-->
+<!--    </com.google.android.material.card.MaterialCardView>-->
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeUser"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -50,9 +50,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/profile_user_inv"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeSingle"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -92,9 +92,9 @@
                 app:srcCompat="@drawable/singleplayer"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeMulti"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -135,9 +135,9 @@
                 app:srcCompat="@drawable/multiplayer"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeStatistics"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -171,9 +171,9 @@
                 android:textSize="18sp"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeCatalog"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -207,5 +207,5 @@
                 android:textSize="18sp"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

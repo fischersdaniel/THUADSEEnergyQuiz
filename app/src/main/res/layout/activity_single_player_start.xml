@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -24,7 +24,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/previous_inv"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardViewSinglePlayerStartBack"
         app:layout_constraintTop_toTopOf="@+id/cardViewSinglePlayerStartBack" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartText"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -57,9 +57,9 @@
             android:text="@string/singlePlayerGameStartTextViewFragen"
             android:textSize="30sp"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartNumberInput"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -82,9 +82,9 @@
             android:hint="@string/singlePlayerGameStartTextViewDefaultNr"
             android:textSize="40sp"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartMinus"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -105,9 +105,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/minus" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartPlus"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -127,9 +127,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/add" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerStartPlayButton"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -150,6 +150,6 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/start_button" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

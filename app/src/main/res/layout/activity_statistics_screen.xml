@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Miscellaneous.StatisticsScreenActivity">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewStatisticsBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -25,7 +25,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/previous_inv"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardViewStatisticsBack"
         app:layout_constraintTop_toTopOf="@+id/cardViewStatisticsBack" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewStatisticsRank"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -132,9 +132,9 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeStatisticsQuestions"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -229,9 +229,9 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeStatisticsChart"
         android:layout_width="0dp"
         android:layout_height="190dp"
@@ -253,6 +253,6 @@
 
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

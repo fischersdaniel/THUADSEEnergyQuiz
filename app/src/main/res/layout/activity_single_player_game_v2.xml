@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SinglePlayer.SinglePlayerGameActivity">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerGameBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -25,7 +25,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/close"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardViewSinglePlayerGameBack"
         app:layout_constraintTop_toTopOf="@+id/cardViewSinglePlayerGameBack" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/question_cardview"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -73,12 +73,12 @@
             android:layout_gravity="center"
             android:text="@string/question_textview" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerAnswer1"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
@@ -107,9 +107,9 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerAnswer2"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="35dp"
         app:cardElevation="10dp"
@@ -136,9 +136,9 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerAnswer3"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="35dp"
         app:cardElevation="10dp"
@@ -165,9 +165,9 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSinglePlayerAnswer4"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="35dp"
         app:cardElevation="10dp"

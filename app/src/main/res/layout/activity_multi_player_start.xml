@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MultiPlayer.MultiPlayerStartActivity">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -25,9 +25,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/previous_inv"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartText"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -48,9 +48,9 @@
             android:text="@string/multiPlayerGameStartTextViewFragen"
             android:textSize="30sp"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartNumberInput"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -73,9 +73,9 @@
             android:hint="@string/multiPlayerGameStartTextViewDefaultNr"
             android:textSize="40sp"/>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartMinus"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -96,9 +96,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/minus" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartPlus"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -118,9 +118,9 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/add" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewMultiPlayerStartPlayButton"
         android:layout_width="0dp"
         android:layout_height="140dp"
@@ -142,6 +142,6 @@
             app:srcCompat="@drawable/start_button" /> <!--TODO: Hier sollte ein Drawable mit Beitreten nicht Start sein-->
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
