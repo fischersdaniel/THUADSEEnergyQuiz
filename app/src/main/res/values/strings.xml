@@ -133,6 +133,10 @@
     <string name="singlePlayerTextViewHeader">Einzelspieler</string>
     <string name="singlePlayerResultsTextViewHeader">Ergebnis</string>
     <string name="multiPlayerTextViewHeader">Mehrspieler</string>
+    <string name="questionCatalogTextViewHeader">Fragenkatalog</string>
+    <string name="PopUpEditDeleteTextViewHeader">Aktion auswählen</string>
+
+
 
     <string name="singlePlayerResultsUser1TextViewQuote">Richtig beantwortet:</string>
     <string name="singlePlayerResultsUser1TextViewPointsEarned">Verdiente Punkte:</string>
@@ -147,6 +151,25 @@
     <string name="settingsTextViewPassword">Passwort ändern</string>
     <string name="settingsTextViewLogout">Ausloggen</string>
     <string name="settingsTextViewDeleteUser">Account löschen</string>
+
+    <string name="NA">N/A</string>
+    <string name="IDNF">ID nicht gefunden</string>
+    <string name="Bitte_Anmelden">Bitte Anmelden</string>
+    <string name="Punkte"> pkt.</string>
+    <string name="Prozentzeichen"> %.1f%%</string>
+
+    <string name="Frage">Frage:</string>
+    <string name="Antwort1">1.</string>
+    <string name="Antwort2">2.</string>
+    <string name="Antwort3">3.</string>
+    <string name="Antwort4">4.</string>
+
+    <string name="StatRank">Rang:</string>
+    <string name="StatPoints">Punktezahl:</string>
+    <string name="StatNextPoints">Nächster Rang bei:</string>
+    <string name="StatRight">Richtig beantwortet:</string>
+    <string name="StatOverall">Gesamt beantwortet:</string>
+    <string name="StatQuote">Quote:</string>
 
 
 

@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Rang:"
+                    android:text="@string/StatRank"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Punktzahl:"
+                    android:text="@string/StatPoints"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Nächster Rang bei:"
+                    android:text="@string/StatNextPoints"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -166,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Richtig beantwortet:"
+                    android:text="@string/StatRight"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -190,7 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Gesamt beantwortet:"
+                    android:text="@string/StatOverall"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -214,7 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Quote:"
+                    android:text="@string/StatQuote"
                     android:gravity="center_vertical" />
 
                 <TextView
@@ -248,7 +248,8 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart1Statistics"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
 
 
 

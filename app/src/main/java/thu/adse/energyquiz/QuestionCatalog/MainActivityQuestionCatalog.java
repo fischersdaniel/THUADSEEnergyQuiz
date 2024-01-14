@@ -2,6 +2,7 @@ package thu.adse.energyquiz.QuestionCatalog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,7 +40,9 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     QuestionAdapterQuestionCatalog questionAdapter;
     ArrayList<QuestionQuestionCatalog> list;
     Dialog dialog;
-    Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
+//    Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
+    CardView cardViewMainCatalogBack, cardViewMainCatalogAddQuestion ;
+    CardView cardViewPopUpEDEdit, cardViewPopUpEDDelete, cardViewPopUpEDCancel;
 
     String adminpasswordDB;
     public QuestionQuestionCatalog selectedQuestion;
@@ -53,7 +56,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_question_catalog);
+        setContentView(R.layout.activity_main_question_catalog_v2);
 
         recyclerView = findViewById(R.id.recyclerViewQuestionDb);
         database = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Questions");
@@ -94,37 +97,51 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         });
 
 
-        buttonToNewQuestionActivity = findViewById(R.id.buttonToNewQuestion);
-        buttonToNewQuestionActivity.setOnClickListener(view ->
+//        buttonToNewQuestionActivity = findViewById(R.id.buttonToNewQuestion);
+        cardViewMainCatalogAddQuestion = findViewById(R.id.cardViewMainCatalogAddQuestion);
+
+//        buttonToNewQuestionActivity.setOnClickListener(view ->
+        cardViewMainCatalogAddQuestion.setOnClickListener(view ->
         {
             CheckCataloguePermission(CatalogueChange.ADD_QUESTION, null);
         });
 
-        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
-        buttonBackToMenu.setOnClickListener(view -> backToMenu());
+//        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
+        cardViewMainCatalogBack = findViewById(R.id.cardViewMainCatalogBack);
+//        buttonBackToMenu.setOnClickListener(view -> backToMenu());
+        cardViewMainCatalogBack.setOnClickListener(view -> backToMenu());
+
 
         dialog = new Dialog(MainActivityQuestionCatalog.this);
-        dialog.setContentView(R.layout.edit_delete_dialog_box_question_catalog);
+        dialog.setContentView(R.layout.dialog_edit_delete_question_catalog_v2);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
+//        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(true);
 
 
-        buttonDialogEdit = dialog.findViewById(R.id.buttonDialogEdit);
-        buttonDialogDelete = dialog.findViewById(R.id.buttonDialogDelete);
-        buttonDialogCancel = dialog.findViewById(R.id.buttonDialogCancel);
+//        buttonDialogEdit = dialog.findViewById(R.id.buttonDialogEdit);
+//        buttonDialogDelete = dialog.findViewById(R.id.buttonDialogDelete);
+//        buttonDialogCancel = dialog.findViewById(R.id.buttonDialogCancel);
 
-        buttonDialogCancel.setOnClickListener((View view) -> {
+        cardViewPopUpEDEdit = dialog.findViewById(R.id.cardViewPopUpEDEdit);
+        cardViewPopUpEDDelete = dialog.findViewById(R.id.cardViewPopUpEDDelete);
+        cardViewPopUpEDCancel = dialog.findViewById(R.id.cardViewPopUpEDCancel);
+
+//        buttonDialogCancel.setOnClickListener((View view) -> {
+        cardViewPopUpEDCancel.setOnClickListener((View view) -> {
             dialog.dismiss();
         });
 
-        buttonDialogEdit.setOnClickListener((View view) -> {
+//        buttonDialogEdit.setOnClickListener((View view) -> {
+        cardViewPopUpEDEdit.setOnClickListener((View view) -> {
             CheckCataloguePermission(CatalogueChange.EDIT_QUESTION, selectedQuestion);
             // openEditQuestion(selectedQuestion);
             dialog.dismiss();
         });
 
-        buttonDialogDelete.setOnClickListener(view -> {
+//        buttonDialogDelete.setOnClickListener(view -> {
+        cardViewPopUpEDDelete.setOnClickListener(view -> {
             CheckCataloguePermission(CatalogueChange.DELETE_QUESTION, selectedQuestion);
             // deleteQuestion(selectedQuestion);
             dialog.dismiss();
@@ -170,8 +187,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
                     adminpasswordDB = adminsnapshot.getValue().toString();
                     Log.d("myTag", adminpasswordDB);
                     showStringInputDialog(MainActivityQuestionCatalog.this::onAdminPasswordEntered, requestedChange, question);
-                };
-
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error)
@@ -212,7 +228,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     }
     public interface inputTextCallback{
         void onAdminPasswordEntered(String adminpasswordUser,final CatalogueChange requestedChange,final QuestionQuestionCatalog question);
-    };
+    }
 
     // Method to create and display the pop-up window
     private void showStringInputDialog(final inputTextCallback Callback, final CatalogueChange requestedChange, final QuestionQuestionCatalog question)

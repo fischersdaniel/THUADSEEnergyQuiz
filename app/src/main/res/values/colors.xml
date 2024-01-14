@@ -36,4 +36,7 @@
     <color name="rightbg">#FF17B890</color>
     <color name="wrongbg">#FFD83232</color>
 
+    <color name="status_bar_light">#FFFFFFFF</color>
+    <color name="status_bar_dark">#FF000000</color>
+
 </resources>

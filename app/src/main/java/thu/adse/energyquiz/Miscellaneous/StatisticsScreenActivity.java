@@ -2,6 +2,7 @@ package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -24,8 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import thu.adse.energyquiz.R;
+import thu.adse.energyquiz.SinglePlayer.SinglePlayerGameActivity;
 
 public class StatisticsScreenActivity extends AppCompatActivity {
 
@@ -77,7 +81,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
             userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userId);
         } else {
-            textViewStatisticsNextRankCalculated.setText("Bitte Anmelden");   // Es ist kein Benutzer angemeldet
+            textViewStatisticsNextRankCalculated.setText(R.string.Bitte_Anmelden);   // Es ist kein Benutzer angemeldet
             Log.d("current User", "Bitte Anmelden");
         }
 
@@ -94,7 +98,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     rank = dataSnapshot.child("rank").getValue(String.class);
 
                     if (score != null) {
-                        textViewStatisticsPointsDB.setText(String.valueOf(score + " pt."));
+                        textViewStatisticsPointsDB.setText(String.valueOf(score + " pkt."));
 
                         if (score >= 0 && score < 20) {
                             rank = getString(R.string.userRank_0);
@@ -121,44 +125,44 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                             nextRank = 500; // nicht möglich
                         }
                         textViewStatisticsRankCalculated.setText(rank);
-                        textViewStatisticsNextRankCalculated.setText(nextRank + " pt.");
+                        textViewStatisticsNextRankCalculated.setText(nextRank + " pkt.");
                         //usersDatabaseReference.child("rank").setValue(rank);
 
                     } else {
-                        textViewStatisticsPointsDB.setText("N/A");
+                        textViewStatisticsPointsDB.setText(R.string.NA);
                     }
 
                     if (totalCorrectAnswers != null) {
                         textViewStatisticsCorrectAnswersDB.setText(String.valueOf(totalCorrectAnswers));
                     } else {
-                        textViewStatisticsCorrectAnswersDB.setText("N/A");
+                        textViewStatisticsCorrectAnswersDB.setText(R.string.NA);
                     }
 
                     if (totalAnswers != null) {
                         textViewStatisticsTotalAnswersDB.setText(String.valueOf(totalAnswers));
                     } else {
-                        textViewStatisticsTotalAnswersDB.setText("N/A");
+                        textViewStatisticsTotalAnswersDB.setText(R.string.NA);
                     }
 
                     if (totalCorrectAnswers != null && totalAnswers != null) {
                         double quote = (double) totalCorrectAnswers / totalAnswers * 100;
-                        textViewQuoteCalculated.setText(String.format("%.1f%%", quote));
+                        textViewQuoteCalculated.setText(String.format(Locale.GERMANY, "%.1f%%", quote));
                         Log.d("3 totalCorrectAnswers ondata", "Der Wert von totalCorrectAnswers ist: " + totalCorrectAnswers);
                         Log.d("3 totalAnswers ondata", "Der Wert von totalAnswers ist: " + totalAnswers);
                         setValues();
                         setUpChart();
                     } else {
-                        textViewQuoteCalculated.setText("N/A / Null");
+                        textViewQuoteCalculated.setText(R.string.NA);
                     }
                 }
 
                 else {
-                        textViewStatisticsPointsDB.setText("ID nicht gefunden");
-                        textViewStatisticsCorrectAnswersDB.setText("ID nicht gefunden");
-                        textViewStatisticsTotalAnswersDB.setText("ID nicht gefunden");
-                        textViewQuoteCalculated.setText("ID nicht gefunden");
-                        textViewStatisticsRankCalculated.setText("ID nicht gefunden");
-                        textViewStatisticsNextRankCalculated.setText("ID nicht gefunden");
+                        textViewStatisticsPointsDB.setText(R.string.IDNF);
+                        textViewStatisticsCorrectAnswersDB.setText(R.string.IDNF);
+                        textViewStatisticsTotalAnswersDB.setText(R.string.IDNF);
+                        textViewQuoteCalculated.setText(R.string.IDNF);
+                        textViewStatisticsRankCalculated.setText(R.string.IDNF);
+                        textViewStatisticsNextRankCalculated.setText(R.string.IDNF);
                     }
                 }
             @Override
@@ -170,14 +174,20 @@ public class StatisticsScreenActivity extends AppCompatActivity {
 
     private void setUpChart() {
         Log.d("0 setupchart", "im setupchart");
-        PieDataSet pieDataSet = new PieDataSet(pieEntryList,"Richtig und Falsch beantwortete Fragen");
+        PieDataSet pieDataSet = new PieDataSet(pieEntryList,"");
         PieData pieData = new PieData(pieDataSet);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setValueTextColor(getResources().getColor(R.color.white));
+        pieDataSet.setValueTextColor(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.white));
         pieData.setValueTextSize(12f);
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
         pieChart1Statistics.setData(pieData);
         pieChart1Statistics.invalidate();
         pieChart1Statistics.getDescription().setEnabled(false);
+
+        Legend legend = pieChart1Statistics.getLegend();
+        legend.setDrawInside(false);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+
     }
 
     private void setValues() {

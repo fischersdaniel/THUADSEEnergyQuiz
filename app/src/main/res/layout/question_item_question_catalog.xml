@@ -4,14 +4,17 @@
     android:id="@+id/cardViewQuestionItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="14dp"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
+    android:layout_marginTop="20dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    android:textSize="18sp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,19 +26,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Frage:"
+                android:text="@string/Frage"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewQuestionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Fragentitel"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+/>
 
 
         </LinearLayout>
@@ -49,19 +52,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Antwort 1:"
+                android:text="@string/Antwort1"
                 android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewAnswerText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Antwort 1"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -74,19 +76,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Antwort 2:"
+                android:text="@string/Antwort2"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewAnswerText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Antwort 2"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -99,19 +100,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Antwort 3:"
+                android:text="@string/Antwort3"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewAnswerText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Antwort 3"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -124,19 +124,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Antwort 4:"
+                android:text="@string/Antwort4"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewAnswerText4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Antwort 4"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
