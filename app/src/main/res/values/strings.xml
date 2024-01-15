@@ -20,6 +20,7 @@
     <string name="passwordEmpty">Passwort leer.</string>
     <string name="confirmationPasswordEmpty">Wiederholung Passwort leer.</string>
     <string name="passwordsNotEqual">Passwörter ungleich.</string>
+    <string name="userNotLoggedIn">Nutzer nicht angemeldet.</string>
 
     <string name="login">Anmeldung</string>
     <string name="login_email">Email</string>
