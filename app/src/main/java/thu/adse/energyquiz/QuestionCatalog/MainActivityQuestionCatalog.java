@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
+import thu.adse.energyquiz.UserManagement.LoginActivity;
 
 public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
 
@@ -278,8 +279,10 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         // Hier lesen wir den "rank" des Benutzers mit der angegebenen Benutzer-ID aus
         if (currentUser == null)
         {
-            Toast.makeText(getApplicationContext(), "Bitte anmelden!", Toast.LENGTH_LONG).show(); // Es ist kein Benutzer angemeldet
+            Toast.makeText(MainActivityQuestionCatalog.this, getString(R.string.userNotLoggedIn), Toast.LENGTH_SHORT).show();
             Log.d("current User", "Bitte Anmelden");
+            startActivity(new Intent(MainActivityQuestionCatalog.this, LoginActivity.class));
+            return;
         }
         else
         {
