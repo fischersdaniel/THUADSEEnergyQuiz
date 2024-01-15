@@ -2,12 +2,13 @@ package thu.adse.energyquiz.UserManagement;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+//import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,8 @@ import thu.adse.energyquiz.R;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText signupUserName, signupEmail, signupPassword, signupConfirmPassword;
-    private Button signUp_button;
+//    private Button signUp_button;
+    private CardView cardViewSignUpButton, cardViewSignUpBack;
     private TextView loginRedirectSignUp_textview;
     private String userID;
     private List<Integer> usedSessionIDsInit = new ArrayList<>();
@@ -38,15 +40,17 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up_v2);
 
         // Initialize the GUI
         signupUserName = findViewById(R.id.signup_userName);
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupConfirmPassword = findViewById((R.id.signup_confirmpassword));
-        signUp_button = findViewById(R.id.signup_button);
+//        signUp_button = findViewById(R.id.signup_button);
+        cardViewSignUpButton = findViewById(R.id.cardViewSignUpButton);
         loginRedirectSignUp_textview = findViewById(R.id.loginRedirectSignUp_textview);
+        cardViewSignUpBack = findViewById(R.id.cardViewSignUpBack);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -62,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
             Log.d("current User", "Bitte Anmelden");
         }
 
-        signUp_button.setOnClickListener(new View.OnClickListener() {
+        cardViewSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = signupUserName.getText().toString().trim();
@@ -127,5 +131,13 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
         });
+
+        cardViewSignUpBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+            }
+        });
+
     }
 }

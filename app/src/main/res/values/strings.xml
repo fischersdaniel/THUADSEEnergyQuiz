@@ -35,7 +35,7 @@
     <string name="signup_password">Passwort</string>
     <string name="signup_confirmpassword">Wiederhole Passwort</string>
     <string name="signup_button">Registrieren</string>
-    <string name="loginRedirectSignUpText">Bereits registriert? Hier anmelden!</string>
+    <string name="loginRedirectSignUpText">Bereits registriert?\nHier anmelden!</string>
 
     <string name="forgotPassword">Passwort vergessen</string>
     <string name="sendNewPassword_email">Email</string>
@@ -44,7 +44,7 @@
 
     <string name="changePassword">Passwort ändern</string>
     <string name="newPassword_text">Passwort</string>
-    <string name="confirmNewPassword_text">Wiederhole Passwort</string>
+    <string name="confirmNewPassword_text">Passwort wiederholen</string>
     <string name="changePassword_button">Passwort ändern</string>
     <string name="loginRedirectChangePasswordText">Keine Änderung benötigt?\nGehe zurück!</string>
 
