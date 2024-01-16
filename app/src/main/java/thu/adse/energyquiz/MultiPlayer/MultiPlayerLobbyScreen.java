@@ -124,7 +124,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             getUsedQuestionsFromUserDb(snapshot);
-            // Falls der Username des 2. Spielers benötigt wird, kann diese Abfrage hier über die User DB stattfinden.
 
         }
 
@@ -166,6 +165,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         getRandomizedQuestions(lobby.numberQuestionsPerRound);
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("questionsForThisRound").setValue(questionIDsForThisRound);
         userIDCreator=lobby.userIDCreator;
+        lobbyDbRef.child("full").child(userIDCreator).child(userIDCreator+"isFinished").setValue(false);
+        lobbyDbRef.child("full").child(userIDCreator).child(JoinedUser.getUid()+"isFinished").setValue(false);
         lobbyDbRef.child("open").child(lobby.userIDCreator).removeValue();
 
     }
@@ -184,7 +185,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     }
     public static void deletePossibleLobbyEntries(){
         FirebaseUser currentUser;
-        DatabaseReference lobbyDbRef = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Lobbies");
+        DatabaseReference lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();

@@ -6,10 +6,12 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +38,8 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     List<Long> possibleQuestions = new ArrayList<>();
     List<Long> usedQuestions = new ArrayList<>();
     List<Long> allQuestions = new ArrayList<>();
-    boolean playerJoined;
+    boolean playerJoined,gameHasStarted;
+    private ValueEventListener lobbyEventListener;
 
 
 
@@ -43,7 +47,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_player_start);
-
         CardView cardViewMultiPlayerStartBack = findViewById(R.id.cardViewMultiPlayerStartBack);
         CardView cardViewMultiPlayerStartPlayButton = findViewById(R.id.cardViewMultiPlayerStartPlayButton);
         CardView cardViewMultiPlayerStartPlus = findViewById(R.id.cardViewMultiPlayerStartPlus);
@@ -66,7 +69,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         });
 
         numberQuestionsPerRound = 5; //Standardwert Fragen pro Runde wird hier festgelegt
-
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -96,7 +98,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createNewLobby();
-                MultiPlayerLoadingScreenAlert loadingScreenAlert = new MultiPlayerLoadingScreenAlert(MultiPlayerStartActivity.this);
+                MultiPlayerCancelLobbyLoadingScreenAlert loadingScreenAlert = new MultiPlayerCancelLobbyLoadingScreenAlert(MultiPlayerStartActivity.this);
                 loadingScreenAlert.startLoadingScreenAlertDialog();
             }
         });
@@ -108,30 +110,27 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
                     userNameCreator = snapshot.child("Users").child(userIdCreator).child("userName").getValue(String.class);
                     getUsedQuestionsFromUserDb(snapshot);
                     getAllQuestionIDs(snapshot.child("Questions"));
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-        lobbyDbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (checkIfPlayerJoined(snapshot)){
-                    startActivity(new Intent(MultiPlayerStartActivity.this, MultiPlayerGameActivity.class));
+            lobbyDbRef.addValueEventListener(lobbyEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (checkIfPlayerJoined(snapshot)){
+                        Log.d("MultiplayerStartActivity", "onDataChange: startMultiPlayerGameNow");
+                        gameHasStarted =true;
+                        lobbyDbRef.removeEventListener(lobbyEventListener);
+                        startActivity(new Intent(MultiPlayerStartActivity.this, MultiPlayerGameActivity.class));
+                    }
                 }
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
+                }
+            });
+        }
 
 
     private void createNewLobby() {
@@ -140,8 +139,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         lobbyDbRef.child("open").child(userIdCreator).child("numberQuestionsPerRound").setValue(numberQuesttionsPerRoundString);
         lobbyDbRef.child("open").child(userIdCreator).child("userNameCreator").setValue(userNameCreator);
         getPossibleQuestions();
-
-
         Map<String, Long> questionsMap = new HashMap<>();
         for (Long i : possibleQuestions) {
             questionsMap.put(String.valueOf(i), i);
@@ -155,6 +152,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         for (DataSnapshot ds: snapshot.getChildren()){
             allQuestions.add(Long.parseLong(ds.getKey()));
         }
+
         possibleQuestions = allQuestions;
 
     }
@@ -178,5 +176,4 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         }
         return playerJoined;
     }
-
 }

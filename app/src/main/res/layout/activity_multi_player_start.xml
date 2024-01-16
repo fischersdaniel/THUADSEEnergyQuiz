@@ -139,7 +139,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/start_button" /> <!--TODO: Hier sollte ein Drawable mit Beitreten nicht Start sein-->
+            app:srcCompat="@drawable/start_button" />
 
 
     </com.google.android.material.card.MaterialCardView>

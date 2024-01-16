@@ -3,7 +3,6 @@ package thu.adse.energyquiz.MultiPlayer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import thu.adse.energyquiz.R;
 
-public class MultiPlayerLoadingScreenAlert {
+public class MultiPlayerCancelLobbyLoadingScreenAlert {
 
     Activity activity;
     AlertDialog dialog;
@@ -22,7 +21,7 @@ public class MultiPlayerLoadingScreenAlert {
     FirebaseAuth auth;
 
 
-    MultiPlayerLoadingScreenAlert(Activity myActivity){
+    MultiPlayerCancelLobbyLoadingScreenAlert(Activity myActivity){
         activity = myActivity;
     }
 
