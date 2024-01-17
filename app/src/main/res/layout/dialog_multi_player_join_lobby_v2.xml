@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/PopUpEditDeleteTextViewHeader"
+            android:text="@string/multiPlayerLobbyTextViewDialogJoinHeader"
             android:textSize="27sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewPopUpEDEdit"
+            android:id="@+id/cardViewPopUpLobbyJoinYes"
             android:layout_width="00dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -37,7 +37,7 @@
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cardViewPopUpEDDelete"
+            app:layout_constraintEnd_toStartOf="@+id/cardViewPopUpLobbyJoinNo"
             app:layout_constraintTop_toBottomOf="@+id/textViewPopUpEditDeleteHeader">
 
             <TextView
@@ -45,51 +45,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/buttonDialogEdit"
+                android:text="@string/multiPlayerLobbyTextViewDialogJoinYes"
                 android:textSize="18sp"/>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewPopUpEDDelete"
+            android:id="@+id/cardViewPopUpLobbyJoinNo"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
-            app:layout_constraintStart_toEndOf="@+id/cardViewPopUpEDEdit"
+            app:layout_constraintStart_toEndOf="@+id/cardViewPopUpLobbyJoinYes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardViewPopUpEDEdit">
+            app:layout_constraintTop_toTopOf="@+id/cardViewPopUpLobbyJoinYes"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/textViewDialogDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/buttonDialogDelete"
-                android:textSize="18sp"/>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewPopUpEDCancel"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintStart_toStartOf="@+id/cardViewPopUpEDEdit"
-            app:layout_constraintEnd_toEndOf="@+id/cardViewPopUpEDDelete"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewPopUpEDEdit"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/textViewDialogCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/buttonDialogCancel"
+                android:text="@string/multiPlayerLobbyTextViewDialogJoinNo"
                 android:textSize="18sp"/>
 
         </com.google.android.material.card.MaterialCardView>

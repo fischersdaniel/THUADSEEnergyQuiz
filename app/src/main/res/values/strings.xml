@@ -108,6 +108,7 @@
     <string name="buttonDialogEdit">Bearbeiten</string>
     <string name="buttonDialogDelete">Löschen</string>
     <string name="buttonDialogCancel">Abbrechen</string>
+    <string name="buttonDialogCancelandDiscard">Abbrechen &amp; Fortschritt verwerfen</string>
     <string name="buttonBackToMenu">Menü</string>
 
     <string name="multiPlayerLobbyscreenHeader">Mehrspieler</string>
@@ -139,14 +140,24 @@
     <string name="questionCatalogTextViewHeader">Fragenkatalog</string>
     <string name="PopUpEditDeleteTextViewHeader">Aktion auswählen</string>
 
-
-
     <string name="singlePlayerResultsUser1TextViewQuote">Richtig beantwortet:</string>
     <string name="singlePlayerResultsUser1TextViewPointsEarned">Verdiente Punkte:</string>
     <string name="singlePlayerResultsUser1TextViewAllPoints">Gesamtpunktzahl: </string>
     <string name="singlePlayerResultsUser1TextViewRank">Aktueller Rang: </string>
     <string name="singlePlayerResultsUser1TextViewPlayAgain">Nochmal!</string>
     <string name="singlePlayerResultsUser1TextViewGoHome">Beenden</string>
+
+    <string name="multiPlayerLobbyTextViewSubHeader">Verfügbare Spiele</string>
+    <string name="multiPlayerLobbyTextViewSubSubHeader1">[Host]</string>
+    <string name="multiPlayerLobbyTextViewSubSubHeader2">[Anzahl Fragen]</string>
+    <string name="multiPlayerLobbyCardViewCreateGameButton">Eigenes Spiel erstellen!</string>
+    <string name="multiPlayerLobbyTextViewDialogCancelButton">Abbrechen und Raum auflösen</string>
+    <string name="multiPlayerLobbyTextViewDialogWaitingHeader">Warten auf Mitspieler...</string>
+    <string name="multiPlayerLobbyTextViewDialogJoinHeader">Spiel beitreten?</string>
+    <string name="multiPlayerLobbyTextViewDialogJoinYes">Ja</string>
+    <string name="multiPlayerLobbyTextViewDialogJoinNo">Nein</string>
+    <string name="multiPlayerResultsTextViewDialogWaitingHeader">Warten auf Mitspieler</string>
+
 
     <string name="settingsTextViewUsername">Benutzername:</string>
     <string name="settingsTextViewUserMail">E-Mail:</string>

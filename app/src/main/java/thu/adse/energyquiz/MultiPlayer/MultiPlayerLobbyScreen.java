@@ -2,6 +2,7 @@ package thu.adse.energyquiz.MultiPlayer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,7 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Button;
+//import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +32,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     RecyclerView recyclerViewLobbyscreen;
     MultiPlayerLobbyAdapter lobbyAdapter;
     ArrayList<MultiPlayerLobby> lobbyList;
-    Button buttonCreateLobby, buttonBackToHome, buttonDialogYes, buttonDialogNo;
+//    Button buttonCreateLobby, buttonBackToHome, buttonDialogYes, buttonDialogNo;
+    CardView cardViewMultiPlayerLobbyBack, cardViewMultiPlayerLobbyCreateGame, cardViewPopUpLobbyJoinYes, cardViewPopUpLobbyJoinNo, cardViewPopUpLobbyWaitingCancel;
     Dialog dialog;
     FirebaseAuth auth;
     FirebaseUser JoinedUser;
@@ -45,7 +47,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multi_player_lobby_screen);
+        setContentView(R.layout.activity_multi_player_lobby_screen_v2);
         recyclerViewLobbyscreen = findViewById(R.id.recyclerViewLobbyscreen);
 
         recyclerViewLobbyscreen.setHasFixedSize(true);
@@ -65,26 +67,33 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
 
 
-        buttonCreateLobby = findViewById(R.id.buttonCreateLobby);
-        buttonBackToHome = findViewById(R.id.buttonBackToHome);
+//        buttonCreateLobby = findViewById(R.id.buttonCreateLobby);
+        cardViewMultiPlayerLobbyCreateGame = findViewById(R.id.cardViewMultiPlayerLobbyCreateGame);
+//        buttonBackToHome = findViewById(R.id.buttonBackToHome);
+        cardViewMultiPlayerLobbyBack = findViewById(R.id.cardViewMultiPlayerLobbyBack);
 
         dialog=new Dialog(MultiPlayerLobbyScreen.this);
-        dialog.setContentView(R.layout.multi_player_lobby_screen_dialog);
+        dialog.setContentView(R.layout.dialog_multi_player_join_lobby_v2);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
+//        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
-        buttonDialogYes = dialog.findViewById(R.id.buttonDialogYes);
-        buttonDialogNo = dialog.findViewById(R.id.buttonDialogNo);
+//        buttonDialogYes = dialog.findViewById(R.id.buttonDialogYes);
+        cardViewPopUpLobbyJoinYes = dialog.findViewById(R.id.cardViewPopUpLobbyJoinYes);
+//        buttonDialogNo = dialog.findViewById(R.id.buttonDialogNo);
+        cardViewPopUpLobbyJoinNo = dialog.findViewById(R.id.cardViewPopUpLobbyJoinNo);
 
 
 
-        buttonCreateLobby.setOnClickListener(view -> {
+//        buttonCreateLobby.setOnClickListener(view -> {
+        cardViewMultiPlayerLobbyCreateGame.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerStartActivity.class);
             startActivity(intent);
         });
 
-        buttonBackToHome.setOnClickListener(view -> {
+//        buttonBackToHome.setOnClickListener(view -> {
+        cardViewMultiPlayerLobbyBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
         });
@@ -144,11 +153,11 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         selectedLobby = lobby;
         dialog.show();
 
-        buttonDialogNo.setOnClickListener(view -> {
+        cardViewPopUpLobbyJoinNo.setOnClickListener(view -> {
             dialog.dismiss();
         });
 
-        buttonDialogYes.setOnClickListener(view -> {
+        cardViewPopUpLobbyJoinYes.setOnClickListener(view -> {
             moveLobbyToFull(selectedLobby);
             startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class).putExtra("lobbyname",selectedLobby.userIDCreator));
         });

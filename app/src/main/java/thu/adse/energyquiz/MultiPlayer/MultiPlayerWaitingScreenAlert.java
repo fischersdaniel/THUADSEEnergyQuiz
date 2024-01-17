@@ -4,15 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.Button;
-
 import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.cardview.widget.CardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +21,8 @@ import thu.adse.energyquiz.R;
 public class MultiPlayerWaitingScreenAlert {
     Activity activity;
     AlertDialog dialog;
-    Button buttonWaitingScreenAbort;
+//    Button buttonWaitingScreenAbort;
+    CardView cardViewPopUpResultsWaitingCancel;
     DatabaseReference dBRef = FirebaseDatabase.getInstance().getReference(), lobbyDbRef;
 
     public static boolean waitingAlertIsActive = false;
@@ -39,12 +35,13 @@ public class MultiPlayerWaitingScreenAlert {
     void startWaitingScreenAlertDialog(String player1ID, String player2ID, Context context, int numberQuestionsPerRound, int numberCorrectAnswersRound, boolean creatorIsLoggedIn, ArrayList<Long> questionIDsForThisRound) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_wait_until_opponent_is_finished, null));
+        builder.setView(inflater.inflate(R.layout.dialog_multi_player_waiting_results_v2, null));
         builder.setCancelable(false);
         dialog = builder.create();
         waitingAlertIsActive = true;
         setFinishedState(player1ID, creatorIsLoggedIn, player2ID);
         dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         checkIfOpponentsAreFinished(player1ID, player2ID, context, numberQuestionsPerRound, numberCorrectAnswersRound, creatorIsLoggedIn, questionIDsForThisRound);
     }

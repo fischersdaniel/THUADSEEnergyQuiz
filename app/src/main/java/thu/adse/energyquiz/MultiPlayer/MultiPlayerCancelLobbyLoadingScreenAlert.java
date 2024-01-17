@@ -3,8 +3,7 @@ package thu.adse.energyquiz.MultiPlayer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.widget.Button;
-
+import androidx.cardview.widget.CardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -16,7 +15,8 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
 
     Activity activity;
     AlertDialog dialog;
-    Button buttonLoadingScreenCancelLobby;
+//    Button buttonLoadingScreenCancelLobby;
+    CardView cardViewPopUpLobbyWaitingCancel;
     DatabaseReference lobbyDbRef  = FirebaseDatabase.getInstance().getReference().child("Lobbies");
     FirebaseAuth auth;
 
@@ -28,16 +28,17 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
     void startLoadingScreenAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_multi_player_loading_screen, null));
+        builder.setView(inflater.inflate(R.layout.dialog_multi_player_loading_screen_v2, null));
         builder.setCancelable(false);
         dialog = builder.create();
         dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         closeMultiPlayerLoadingScreenAlertDialog();
     }
 
     void closeMultiPlayerLoadingScreenAlertDialog() {
-        buttonLoadingScreenCancelLobby = dialog.findViewById(R.id.buttonLoadingScreenCancelLobby);
-        buttonLoadingScreenCancelLobby.setOnClickListener(view -> {
+        cardViewPopUpLobbyWaitingCancel = dialog.findViewById(R.id.cardViewPopUpLobbyWaitingCancel);
+        cardViewPopUpLobbyWaitingCancel.setOnClickListener(view -> {
             dialog.dismiss();
             auth = FirebaseAuth.getInstance();
             FirebaseUser userCreator = auth.getCurrentUser();
