@@ -60,7 +60,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         setContentView(R.layout.activity_main_question_catalog_v2);
 
         recyclerView = findViewById(R.id.recyclerViewQuestionDb);
-        database = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Questions");
+        database = FirebaseDatabase.getInstance().getReference("Questions");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
