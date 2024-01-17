@@ -302,7 +302,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
                     String rank = snapshot.child("rank").getValue(String.class);
                     Log.d("UserRank", "UserRank:" + rank);
                         //RankCallback.UserRankRead(rank, requestedChange, question);
-                    final String ADMINRANK = "Experte";
+                    final String ADMINRANK = "Fortgeschrittener";
                     if (rank.equals(ADMINRANK)){
                         switch(requestedChange)
                         {
