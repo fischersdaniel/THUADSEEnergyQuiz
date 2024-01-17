@@ -2,6 +2,7 @@ package thu.adse.energyquiz.MultiPlayer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import thu.adse.energyquiz.QuestionCatalog.EditQuestionQuestionCatalog;
 import thu.adse.energyquiz.R;
 
 
@@ -34,7 +37,8 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     ArrayList<Long> questionIDsForThisRound = new ArrayList<>();
     String player1ID, player2ID, questionTitle, answer1, answer2, answer3, answer4;
     private TextView textViewNumberQuestionsProgress, textViewQuestion, textViewAnswer1, textViewAnswer2, textViewAnswer3, textViewAnswer4, textViewConfirmNext;
-    private MaterialCardView cardViewMultiPlayerAnswer1, cardViewMultiPlayerAnswer2, cardViewMultiPlayerAnswer3, cardViewMultiPlayerAnswer4, cardViewMultiPlayerSubmitAnswer, cardViewMultiPlayerGameBack;
+    private MaterialCardView cardViewMultiPlayerAnswer1, cardViewMultiPlayerAnswer2, cardViewMultiPlayerAnswer3, cardViewMultiPlayerAnswer4, cardViewMultiPlayerSubmitAnswer;
+    private CardView  cardViewMultiPlayerGameBack;
     private boolean answer1Chosen, answer2Chosen, answer3Chosen, answer4Chosen, switchConfirmNextButton;
     boolean answer1IsCorrect, answer2IsCorrect, answer3IsCorrect, answer4IsCorrect, creatorIsLoggedIn, player1finished, player2finished;
     public static boolean bothPlayersFinished = false, onePlayerisFinished = false;
@@ -84,7 +88,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         cardViewMultiPlayerAnswer3 = findViewById(R.id.cardViewMultiPlayerAnswer3);
         cardViewMultiPlayerAnswer4 = findViewById(R.id.cardViewMultiPlayerAnswer4);
         cardViewMultiPlayerSubmitAnswer = findViewById(R.id.cardViewMultiPlayerSubmitAnswer);
-        //cardViewMultiPlayerGameBack=findViewById(R.id.cardViewMultiPlayerGameBack); //TODO: Abort-Button während des Spiels funktionslos.
+
 
         dbRef.child("Questions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -141,13 +145,17 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
             }
         });
-        /*
+
+        cardViewMultiPlayerGameBack=findViewById(R.id.cardViewMultiPlayerGameBack); //TODO: Abort-Button während des Spiels funktionslos.
         cardViewMultiPlayerGameBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //abortGame(); //FIXME: Spielabrruch funktioniert nicht. Warum?
+                Log.d("MultiplayerGameActivity", "onClick: MultiplayerGameBack reached");
+
+
+                abortGame(); //FIXME: Spielabrruch funktioniert nicht. Warum?
             }
-        });*/
+        });
 
 
     }
@@ -357,9 +365,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     }
 
-    public void abortGame() { //FIXME: Abort-Game-Logik funktioniert nicht.
+    private void abortGame() { //FIXME: Abort-Game-Logik funktioniert nicht.
         lobbyDbRef.child("full").child(player1ID).removeValue();
         Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerLobbyScreen.class);
+        Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gepseichert!", Toast.LENGTH_SHORT).show();
         startActivity(abortGameIntent);
     }
 
@@ -394,5 +403,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             lobbyDbRef.child("full").child(player1ID).child("correctAnswersPlayer2").setValue(numberCorrectAnswersRound);
 
         }
+    }
+
+    private void isActiveDbCall(){
+
+        lobbyDbRef.child("full").child(player1ID).setValue(currentUser+"isActive");
     }
 }

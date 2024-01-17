@@ -36,7 +36,7 @@ public class MultiPlayerWaitingScreenAlert {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_multi_player_waiting_results_v2, null));
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         dialog = builder.create();
         waitingAlertIsActive = true;
         setFinishedState(player1ID, creatorIsLoggedIn, player2ID);
