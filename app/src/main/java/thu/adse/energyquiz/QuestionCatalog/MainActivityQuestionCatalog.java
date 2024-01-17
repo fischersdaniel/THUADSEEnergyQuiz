@@ -299,11 +299,11 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
-                    String rank = snapshot.child("rank").getValue(String.class);
-                    Log.d("UserRank", "UserRank:" + rank);
+                    Integer score = snapshot.child("score").getValue(Integer.class);
+                    Log.d("UserRank", "UserRank:" + score);
                         //RankCallback.UserRankRead(rank, requestedChange, question);
-                    final String ADMINRANK = "Fortgeschrittener";
-                    if (rank.equals(ADMINRANK)){
+                    final Integer ADMINSCORE = 100;
+                    if (score >= (ADMINSCORE)){
                         switch(requestedChange)
                         {
                             case EDIT_QUESTION:
