@@ -33,13 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+// Activity to log in the user with an existing account
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText loginEmail, loginPassword;
     private Switch remainLoggedInSwitch;
     private TextView signUpRedirectText, forgotPasswordRedirectText;
-//    private Button loginButton;
     private CardView cardViewLoginCardLoginButton, cardViewLoginBack;
     private String userID;
     private DatabaseReference usersDatabaseReference;
@@ -52,13 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
-//        loginButton = findViewById(R.id.login_button);
         cardViewLoginCardLoginButton = findViewById(R.id.cardViewLoginCardLoginButton);
         cardViewLoginBack = findViewById(R.id.cardViewLoginBack);
         forgotPasswordRedirectText = findViewById(R.id.forgotPasswordRedirectText);
         signUpRedirectText = findViewById(R.id.signUpRedirectText);
         remainLoggedInSwitch = findViewById(R.id.remainLoggedIn_switch);
 
+        // Close the Keyboard by touching anywhere on the screen expect the EditText-fields
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
         cardViewLoginBack.setOnClickListener(view -> {
@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = loginEmail.getText().toString();
                 String pass = loginPassword.getText().toString();
 
+                // Checks if the inputs are legit
                 if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     if (!pass.isEmpty()) {
                         auth.signInWithEmailAndPassword(email, pass)
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("current User", "Test");
 
                                         if (currentUser != null) {
-                                            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+                                            userID = currentUser.getUid();
                                             Log.d("current User", "succesfully getting userID:" + userID);
                                         } else {
                                             Log.d("current User", "Bitte Anmelden");
@@ -92,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                         // DB pull
                                         // pull of old user values
-                                        //String userID = "1"; //muss flex werden
                                         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
                                         usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -114,10 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
-                                                // Hier können bei Bedarf Aktionen für den Fall eines Abbruchs durchgeführt werden
+                                                // error
                                             }
                                         });
-
 
                                         Toast.makeText(LoginActivity.this, getString(R.string.logInSuccessfull), Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class ));

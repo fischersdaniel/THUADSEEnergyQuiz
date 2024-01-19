@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+// Main Activity of the User Management
 public class MainActivity extends AppCompatActivity {
 
     private CardView cardViewSettingsBack, cardViewUserSettingsLogout, cardViewUserSettingsPassword, cardViewUserSettingsDeleteUser;

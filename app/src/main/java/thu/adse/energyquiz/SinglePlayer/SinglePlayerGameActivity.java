@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+// Activity to play a singleplayer game
 public class SinglePlayerGameActivity extends AppCompatActivity {
 
     private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview, confirm_next_textview;
@@ -62,7 +63,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         Log.d("current User", "Test");
 
         if (currentUser != null) {
-            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            userID = currentUser.getUid();
             Log.d("current User", "successfully getting userID:" + userID);
         } else {
             Log.d("current User", "Bitte Anmelden");
@@ -108,14 +109,13 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshotQuestions) {
                             if (dataSnapshotQuestions.exists()) {
-                                // get the number of questions in the question DB
+                                // get the number of questions in the question DB (childs of question DB)
                                 countQuestionChilds = dataSnapshotQuestions.getChildrenCount();
                                 Log.d("current User", "countQuestionChilds " + countQuestionChilds);
 
                                 // Type indicator here is needed to read the array from the database
                                 GenericTypeIndicator<ArrayList<Integer>> typeIndi = new GenericTypeIndicator<ArrayList<Integer>>() {
                                 };
-                                //ArrayList<Integer> yourStringArray = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
                                 usedSessionIDsLocal = dataSnapshot.child("usedSessionIDs").getValue(typeIndi);
                                 // delete the init of the array with item 0 because it is not part of the actual questionIDs
                                 if(usedSessionIDsLocal.get(0) == 0){
@@ -125,11 +125,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                                 Log.d("current User", "usedSessionIDsLocal SIZE:" + usedSessionIDsLocal.size());
 
                                 // Generate random question IDs within the question catalog
-                                // 10 must be maxnumber ID from DB
                                 questionIDsPerRound = new int[numberQuestionsPerRound];
                                 Random randomQuestionID = new Random();
                                 counterRandomQuestions = 0;
-                                //int max = 11;
                                 int max = (int) countQuestionChilds;
                                 Log.d("current User", "max = countQuestionChilds " + max);
                                 int min = 1;
@@ -381,64 +379,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
-
-//                    if (answer1_choosen == actualQuestionAnswer1Correct) {
-//                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
-//
-//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is correct", "Der Wert von answer1_choosen ist: " + answer1_choosen);
-//                        Log.d("is correct", "Der Wert von actualQuestionAnswer1Correct ist: " + actualQuestionAnswer1Correct);
-//                    } else {
-//                        cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
-//
-//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is not correct", "Der Wert von answer1_choosen ist: " + answer1_choosen);
-//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer1Correct ist: " + actualQuestionAnswer1Correct);
-//                    }
-//
-//                    if (answer2_choosen == actualQuestionAnswer2Correct) {
-//                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
-//
-//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is correct", "Der Wert von answer2_choosen ist: " + answer2_choosen);
-//                        Log.d("is correct", "Der Wert von actualQuestionAnswer2Correct ist: " + actualQuestionAnswer2Correct);
-//                    } else {
-//                        cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
-//
-//
-//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is not correct", "Der Wert von answer2_choosen ist: " + answer2_choosen);
-//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer2Correct ist: " + actualQuestionAnswer2Correct);
-//                    }
-//
-//                    if (answer3_choosen == actualQuestionAnswer3Correct) {
-//                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
-//
-//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is correct", "Der Wert von answer3_choosen ist: " + answer3_choosen);
-//                        Log.d("is correct", "Der Wert von actualQuestionAnswer3Correct ist: " + actualQuestionAnswer3Correct);
-//                    } else {
-//                        cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
-//
-//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is not correct", "Der Wert von answer3_choosen ist: " + answer3_choosen);
-//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer3Correct ist: " + actualQuestionAnswer3Correct);
-//                    }
-//
-//                    if (answer4_choosen == actualQuestionAnswer4Correct) {
-//                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
-//
-//                        Log.d("SwitchState Right", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is correct", "Der Wert von answer4_choosen ist: " + answer4_choosen);
-//                        Log.d("is correct", "Der Wert von actualQuestionAnswer4Correct ist: " + actualQuestionAnswer4Correct);
-//                    } else {
-//                        cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
-//
-//                        Log.d("SwitchState Wrong", "Der Wert von switchConfirmNextButton ist: " + switchConfirmNextButton);
-//                        Log.d("is not correct", "Der Wert von answer4_choosen ist: " + answer4_choosen);
-//                        Log.d("is not correct", "Der Wert von actualQuestionAnswer4Correct ist: " + actualQuestionAnswer4Correct);
-//                    }
-
                     if (answer1_choosen == actualQuestionAnswer1Correct & answer2_choosen == actualQuestionAnswer2Correct & answer3_choosen == actualQuestionAnswer3Correct & answer4_choosen == actualQuestionAnswer4Correct) {
                         numberCorrectAnswersRound = numberCorrectAnswersRound + 1;
                     } else {
@@ -513,13 +453,11 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                     } else{
                         // Push of new IDs of the asked questions to the user DB
                         // At the end of the activity because then the questions were really asked
-                        //usedSessionIDsLocal.add(0);
-                        //usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsLocal);
                         Log.d("current User", "To be pushed usedSessionIDs in user DB: " + usedSessionIDsLocal);
                         usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsLocal, (error, ref) -> {
-                            // this part works like a on-complete-listener because the data has to be pushed completly
+                            // this part works like a on-complete-listener because the data has to be pushed completely
                             Log.d("current User", "Successfully pushed usedSessionIDs in user DB: " + usedSessionIDsLocal);
-                            // a too early switch to the new activity causes some data not to be pushed
+                            // this is used because a too early switch to the new activity causes sometimes some data not to be pushed
                         });
                         //Pass the results of the round to the next activity (result screen)
                         Intent intent_next_activity = new Intent(SinglePlayerGameActivity.this, SinglePlayerResultActivity.class);

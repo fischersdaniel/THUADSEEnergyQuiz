@@ -11,7 +11,7 @@ import android.widget.TextView;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
-
+// Activity to start a singleplayer game and choose the number of questions per round
 public class SinglePlayerStartActivity extends AppCompatActivity{
 
     private int numberQuestionsPerRound;
@@ -33,7 +33,6 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
         });
 
         // Standard number of numberQuestionsPerRound
-
         numberQuestionsPerRound = 5;
 
         // get the passed integer value "numberQuestionsPerRound" from the previous activity
@@ -42,13 +41,14 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
         if (extras != null) {
             numberQuestionsPerRound = extras.getInt("numberQuestionsPerRound");
             TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
-            //The key argument here must match that used in the other activity
+            // The key argument of the intent here must match that used in the other activity
         }
 
         cardViewSinglePlayerStartPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Erhöhe numberQuestionsPerRound um 1 bei Drücken der "Plus"-cardView
+                // Increase numberQuestionsPerRound by 1 when pressing the "plus"-cardView
+                // The maximum number of questions per round is 10
                 if(numberQuestionsPerRound < 10) {
                     numberQuestionsPerRound++;
                     TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
@@ -59,16 +59,14 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
         cardViewSinglePlayerStartMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Erhöhe numberQuestionsPerRound um 1 bei Drücken der "Plus"-cardView
+                // Decrease numberQuestionsPerRound by 1 when pressing the "minus"-cardView
+                // The minimum number of questions per round is 1
                 if (numberQuestionsPerRound > 1) {
                     numberQuestionsPerRound--;
                     TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
                 }
             }
         });
-
-
-        // display the variable numberQuestionsPerRound and buttons for logic -/+
 
         cardViewSinglePlayerStartPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override

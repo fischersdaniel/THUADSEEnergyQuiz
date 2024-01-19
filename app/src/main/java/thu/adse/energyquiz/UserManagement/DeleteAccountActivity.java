@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import thu.adse.energyquiz.R;
 
-
+// Activity to delete the account of the logged in user
 public class DeleteAccountActivity extends AppCompatActivity {
 
     private CardView cardViewConfirmDeleteAcc_button, cardViewDeleteAccountBack;

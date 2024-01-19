@@ -22,10 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+// Activity to display the results of a singleplayer game
 public class SinglePlayerResultActivity extends AppCompatActivity {
 
-//    private TextView results_textview, numberCorrectAnswers_textview, roundScore_textview, userScore_textview, userRank_textview;
-//    private Button repeatNewGame_button, home_button;
     private TextView textViewSinglePlayerResultsUser1QuotePlaceholder, textViewSinglePlayerResultsUser1PointsEarnedPlaceholder, textViewSinglePlayerResultsUser1AllPointsPlaceholder, textViewSinglePlayerResultsUser1RankPlaceholder;
     private CardView cardViewSinglePlayerResultsPlayAgain, cardViewSinglePlayerResultsGoHome;
 
@@ -39,7 +38,6 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_result_v2);
 
-//        results_textview = findViewById(R.id.results_textview);
         textViewSinglePlayerResultsUser1QuotePlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1QuotePlaceholder);
         textViewSinglePlayerResultsUser1PointsEarnedPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1PointsEarnedPlaceholder);
         textViewSinglePlayerResultsUser1AllPointsPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1AllPointsPlaceholder);
@@ -58,15 +56,13 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
         Log.d("current User", "Test");
 
         if (currentUser != null) {
-            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            userID = currentUser.getUid();
             Log.d("current User", "succesfully getting userID:" + userID);
         } else {
             Log.d("current User", "Bitte Anmelden");
         }
 
-        // DB pull
-            // pull of old user values
-        //String userID = "1"; //muss flex werden
+        // DB pull of old user values
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
         usersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,14 +116,12 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
                     totalCorrectAnswersLocal = totalCorrectAnswersLocal + numberCorrectAnswersRound;
                     totalAnswersLocal = totalAnswersLocal + numberQuestionsPerRound;
 
-//                    results_textview.setText(getString(R.string.results_textview));
                     textViewSinglePlayerResultsUser1QuotePlaceholder.setText(String.valueOf(numberCorrectAnswersRound) + " / " + String.valueOf(numberQuestionsPerRound));
                     textViewSinglePlayerResultsUser1PointsEarnedPlaceholder.setText(String.valueOf(scoreRound));
                     textViewSinglePlayerResultsUser1AllPointsPlaceholder.setText(String.valueOf(scoreUserLocal));
                     textViewSinglePlayerResultsUser1RankPlaceholder.setText(userRankLocal);
 
-                    // DB push
-                    //push of new user values
+                    // DB push of new user values
                     usersDatabaseReference.child("score").setValue(scoreUserLocal);
                     usersDatabaseReference.child("rank").setValue(userRankLocal);
                     usersDatabaseReference.child("totalCorrectAnswers").setValue(totalCorrectAnswersLocal);

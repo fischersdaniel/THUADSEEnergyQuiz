@@ -23,14 +23,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import thu.adse.energyquiz.R;
 
-
+// Activity to change the password of the logged in user
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText newPassword_text, confirmNewPassword_text;
-//    private Button changePassword_button;
     private CardView cardViewChangePWButton, cardViewChangePWBack;
-//    private TextView loginRedirectChangePasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +38,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         newPassword_text = findViewById(R.id.newPassword_text);
         confirmNewPassword_text = findViewById(R.id.confirmNewPassword_text);
-//        changePassword_button = findViewById(R.id.changePassword_button);
         cardViewChangePWButton = findViewById(R.id.cardViewChangePWButton);
-//        loginRedirectChangePasswordText = findViewById(R.id.loginRedirectChangePasswordText);
         cardViewChangePWBack = findViewById(R.id.cardViewChangePWBack);
 
+        // Close the Keyboard by touching anywhere on the screen expect the EditText-fields
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
         cardViewChangePWButton.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +50,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String newPassword = newPassword_text.getText().toString();
                 String confirmNewPassword = confirmNewPassword_text.getText().toString();
 
+                // Checks if the inputs are legit
                 if(!confirmNewPassword.equals(newPassword)) {
                     newPassword_text.setError(getString(R.string.passwordsNotEqual));
                     confirmNewPassword_text.setError(getString(R.string.passwordsNotEqual));

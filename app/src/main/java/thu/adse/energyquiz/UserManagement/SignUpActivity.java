@@ -31,10 +31,10 @@ import java.util.List;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+// Activity sign up an user without an existing account
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText signupUserName, signupEmail, signupPassword, signupConfirmPassword;
-//    private Button signUp_button;
     private CardView cardViewSignUpButton, cardViewSignUpBack;
     private TextView loginRedirectSignUp_textview;
     private String userID;
@@ -51,11 +51,11 @@ public class SignUpActivity extends AppCompatActivity {
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupConfirmPassword = findViewById((R.id.signup_confirmpassword));
-//        signUp_button = findViewById(R.id.signup_button);
         cardViewSignUpButton = findViewById(R.id.cardViewSignUpButton);
         loginRedirectSignUp_textview = findViewById(R.id.loginRedirectSignUp_textview);
         cardViewSignUpBack = findViewById(R.id.cardViewSignUpBack);
 
+        // Close the Keyboard by touching anywhere on the screen expect the EditText-fields
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Log.d("current User", "Test");
         if (currentUser != null) {
-            userID = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            userID = currentUser.getUid();
             Log.d("current User", "succesfully getting userID:" + userID);
         } else
         {
@@ -80,6 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String pass = signupPassword.getText().toString().trim();
                 String confirmPass = signupConfirmPassword.getText().toString().trim();
 
+                // Checks if the inputs are legit
                 if(!confirmPass.equals(pass)) {
                     signupPassword.setError(getString(R.string.passwordsNotEqual));
                     signupConfirmPassword.setError(getString(R.string.passwordsNotEqual));

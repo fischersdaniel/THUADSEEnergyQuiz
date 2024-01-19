@@ -23,13 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import thu.adse.energyquiz.R;
 
+// Activity to reset the password via email of the logged out user
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText sendNewPassword_email;
-//    private Button sendNewPassword_button;
     private CardView cardViewSendPWButton, cardViewForgotPWBack;
-//    private TextView loginRedirectForgotPasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +37,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         sendNewPassword_email = findViewById(R.id.sendNewPassword_email);
-//        sendNewPassword_button = findViewById(R.id.sendNewPassword_button);
         cardViewSendPWButton = findViewById(R.id.cardViewSendPWButton);
-//        loginRedirectForgotPasswordText = findViewById(R.id.loginRedirectForgotPasswordText);
         cardViewForgotPWBack = findViewById(R.id.cardViewForgotPWBack);
 
+        // Close the Keyboard by touching anywhere on the screen expect the EditText-fields
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
         cardViewSendPWButton.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = sendNewPassword_email.getText().toString();
 
+                // Checks if the inputs are legit
                 if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     auth.sendPasswordResetEmail(email)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
