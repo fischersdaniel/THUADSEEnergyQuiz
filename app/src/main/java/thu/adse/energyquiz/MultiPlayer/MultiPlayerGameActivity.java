@@ -146,14 +146,14 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             }
         });
 
-        cardViewMultiPlayerGameBack=findViewById(R.id.cardViewMultiPlayerGameBack); //TODO: Abort-Button während des Spiels funktionslos.
+        cardViewMultiPlayerGameBack=findViewById(R.id.cardViewMultiPlayerGameBack);
         cardViewMultiPlayerGameBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("MultiplayerGameActivity", "onClick: MultiplayerGameBack reached");
 
 
-                abortGame(); //FIXME: Spielabrruch funktioniert nicht. Warum?
+                abortGame();
             }
         });
         
@@ -366,7 +366,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     }
 
-    private void abortGame() { //FIXME: Abort-Game-Logik funktioniert nicht.
+    private void abortGame() {
         abortGame=true;
         lobbyDbRef.child("full").child(player1ID).child("abortGame").setValue(abortGame);
         //lobbyDbRef.child("full").child(player1ID).removeValue();

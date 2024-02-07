@@ -163,7 +163,7 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
 
     }
 
-    private void setTextForWinner() { //TODO: Strings nicht mehr softcoden.
+    private void setTextForWinner() {
         if (winner.equals("tie")) {
             textViewWinner.setText("Untentschieden.");
         } else if (winner.equals("abgebrochen")) {
