@@ -15,7 +15,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -176,7 +175,12 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         Log.d("0 setupchart", "im setupchart");
         PieDataSet pieDataSet = new PieDataSet(pieEntryList,"");
         PieData pieData = new PieData(pieDataSet);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        List<Integer> colors = new ArrayList<>();
+        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.rightbg)); // R.color.greenColor sollte in Ihren Ressourcen definiert sein
+        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.wrongbg)); // R.color.redColor sollte in Ihren Ressourcen definiert sein
+
+        pieDataSet.setColors(colors);
         pieDataSet.setValueTextColor(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.white));
         pieData.setValueTextSize(12f);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
