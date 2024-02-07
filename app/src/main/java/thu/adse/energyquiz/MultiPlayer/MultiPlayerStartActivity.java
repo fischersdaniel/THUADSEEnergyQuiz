@@ -39,7 +39,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     List<Long> usedQuestions = new ArrayList<>();
     List<Long> allQuestions = new ArrayList<>();
     boolean playerJoined,gameHasStarted;
-    private ValueEventListener lobbyEventListener;
+    private ValueEventListener lobbyEventListener, dbEventListener;
 
 
 
@@ -103,13 +103,14 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             }
         });
 
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener(){
+        dbRef.addListenerForSingleValueEvent(dbEventListener = new ValueEventListener(){
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     userNameCreator = snapshot.child("Users").child(userIdCreator).child("userName").getValue(String.class);
                     getUsedQuestionsFromUserDb(snapshot);
                     getAllQuestionIDs(snapshot.child("Questions"));
+                    dbRef.removeEventListener(dbEventListener);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

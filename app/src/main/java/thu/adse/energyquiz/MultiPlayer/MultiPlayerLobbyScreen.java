@@ -176,6 +176,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         userIDCreator=lobby.userIDCreator;
         lobbyDbRef.child("full").child(userIDCreator).child(userIDCreator+"isFinished").setValue(false);
         lobbyDbRef.child("full").child(userIDCreator).child(JoinedUser.getUid()+"isFinished").setValue(false);
+        lobbyDbRef.child("full").child(userIDCreator).child("abortGame").setValue(false);
         lobbyDbRef.child("open").child(lobby.userIDCreator).removeValue();
 
     }

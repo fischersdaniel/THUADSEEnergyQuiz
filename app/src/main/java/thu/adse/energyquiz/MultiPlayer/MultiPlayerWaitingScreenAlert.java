@@ -53,6 +53,7 @@ public class MultiPlayerWaitingScreenAlert {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("Lobbies").child("full").child(player1ID).child(player1ID + "isFinished").getValue(Boolean.class) &&
                         snapshot.child("Lobbies").child("full").child(player1ID).child(player2ID + "isFinished").getValue(Boolean.class)) {
+                    Log.d("checkIfOpponentsAreFinished", "onDataChange: both Players finished");
                     waitingAlertIsActive = false;
                     dialog.dismiss();
                     Intent resultScreenIntent = new Intent(context, MultiPlayerResultActivity.class);
@@ -64,6 +65,32 @@ public class MultiPlayerWaitingScreenAlert {
                     resultScreenIntent.putExtra("usedQuestionIDs", questionIDsForThisRound);
 
                     dBRef.removeEventListener(dblistener);
+                    context.startActivity(resultScreenIntent);
+                }else if (snapshot.child("Lobbies").child("full").child(player1ID).child("abortGame").getValue(Boolean.class)){
+                    Log.d("checkIfOpponentsAreFinished", "onDataChange: other Player aborted Game");
+                    if (creatorIsLoggedIn){
+                        dBRef.child("Lobbies").child("full").child(player1ID).child("correctAnswersPlayer2").setValue("Spielabbruch");
+                        Log.d("dbCall", "set correctAnswersPlayer2 on Spiel abgebrochen");
+                    }else {
+                        dBRef.child("Lobbies").child("full").child(player1ID).child("correctAnswersPlayer1").setValue("Spielabbruch");
+                        Log.d("dbCall", "set correctAnswersPlayer1 on Spiel abgebrochen");
+
+                    }
+
+                    waitingAlertIsActive= false;
+                    dialog.dismiss();
+                    Intent resultScreenIntent= new Intent(context, MultiPlayerResultActivity.class);
+                    resultScreenIntent.putExtra("numberQuestionsPerRound", numberQuestionsPerRound);
+                    resultScreenIntent.putExtra("player1ID", player1ID);
+                    resultScreenIntent.putExtra("player2ID", player2ID);
+                    resultScreenIntent.putExtra("numberCorrectAnswersRound", numberCorrectAnswersRound);
+                    resultScreenIntent.putExtra("creatorIsLoggedIn", creatorIsLoggedIn);
+                    resultScreenIntent.putExtra("usedQuestionIDs", questionIDsForThisRound);
+                    resultScreenIntent.putExtra("abortGame", snapshot.child("Lobbies").child("full").child(player1ID).child("abortGame").getValue(Boolean.class));
+
+                    dBRef.removeEventListener(dblistener);
+                    Log.d("intent", "start Result Screen");
+
                     context.startActivity(resultScreenIntent);
                 }
             }
@@ -96,6 +123,8 @@ public class MultiPlayerWaitingScreenAlert {
                 snapshot.child("full").child(player1ID).child(player2ID + "isFinished").getValue(Boolean.class)) {
             Log.d("playerFinished", "checkIfBothArefinished: One Player Is finished and waiting for the other");
             MultiPlayerGameActivity.onePlayerisFinished = true;
+        } else if (snapshot.child("full").child(player1ID).child("abortGame").getValue(Boolean.class)) {
+            MultiPlayerGameActivity.abortGame= true;
         } else {
             Log.d("playerFinished", "checkIfBothArefinished: no one is finished yet (hopefully never reached");
             MultiPlayerGameActivity.onePlayerisFinished = false;

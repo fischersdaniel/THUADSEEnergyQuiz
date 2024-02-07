@@ -265,7 +265,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="Auf anderen Spieler warten."
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/cardViewMultiPlayerResults1"
         app:layout_constraintEnd_toEndOf="parent"

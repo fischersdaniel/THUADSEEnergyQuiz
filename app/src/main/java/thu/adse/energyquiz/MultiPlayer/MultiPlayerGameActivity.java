@@ -41,7 +41,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     private CardView  cardViewMultiPlayerGameBack;
     private boolean answer1Chosen, answer2Chosen, answer3Chosen, answer4Chosen, switchConfirmNextButton;
     boolean answer1IsCorrect, answer2IsCorrect, answer3IsCorrect, answer4IsCorrect, creatorIsLoggedIn, player1finished, player2finished;
-    public static boolean bothPlayersFinished = false, onePlayerisFinished = false;
+    public static boolean bothPlayersFinished = false, onePlayerisFinished = false, abortGame=false;
     FirebaseUser currentUser;
     FirebaseAuth auth;
     int numberCorrectAnswersRound = 0, currentQuestionNumber, numberQuestionsPerRound;
@@ -156,7 +156,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
                 abortGame(); //FIXME: Spielabrruch funktioniert nicht. Warum?
             }
         });
-
+        
 
     }
 
@@ -321,6 +321,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
                     }
                 });
             } else {
+
                 MultiPlayerWaitingScreenAlert waitingAlert = new MultiPlayerWaitingScreenAlert(MultiPlayerGameActivity.this);
 
                 Log.d("Waiting Screen", "confirmChosenAnswers: waiting Screen is started");
@@ -366,11 +367,15 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     }
 
     private void abortGame() { //FIXME: Abort-Game-Logik funktioniert nicht.
-        lobbyDbRef.child("full").child(player1ID).removeValue();
+        abortGame=true;
+        lobbyDbRef.child("full").child(player1ID).child("abortGame").setValue(abortGame);
+        //lobbyDbRef.child("full").child(player1ID).removeValue();
         Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerLobbyScreen.class);
         Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gepseichert!", Toast.LENGTH_SHORT).show();
+        Log.d("AbortGame", "Player Aborted the Game");
         startActivity(abortGameIntent);
     }
+
 
     private void setDefaultColors() {
         cardViewMultiPlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(MultiPlayerGameActivity.this, R.color.white));

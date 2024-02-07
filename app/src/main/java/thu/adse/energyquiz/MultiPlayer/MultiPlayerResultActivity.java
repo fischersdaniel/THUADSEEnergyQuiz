@@ -103,10 +103,18 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
                 getWinner(snapshot);
                 setTextForWinner();
 
-                if (extras.getBoolean("creatorIsLoggedIn")) {
-                    textViewMultiPlayerResultsUser2QuotePlaceholder.setText(String.valueOf(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(Long.class)));
-                } else if (!extras.getBoolean("creatorIsLoggedIn")) {
-                    textViewMultiPlayerResultsUser2QuotePlaceholder.setText(String.valueOf(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(Long.class)));
+                if (extras.getBoolean("abortGame")) {
+                    if (extras.getBoolean("creatorIsLoggedIn")) {
+                        textViewMultiPlayerResultsUser2QuotePlaceholder.setText(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(String.class));
+                    } else if (!extras.getBoolean("creatorIsLoggedIn")) {
+                        textViewMultiPlayerResultsUser2QuotePlaceholder.setText(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(String.class));
+                    }
+                }else {
+                    if (extras.getBoolean("creatorIsLoggedIn")) {
+                        textViewMultiPlayerResultsUser2QuotePlaceholder.setText(String.valueOf(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(Long.class)));
+                    } else if (!extras.getBoolean("creatorIsLoggedIn")) {
+                        textViewMultiPlayerResultsUser2QuotePlaceholder.setText(String.valueOf(snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(Long.class)));
+                    }
                 }
 
                 updateUserDb();
@@ -137,22 +145,30 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
     }
 
     private void getWinner(DataSnapshot snapshot) {
-        long scorePlayer1 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(Long.class);
-        long scorePlayer2 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(Long.class);
+        if (extras.getBoolean("abortGame")){
+            winner="abgebrochen";
+        }else{
+            long scorePlayer1 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(Long.class);
+            long scorePlayer2 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(Long.class);
 
-        if (scorePlayer1 < scorePlayer2) {
-            winner = "player2";
-        } else if (scorePlayer2 < scorePlayer1) {
-            winner = "player1";
+            if (scorePlayer1 < scorePlayer2) {
+                winner = "player2";
+            } else if (scorePlayer2 < scorePlayer1) {
+                winner = "player1";
 
-        } else if (scorePlayer1 == scorePlayer2) {
-            winner = "tie";
+            } else if (scorePlayer1 == scorePlayer2) {
+                winner = "tie";
+            }
         }
+
     }
 
     private void setTextForWinner() { //TODO: Strings nicht mehr softcoden.
         if (winner.equals("tie")) {
             textViewWinner.setText("Untentschieden.");
+        } else if (winner.equals("abgebrochen")) {
+            textViewWinner.setText("Der Gegner hat das Spiel abgebrochen");
+
         } else if (currentUser.getUid().equals(extras.getString("player1ID"))) {
             if (winner.equals("player1")) {
                 textViewWinner.setText("Gewonnen!");
@@ -166,6 +182,8 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
             } else if (winner.equals("player1")) {
                 textViewWinner.setText("Leider Verloren :(");
             }
+        } else if (winner.equals("abgebrochen")) {
+            textViewWinner.setText("Der Gegner hat das Spiel abgebrochen");
         }
     }
 
