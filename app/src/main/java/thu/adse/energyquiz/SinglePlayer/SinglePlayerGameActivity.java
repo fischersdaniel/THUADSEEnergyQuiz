@@ -49,7 +49,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_player_game_v2);
+        setContentView(R.layout.activity_single_player_game);
 
         CardView cardViewSinglePlayerGameBack = findViewById(R.id.cardViewSinglePlayerGameBack);
         cardViewSinglePlayerGameBack.setOnClickListener(view -> {

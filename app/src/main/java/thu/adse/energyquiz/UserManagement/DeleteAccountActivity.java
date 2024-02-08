@@ -30,7 +30,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_account_v2);
+        setContentView(R.layout.activity_user_delete_account);
 
         cardViewConfirmDeleteAcc_button = findViewById(R.id.cardViewConfirmDeleteAcc_button);
         cardViewDeleteAccountBack = findViewById(R.id.cardViewDeleteAccountBack);
@@ -64,7 +64,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         cardViewDeleteAccountBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DeleteAccountActivity.this, MainActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, SettingsActivity.class));
             }
         });
     }

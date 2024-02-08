@@ -35,7 +35,7 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_question_question_catalog);
+        setContentView(R.layout.activity_catalog_edit_question);
         QuestionQuestionCatalog selectedQuestion = (QuestionQuestionCatalog) getIntent().getSerializableExtra("selectedQuestion");
 
         editTextEditQuestion = findViewById(R.id.editTextEditQuestion);

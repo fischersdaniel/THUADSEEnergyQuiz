@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,7 +62,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_question_catalog_v2);
+        setContentView(R.layout.activity_catalog_main);
 
         recyclerView = findViewById(R.id.recyclerViewQuestionDb);
         database = FirebaseDatabase.getInstance().getReference("Questions");
@@ -115,7 +114,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
 
         dialog = new Dialog(MainActivityQuestionCatalog.this);
-        dialog.setContentView(R.layout.dialog_edit_delete_question_catalog_v2);
+        dialog.setContentView(R.layout.dialog_catalog_choose_action);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(true);
@@ -258,7 +257,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         LayoutInflater inflater = this.getLayoutInflater();
 
         // Inflate and set the layout for the dialog
-        View dialogView = inflater.inflate(R.layout.dialog_signin_admin, null);
+        View dialogView = inflater.inflate(R.layout.dialog_catalog_admin_login, null);
         final EditText editText = dialogView.findViewById(R.id.edit_text_input);
 
         // Set the dialog title, view, and buttons

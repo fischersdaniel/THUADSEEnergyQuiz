@@ -12,15 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnergyQuiz"
         tools:targetApi="31">
-        <activity
-            android:name=".MultiPlayer.MultiPlayerLobbyScreen"
-            android:exported="false" />
-        <activity
-            android:name=".MultiPlayer.MultiPlayerStartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MultiPlayer.MultiPlayerResultActivity"
-            android:exported="false" />
+
+        <!-- Miscellaneous Activities-->
         <activity
             android:name=".Miscellaneous.SplashScreenActivity"
             android:exported="true">
@@ -30,63 +23,90 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".CatalogScreenActivity"
+            android:name=".Miscellaneous.HomeScreenActivity"
             android:exported="false" />
         <activity
             android:name=".Miscellaneous.StatisticsScreenActivity"
+            android:exported="false" />
+
+        <!-- MultiPlayer Activities-->
+        <activity
+            android:name=".MultiPlayer.MultiPlayerCancelLobbyLoadingScreenAlert"
             android:exported="false" />
         <activity
             android:name=".MultiPlayer.MultiPlayerGameActivity"
             android:exported="false" />
         <activity
-            android:name=".Miscellaneous.SettingsScreenActivity"
+            android:name=".MultiPlayer.MultiPlayerLobby"
             android:exported="false" />
         <activity
-            android:name=".Miscellaneous.HomeScreenActivity"
+            android:name=".MultiPlayer.MultiPlayerLobbyAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".MultiPlayer.MultiPlayerLobbyScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MultiPlayer.MultiPlayerResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MultiPlayer.MultiPlayerStartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MultiPlayer.MultiPlayerWaitingScreenAlert"
+            android:exported="false" />
+
+        <!-- MultiPlayer Activities-->
+        <activity
+            android:name=".QuestionCatalog.AnswerQuestionCatalog"
             android:exported="false" />
         <activity
             android:name=".QuestionCatalog.EditQuestionQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".QuestionCatalog.NewQuestionQuestionCatalog"
-            android:exported="false" />
-        <activity
             android:name=".QuestionCatalog.MainActivityQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".SinglePlayer.SinglePlayerStartActivity"
+            android:name=".QuestionCatalog.NewQuestionQuestionCatalog"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.DeleteAccountActivity"
+            android:name=".QuestionCatalog.QuestionAdapterQuestionCatalog"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionCatalog.QuestionQuestionCatalog"
+            android:exported="false" />
+
+        <!-- SinglePlayer Activities-->
+        <activity
+            android:name=".SinglePlayer.SinglePlayerGameActivity"
             android:exported="false" />
         <activity
             android:name=".SinglePlayer.SinglePlayerResultActivity"
             android:exported="false" />
         <activity
-            android:name=".SinglePlayer.SinglePlayerGameActivity"
+            android:name=".SinglePlayer.SinglePlayerStartActivity"
+            android:exported="false" />
+
+        <!-- UserManagement Activities-->
+        <activity
+            android:name=".UserManagement.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserManagement.MainActivity"
+            android:name=".UserManagement.DeleteAccountActivity"
             android:exported="false" />
         <activity
             android:name=".UserManagement.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.ChangePasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".UserManagement.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Loginscreen"
+            android:name=".UserManagement.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".Lobbyscreen"
+            android:name=".UserManagement.SignUpActivity"
             android:exported="false" />
-    </application>
 
+    </application>
 </manifest>

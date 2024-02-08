@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserManagement.MainActivity"
+    tools:context=".UserManagement.SettingsActivity"
     android:paddingBottom="50dp"
     android:clipToPadding="false">
 

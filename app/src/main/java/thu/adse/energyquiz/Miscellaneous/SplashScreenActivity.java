@@ -60,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             usedSessionIDsInit.add(0);
                             usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsInit);
                             Toast.makeText(SplashScreenActivity.this, getString(R.string.userIsLoggedIn), Toast.LENGTH_SHORT).show();
-                           // startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                           // startActivity(new Intent(SignUpActivity.this, SettingsActivity.class));
                         }
                         else{
                             Log.d("current User", "remainLogIn false");

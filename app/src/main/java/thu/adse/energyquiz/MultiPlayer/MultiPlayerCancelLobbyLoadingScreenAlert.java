@@ -36,7 +36,7 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
     void startLoadingScreenAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_multi_player_loading_screen_v2, null));
+        builder.setView(inflater.inflate(R.layout.dialog_multi_player_wait_start, null));
         builder.setCancelable(false);
         dialog = builder.create();
         dialog.show();

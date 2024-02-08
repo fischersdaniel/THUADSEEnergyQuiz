@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 import thu.adse.energyquiz.R;
-import thu.adse.energyquiz.SinglePlayer.SinglePlayerGameActivity;
 
 public class StatisticsScreenActivity extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics_screen);
+        setContentView(R.layout.activity_user_statistics);
 
         // Back button click listener
         CardView cardViewStatisticsBack = findViewById(R.id.cardViewStatisticsBack);

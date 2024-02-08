@@ -33,7 +33,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password_v2);
+        setContentView(R.layout.activity_user_change_password);
 
         auth = FirebaseAuth.getInstance();
         newPassword_text = findViewById(R.id.newPassword_text);
@@ -69,7 +69,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeSuccessfull), Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(ChangePasswordActivity.this, MainActivity.class));
+                                        startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
                                         finish();
                                     }
                                     else {
@@ -84,7 +84,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         cardViewChangePWBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChangePasswordActivity.this, MainActivity.class));
+                startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
             }
         });
 

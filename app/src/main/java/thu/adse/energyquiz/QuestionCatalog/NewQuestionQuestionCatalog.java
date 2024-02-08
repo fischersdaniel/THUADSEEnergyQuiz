@@ -51,7 +51,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_question_question_catalog);
+        setContentView(R.layout.activity_catalog_new_question);
 
         editTextNewQuestion = findViewById(R.id.editTextNewQuestion);
         editTextNewAnswer1 = findViewById(R.id.editTextNewAnswer1);

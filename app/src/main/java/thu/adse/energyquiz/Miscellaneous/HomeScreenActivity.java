@@ -15,11 +15,9 @@ import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
 import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
-import thu.adse.energyquiz.UserManagement.ForgotPasswordActivity;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
-import thu.adse.energyquiz.UserManagement.MainActivity;
+import thu.adse.energyquiz.UserManagement.SettingsActivity;
 
-import thu.adse.energyquiz.MultiPlayer.MultiPlayerLobbyScreen;
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean userLoggedIn;
 
@@ -59,7 +57,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (v.getId() == R.id.cardViewHomeUser) {
             // Aktionen für cardUser
             if(userLoggedIn){
-                startActivity(new Intent(HomeScreenActivity.this, MainActivity.class));
+                startActivity(new Intent(HomeScreenActivity.this, SettingsActivity.class));
             }else{
                 Toast.makeText(HomeScreenActivity.this, getString(R.string.userNotLoggedIn), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeScreenActivity.this, LoginActivity.class));

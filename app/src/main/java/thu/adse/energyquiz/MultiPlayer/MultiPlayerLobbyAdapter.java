@@ -42,7 +42,7 @@ public class MultiPlayerLobbyAdapter extends RecyclerView.Adapter<MultiPlayerLob
     @NonNull
     @Override
     public MultiPlayerLobbyAdapter.LobbyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewHolder = LayoutInflater.from(context).inflate(R.layout.lobby_item_multi_player,parent,false);
+        View viewHolder = LayoutInflater.from(context).inflate(R.layout.item_multi_player_lobby,parent,false);
 
         return new LobbyViewHolder(viewHolder);
     }

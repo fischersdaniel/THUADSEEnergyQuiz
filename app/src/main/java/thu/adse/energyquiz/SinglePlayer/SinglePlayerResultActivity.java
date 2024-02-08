@@ -36,7 +36,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_player_result_v2);
+        setContentView(R.layout.activity_single_player_result);
 
         textViewSinglePlayerResultsUser1QuotePlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1QuotePlaceholder);
         textViewSinglePlayerResultsUser1PointsEarnedPlaceholder = findViewById(R.id.textViewSinglePlayerResultsUser1PointsEarnedPlaceholder);

@@ -52,7 +52,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multi_player_lobby_screen_v2);
+        setContentView(R.layout.activity_multi_player_lobby);
         recyclerViewLobbyscreen = findViewById(R.id.recyclerViewLobbyscreen);
 
         recyclerViewLobbyscreen.setHasFixedSize(true);
@@ -76,7 +76,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         cardViewMultiPlayerLobbyBack = findViewById(R.id.cardViewMultiPlayerLobbyBack);
 
         dialog=new Dialog(MultiPlayerLobbyScreen.this);
-        dialog.setContentView(R.layout.dialog_multi_player_join_lobby_v2);
+        dialog.setContentView(R.layout.dialog_multi_player_join_game);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
