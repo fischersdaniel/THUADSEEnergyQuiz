@@ -70,23 +70,13 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
-        buttonSubmitNewQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitNewQuestion();
-                Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
-                startActivity(intent);
-            }
-
+        buttonSubmitNewQuestion.setOnClickListener(view -> {
+            submitNewQuestion();
+            Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
+            startActivity(intent);
         });
         buttonBackToCatalog = findViewById(R.id.buttonBackToCatalog);
-        buttonBackToCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backToCatalog();
-            }
-        });
-
+        buttonBackToCatalog.setOnClickListener(view -> backToCatalog());
         questionsDbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -130,6 +120,14 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to define the ID of the new question.
+     * The method is called when the activity is created.
+     * The method gets the data snapshot from the database and generates the new question IDs.
+     * @author Sebastian Steinhauser
+     *
+     * @param dataSnapshot The data snapshot from the database.
+     */
     public void defineID(DataSnapshot dataSnapshot) {
         List<String> questionIDs = new ArrayList<>();
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -138,11 +136,26 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         generateQuestionID(questionIDs);
     }
 
+    /**
+     * Method to go back to the question catalog.
+     * The method is called when the user clicks the back to catalog button.
+     * @author Sebastian Steinhauser
+     */
     public void backToCatalog(){
         Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
         startActivity(intent);
     }
 
+    /**
+     * Method to generate the question ID.
+     * The method is called when the activity is created.
+     * The method generates the new question ID based on the existing question IDs.
+     * If the question ID already exists, the method sets the new question ID to 0.
+     * If the question ID does not exist, the method sets the new question ID to the next available ID.
+     * @author Sebastian Steinhauser
+     *
+     * @param questionIDs The list of question IDs.
+     */
     public void generateQuestionID(List<String> questionIDs){
         int idCount=1;
         newQuestionId =1;
@@ -159,6 +172,11 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to hide the keyboard when the user touches the screen outside of the keyboard.
+     * @param ev The touch screen event.
+     * @return true if the event was handled, false otherwise
+     */
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View v = getCurrentFocus();
 
@@ -178,6 +196,10 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
+    /**
+     * Method to hide the keyboard.
+     * @param activity The activity where the keyboard will be hidden.
+     */
     private void hideKeyboard(Activity activity) {
 
         if (activity != null && activity.getWindow() != null) {

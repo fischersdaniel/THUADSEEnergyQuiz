@@ -2,14 +2,26 @@ package thu.adse.energyquiz.QuestionCatalog;
 
 import java.io.Serializable;
 
-import thu.adse.energyquiz.QuestionCatalog.AnswerQuestionCatalog;
-
+/**
+ * This class is the QuestionQuestionCatalog class. It is used to represent a question RecyclerView of the question catalog.
+ * @author Sebastian Steinhauser
+ */
 public class QuestionQuestionCatalog  implements Serializable {
 
     public String questionTitle,key;
     public AnswerQuestionCatalog answer1, answer2, answer3, answer4;
 
-
+    /**
+     * Constructor for the QuestionQuestionCatalog class.
+     * @author Sebastian Steinhauser
+     *
+     * @param questionTitle the title of the question
+     * @param key the key of the question
+     * @param answer1 the first answer to the question
+     * @param answer2 the second answer to the question
+     * @param answer3 the third answer to the question
+     * @param answer4 the fourth answer to the question
+     */
     public QuestionQuestionCatalog(String questionTitle, String key, AnswerQuestionCatalog answer1, AnswerQuestionCatalog answer2, AnswerQuestionCatalog answer3, AnswerQuestionCatalog answer4) {
         this.questionTitle = questionTitle;
         this.key = key;
@@ -19,51 +31,13 @@ public class QuestionQuestionCatalog  implements Serializable {
         this.answer4 = answer4;
     }
 
-    public String getQuestionTitle() {
-        return questionTitle;
-    }
-
-    public AnswerQuestionCatalog getAnswer1() {
-        return answer1;
-    }
-
-    public AnswerQuestionCatalog getAnswer2() {
-        return answer2;
-    }
-
-    public AnswerQuestionCatalog getAnswer3() {
-        return answer3;
-    }
-
-    public AnswerQuestionCatalog getAnswer4() {
-        return answer4;
-    }
-
-    public void setQuestionTitle(String questionTitle) {
-        this.questionTitle = questionTitle;
-    }
-
-    public void setAnswer1(AnswerQuestionCatalog answer1) {
-        this.answer1 = answer1;
-    }
-
-    public void setAnswer2(AnswerQuestionCatalog answer2) {
-        this.answer2 = answer2;
-    }
-
-    public void setAnswer3(AnswerQuestionCatalog answer3) {
-        this.answer3 = answer3;
-    }
-
-    public void setAnswer4(AnswerQuestionCatalog answer4) {
-        this.answer4 = answer4;
-    }
-
+    /**
+     * Method to get the key of the question.
+     * @author Sebastian Steinhauser
+     *
+     * @return the key of the question
+     */
     public String getKey() {
         return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 }

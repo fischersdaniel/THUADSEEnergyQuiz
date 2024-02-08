@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,20 +18,38 @@ import java.util.ArrayList;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * The class MultiPlayerWaitingScreenAlert is used to show a waiting screen alert dialog for the multiplayer game
+ * when the game is started and the players are waiting for the results of the other player.
+ * @author Sebastian Steinhauser
+ */
 public class MultiPlayerWaitingScreenAlert {
     Activity activity;
     AlertDialog dialog;
-//    Button buttonWaitingScreenAbort;
-    CardView cardViewPopUpResultsWaitingCancel;
     DatabaseReference dBRef = FirebaseDatabase.getInstance().getReference(), lobbyDbRef;
 
     public static boolean waitingAlertIsActive = false;
-    ValueEventListener dblistener;
+    ValueEventListener dbListener;
 
     MultiPlayerWaitingScreenAlert(Activity myActivity) {
         activity = myActivity;
     }
 
+    /**
+     * Start the waiting screen alert dialog for the multiplayer game.
+     * This dialog is shown when the game is started and the players are waiting for the results of the other player.
+     * The dialog is dismissed when both players are finished with the game.
+     * If one player aborts the game, the dialog is dismissed and the result screen is started with the information that the game was aborted.
+     * @author Sebastian Steinhauser
+     *
+     * @param player1ID the ID of the player who created the lobby
+     * @param player2ID the ID of the player who joined the lobby
+     * @param context the context of the activity
+     * @param numberQuestionsPerRound the number of questions per round
+     * @param numberCorrectAnswersRound the number of correct answers in the round
+     * @param creatorIsLoggedIn boolean to check if the creator of the lobby is logged in
+     * @param questionIDsForThisRound the IDs of the questions used in this round
+     */
     void startWaitingScreenAlertDialog(String player1ID, String player2ID, Context context, int numberQuestionsPerRound, int numberCorrectAnswersRound, boolean creatorIsLoggedIn, ArrayList<Long> questionIDsForThisRound) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -46,9 +64,21 @@ public class MultiPlayerWaitingScreenAlert {
         checkIfOpponentsAreFinished(player1ID, player2ID, context, numberQuestionsPerRound, numberCorrectAnswersRound, creatorIsLoggedIn, questionIDsForThisRound);
     }
 
+    /**
+     * Check if the opponents are finished with the game and start the result screen if they are finished
+     * @author Sebastian Steinhauser
+     *
+     * @param player1ID the ID of the player who created the lobby
+     * @param player2ID the ID of the player who joined the lobby
+     * @param context the context of the activity
+     * @param numberQuestionsPerRound the number of questions per round
+     * @param numberCorrectAnswersRound the number of correct answers in the round
+     * @param creatorIsLoggedIn boolean to check if the creator of the lobby is logged in
+     * @param questionIDsForThisRound the IDs of the questions used in this round
+     */
     void checkIfOpponentsAreFinished(String player1ID, String player2ID, Context context, int numberQuestionsPerRound, int numberCorrectAnswersRound, boolean creatorIsLoggedIn, ArrayList<Long> questionIDsForThisRound) {
 
-        dBRef.addValueEventListener(dblistener = new ValueEventListener() {
+        dBRef.addValueEventListener(dbListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("Lobbies").child("full").child(player1ID).child(player1ID + "isFinished").getValue(Boolean.class) &&
@@ -64,7 +94,7 @@ public class MultiPlayerWaitingScreenAlert {
                     resultScreenIntent.putExtra("creatorIsLoggedIn", creatorIsLoggedIn);
                     resultScreenIntent.putExtra("usedQuestionIDs", questionIDsForThisRound);
 
-                    dBRef.removeEventListener(dblistener);
+                    dBRef.removeEventListener(dbListener);
                     context.startActivity(resultScreenIntent);
                 }else if (snapshot.child("Lobbies").child("full").child(player1ID).child("abortGame").getValue(Boolean.class)){
                     Log.d("checkIfOpponentsAreFinished", "onDataChange: other Player aborted Game");
@@ -88,7 +118,7 @@ public class MultiPlayerWaitingScreenAlert {
                     resultScreenIntent.putExtra("usedQuestionIDs", questionIDsForThisRound);
                     resultScreenIntent.putExtra("abortGame", snapshot.child("Lobbies").child("full").child(player1ID).child("abortGame").getValue(Boolean.class));
 
-                    dBRef.removeEventListener(dblistener);
+                    dBRef.removeEventListener(dbListener);
                     Log.d("intent", "start Result Screen");
 
                     context.startActivity(resultScreenIntent);
@@ -100,10 +130,14 @@ public class MultiPlayerWaitingScreenAlert {
         });
     }
 
-    public void stopWaitingScreenAlertDialog() {
-        dialog.dismiss();
-    }
-
+    /**
+     * Set the finished state of the game to true for the player who is still logged in
+     * @author Sebastian Steinhauser
+     *
+     * @param player1ID the ID of the player who created the lobby
+     * @param creatorIsLoggedIn boolean to check if the creator of the lobby is logged in
+     * @param player2ID the ID of the player who joined the lobby
+     */
     private void setFinishedState(String player1ID, boolean creatorIsLoggedIn, String player2ID) {
         lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
 
@@ -114,21 +148,5 @@ public class MultiPlayerWaitingScreenAlert {
         }
     }
 
-    private void checkIfBothArefinished(DataSnapshot snapshot, String player1ID, String player2ID) {
-        if (snapshot.child("full").child(player1ID).child(player1ID + "isFinished").getValue(Boolean.class) &&
-                snapshot.child("full").child(player1ID).child(player2ID + "isFinished").getValue(Boolean.class)) {
-            MultiPlayerGameActivity.bothPlayersFinished = true;
-            Log.d("bothPlayersAreFinished", "checkIfBothArefinished: " + MultiPlayerGameActivity.bothPlayersFinished);
-        } else if (snapshot.child("full").child(player1ID).child(player1ID + "isFinished").getValue(Boolean.class) ||
-                snapshot.child("full").child(player1ID).child(player2ID + "isFinished").getValue(Boolean.class)) {
-            Log.d("playerFinished", "checkIfBothArefinished: One Player Is finished and waiting for the other");
-            MultiPlayerGameActivity.onePlayerisFinished = true;
-        } else if (snapshot.child("full").child(player1ID).child("abortGame").getValue(Boolean.class)) {
-            MultiPlayerGameActivity.abortGame= true;
-        } else {
-            Log.d("playerFinished", "checkIfBothArefinished: no one is finished yet (hopefully never reached");
-            MultiPlayerGameActivity.onePlayerisFinished = false;
-            MultiPlayerGameActivity.bothPlayersFinished = false;
-        }
-    }
+
 }

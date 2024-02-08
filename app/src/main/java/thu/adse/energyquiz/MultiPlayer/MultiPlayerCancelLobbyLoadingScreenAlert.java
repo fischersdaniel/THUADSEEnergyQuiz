@@ -11,16 +11,24 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * A class that creates a dialog window for canceling a multiplayer lobby screen.
+ * @author Sebastian Steinhauser
+ */
 public class MultiPlayerCancelLobbyLoadingScreenAlert {
 
     Activity activity;
     AlertDialog dialog;
-//    Button buttonLoadingScreenCancelLobby;
     CardView cardViewPopUpLobbyWaitingCancel;
     DatabaseReference lobbyDbRef  = FirebaseDatabase.getInstance().getReference().child("Lobbies");
     FirebaseAuth auth;
 
-
+    /**
+     * Constructor for initializing the MultiPlayerCancelLobbyLoadingScreenAlert object.
+     * @author Sebastian Steinhauser
+     *
+     * @param myActivity The activity where the dialog window will be displayed.
+     */
     MultiPlayerCancelLobbyLoadingScreenAlert(Activity myActivity){
         activity = myActivity;
     }
@@ -36,6 +44,10 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
         closeMultiPlayerLoadingScreenAlertDialog();
     }
 
+    /**
+     * Displays the dialog window for the lobby screen.
+     * @author Sebastian Steinhauser
+     */
     void closeMultiPlayerLoadingScreenAlertDialog() {
         cardViewPopUpLobbyWaitingCancel = dialog.findViewById(R.id.cardViewPopUpLobbyWaitingCancel);
         cardViewPopUpLobbyWaitingCancel.setOnClickListener(view -> {

@@ -32,7 +32,14 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
 
-public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
+/**
+ * This class is used to display the questions in the question catalog and to add, edit or delete questions.
+ * @author Sebastian Steinhauser
+ * To edit or create a new question, the user must have a certain rank or enter the admin password.
+ * @author Johannes Klever
+ */
+
+public class MainActivityQuestionCatalog extends AppCompatActivity implements RecyclerViewInterfaceQuestionCatalog {
 
     RecyclerView recyclerView;
     DatabaseReference database;
@@ -41,7 +48,6 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     QuestionAdapterQuestionCatalog questionAdapter;
     ArrayList<QuestionQuestionCatalog> list;
     Dialog dialog;
-//    Button buttonToNewQuestionActivity, buttonBackToMenu, buttonDialogEdit, buttonDialogDelete, buttonDialogCancel;
     CardView cardViewMainCatalogBack, cardViewMainCatalogAddQuestion ;
     CardView cardViewPopUpEDEdit, cardViewPopUpEDDelete, cardViewPopUpEDCancel;
 
@@ -98,78 +104,92 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         });
 
 
-//        buttonToNewQuestionActivity = findViewById(R.id.buttonToNewQuestion);
         cardViewMainCatalogAddQuestion = findViewById(R.id.cardViewMainCatalogAddQuestion);
 
-//        buttonToNewQuestionActivity.setOnClickListener(view ->
-        cardViewMainCatalogAddQuestion.setOnClickListener(view ->
-        {
-            CheckCataloguePermission(CatalogueChange.ADD_QUESTION, null);
-        });
 
-//        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
+        cardViewMainCatalogAddQuestion.setOnClickListener(view ->
+                CheckCataloguePermission(CatalogueChange.ADD_QUESTION, null));
+
         cardViewMainCatalogBack = findViewById(R.id.cardViewMainCatalogBack);
-//        buttonBackToMenu.setOnClickListener(view -> backToMenu());
         cardViewMainCatalogBack.setOnClickListener(view -> backToMenu());
 
 
         dialog = new Dialog(MainActivityQuestionCatalog.this);
         dialog.setContentView(R.layout.dialog_edit_delete_question_catalog_v2);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(true);
-
-
-//        buttonDialogEdit = dialog.findViewById(R.id.buttonDialogEdit);
-//        buttonDialogDelete = dialog.findViewById(R.id.buttonDialogDelete);
-//        buttonDialogCancel = dialog.findViewById(R.id.buttonDialogCancel);
 
         cardViewPopUpEDEdit = dialog.findViewById(R.id.cardViewPopUpEDEdit);
         cardViewPopUpEDDelete = dialog.findViewById(R.id.cardViewPopUpEDDelete);
         cardViewPopUpEDCancel = dialog.findViewById(R.id.cardViewPopUpEDCancel);
 
-//        buttonDialogCancel.setOnClickListener((View view) -> {
-        cardViewPopUpEDCancel.setOnClickListener((View view) -> {
-            dialog.dismiss();
-        });
+        cardViewPopUpEDCancel.setOnClickListener((View view) -> dialog.dismiss());
 
-//        buttonDialogEdit.setOnClickListener((View view) -> {
         cardViewPopUpEDEdit.setOnClickListener((View view) -> {
             CheckCataloguePermission(CatalogueChange.EDIT_QUESTION, selectedQuestion);
-            // openEditQuestion(selectedQuestion);
             dialog.dismiss();
         });
 
-//        buttonDialogDelete.setOnClickListener(view -> {
         cardViewPopUpEDDelete.setOnClickListener(view -> {
             CheckCataloguePermission(CatalogueChange.DELETE_QUESTION, selectedQuestion);
             // deleteQuestion(selectedQuestion);
             dialog.dismiss();
-            //Optional: Dialog: "Sind Sie sicher, dass Sie die Frage löschen wollen?"
         });
     }
+
+    /**
+     * This method is used to open the activity to edit a question.
+     * @author Sebastian Steinhauser
+     *
+     * @param question The question that should be edited.
+     */
     public void openEditQuestion(QuestionQuestionCatalog question) {
         Intent intent = new Intent(MainActivityQuestionCatalog.this, EditQuestionQuestionCatalog.class);
         intent.putExtra("selectedQuestion", question);
         startActivity(intent);
     }
 
+    /**
+     * This method is used to open the activity to add a new question to the question catalog.
+     * @author Sebastian Steinhauser
+     */
     public void openNewQuestion() {
         Intent intent = new Intent(MainActivityQuestionCatalog.this, NewQuestionQuestionCatalog.class);
         startActivity(intent);
     }
+
+    /**
+     * This method is used to return to the home screen activity.
+     * It is called when the user clicks the back button in the question catalog activity.
+     * @author Sebastian Steinhauser
+     */
     public void backToMenu(){
         Intent intent = new Intent(MainActivityQuestionCatalog.this, HomeScreenActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * This method is used to display the dialog window for editing or deleting a question.
+     * It is called when the user clicks on a question in the question catalog.
+     * @author Sebastian Steinhauser
+     *
+     * @param position The position of the question in the question catalog.
+     * @param question The question that was clicked on.
+     */
     @Override
     public void onItemClick(int position, QuestionQuestionCatalog question) {
         selectedQuestion=question;
         dialog.show();
     }
 
+    /**
+     * This method is used to delete a question from the question catalog.
+     * It is called when the user clicks the delete button in the dialog window for editing or deleting a question.
+     * @author Sebastian Steinhauser
+     *
+     * @param question The question that should be deleted.
+     */
     public void deleteQuestion(QuestionQuestionCatalog question) {
         database.child(question.getKey()).removeValue();
     }
@@ -244,19 +264,13 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         // Set the dialog title, view, and buttons
         builder.setTitle("Bitte geben Sie das Adminpasswort ein")
                 .setView(dialogView)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String inputstring = editText.getText().toString();
-                        // Due to Asychronous processes we need to wait for the String Input
-                        Callback.onAdminPasswordEntered(inputstring, requestedChange, question);
-                        // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
-                    }
+                .setPositiveButton("OK", (dialog, which) -> {
+                    String inputstring = editText.getText().toString();
+                    // Due to Asychronous processes we need to wait for the String Input
+                    Callback.onAdminPasswordEntered(inputstring, requestedChange, question);
+                    // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         // Create and show the AlertDialog
         AlertDialog dialog = builder.create();
@@ -270,7 +284,7 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
     }
     public void CheckPlayerRank(CatalogueChange requestedChange, QuestionQuestionCatalog question){
         //Hier werden lokale Variablen definiert
-        String userId = "";
+        String userId;
 
         //Hier werden Datenbankinstanzen initialisiert
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -288,10 +302,6 @@ public class MainActivityQuestionCatalog<LoginDialogFragment> extends AppCompatA
         {
             userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
             Log.d("current User", "succesfully getting userID:" + userId);
-        }
-        if (userId == null){
-            ReadadminpasswordDB(requestedChange, question);
-            return;
         }
         databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         databaseRank.addValueEventListener(new ValueEventListener() {
