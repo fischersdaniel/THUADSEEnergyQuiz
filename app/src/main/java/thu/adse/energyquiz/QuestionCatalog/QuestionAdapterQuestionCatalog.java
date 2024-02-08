@@ -44,10 +44,10 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
 
         QuestionQuestionCatalog question = list.get(position);
         holder.questionTitle.setText(question.questionTitle);
-        holder.answerText1.setText(question.answer1.answerText);
-        holder.answerText2.setText(question.answer2.answerText);
-        holder.answerText3.setText(question.answer3.answerText);
-        holder.answerText4.setText(question.answer4.answerText);
+//        holder.answerText1.setText(question.answer1.answerText);
+//        holder.answerText2.setText(question.answer2.answerText);
+//        holder.answerText3.setText(question.answer3.answerText);
+//        holder.answerText4.setText(question.answer4.answerText);
         holder.itemView.setOnClickListener(view -> {
             if (recyclerViewInterface != null) {
                 int pos = holder.getAdapterPosition();
@@ -64,14 +64,14 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder{
-        TextView questionTitle, answerText1, answerText2, answerText3, answerText4;
+        TextView questionTitle; //, answerText1, answerText2, answerText3, answerText4;
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
             questionTitle = itemView.findViewById(R.id.textViewQuestionTitle);
-            answerText1 = itemView.findViewById(R.id.textViewAnswerText1);
-            answerText2 = itemView.findViewById(R.id.textViewAnswerText2);
-            answerText3 = itemView.findViewById(R.id.textViewAnswerText3);
-            answerText4 = itemView.findViewById(R.id.textViewAnswerText4);
+//            answerText1 = itemView.findViewById(R.id.textViewAnswerText1);
+//            answerText2 = itemView.findViewById(R.id.textViewAnswerText2);
+//            answerText3 = itemView.findViewById(R.id.textViewAnswerText3);
+//            answerText4 = itemView.findViewById(R.id.textViewAnswerText4);
         }
     }
 }
