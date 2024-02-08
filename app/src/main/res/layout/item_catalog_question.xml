@@ -32,6 +32,9 @@
 </androidx.cardview.widget.CardView>
 
 
+
+<!--    Uncomment the following code and comment out to code above to re-enable displaying the 4 Answers to each question as well-->
+
     <!--
     <?xml version="1.0" encoding="utf-8"?>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

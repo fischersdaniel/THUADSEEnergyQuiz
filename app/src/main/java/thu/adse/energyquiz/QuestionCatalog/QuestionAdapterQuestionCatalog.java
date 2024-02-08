@@ -44,10 +44,15 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
 
         QuestionQuestionCatalog question = list.get(position);
         holder.questionTitle.setText(question.questionTitle);
+
+//        Uncomment the following code bracket to re-enable displaying the 4 Answers to each question as well
+//        Don't forget to do the same in app/src/main/res/layout/item_catalog_question.xml
+
 //        holder.answerText1.setText(question.answer1.answerText);
 //        holder.answerText2.setText(question.answer2.answerText);
 //        holder.answerText3.setText(question.answer3.answerText);
 //        holder.answerText4.setText(question.answer4.answerText);
+
         holder.itemView.setOnClickListener(view -> {
             if (recyclerViewInterface != null) {
                 int pos = holder.getAdapterPosition();
@@ -68,6 +73,10 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
             questionTitle = itemView.findViewById(R.id.textViewQuestionTitle);
+
+//            Uncomment the following code bracket to re-enable displaying the 4 Answers to each question as well
+//            Don't forget to do the same in app/src/main/res/layout/item_catalog_question.xml
+
 //            answerText1 = itemView.findViewById(R.id.textViewAnswerText1);
 //            answerText2 = itemView.findViewById(R.id.textViewAnswerText2);
 //            answerText3 = itemView.findViewById(R.id.textViewAnswerText3);
