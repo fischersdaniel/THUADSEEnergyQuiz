@@ -19,8 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
-import thu.adse.energyquiz.SinglePlayer.SinglePlayerResultActivity;
 
+/**
+ * This class sets the result screen for the multiplayer game.
+ * @author Sebastian Steinhauser
+ */
 public class MultiPlayerResultActivity extends AppCompatActivity {
 
     private TextView textViewMultiPlayerResultsUser1QuotePlaceholder, textViewMultiPlayerResultsUser2QuotePlaceholder,
@@ -125,28 +128,28 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
             }
         });
 
-        cardViewMultiPlayerResultsPlayAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MultiPlayerResultActivity.this, MultiPlayerLobbyScreen.class);
-                dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
-                startActivity(intent);
-            }
+        cardViewMultiPlayerResultsPlayAgain.setOnClickListener(v -> {
+            Intent intent = new Intent(MultiPlayerResultActivity.this, MultiPlayerLobbyScreen.class);
+            dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
+            startActivity(intent);
         });
 
-        cardViewMultiPlayerResultsGoHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
-                startActivity(new Intent(MultiPlayerResultActivity.this, HomeScreenActivity.class));
-            }
+        cardViewMultiPlayerResultsGoHome.setOnClickListener(v -> {
+            dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
+            startActivity(new Intent(MultiPlayerResultActivity.this, HomeScreenActivity.class));
         });
-
     }
 
+    /**
+     * This method checks who won the game and sets the winner variable accordingly.
+     * It also checks if the game was aborted from one of the players.
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot The snapshot of the database
+     */
     private void getWinner(DataSnapshot snapshot) {
         if (extras.getBoolean("abortGame")){
-            winner="abgebrochen";
+            winner="aborted";
         }else{
             long scorePlayer1 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer1").getValue(Long.class);
             long scorePlayer2 = snapshot.child("Lobbies").child("full").child(extras.getString("player1ID")).child("correctAnswersPlayer2").getValue(Long.class);
@@ -163,10 +166,17 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method sets the text for the winner TextView according to the winner variable.
+     * If the game was aborted, it sets the text accordingly.
+     * If the current user is the creator of the lobby, it sets the text for the winner accordingly.
+     * If the current user is the joiner of the lobby, it sets the text for the winner.
+     * @author Sebastian Steinhauser
+     */
     private void setTextForWinner() {
         if (winner.equals("tie")) {
             textViewWinner.setText("Untentschieden.");
-        } else if (winner.equals("abgebrochen")) {
+        } else if (winner.equals("aborted")) {
             textViewWinner.setText("Der Gegner hat das Spiel abgebrochen");
 
         } else if (currentUser.getUid().equals(extras.getString("player1ID"))) {
@@ -182,11 +192,15 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
             } else if (winner.equals("player1")) {
                 textViewWinner.setText("Leider Verloren :(");
             }
-        } else if (winner.equals("abgebrochen")) {
+        } else if (winner.equals("aborted")) {
             textViewWinner.setText("Der Gegner hat das Spiel abgebrochen");
         }
     }
 
+    /**
+     * This method updates the user database with the new score, rank, totalCorrectAnswers and totalAnswers of the current user.
+     * @author Sebastian Steinhauser
+     */
     private void updateUserDb() {
         if (extras.getBoolean("creatorIsLoggedIn")) {
             userDbRef.child(extras.getString("player1ID")).child("score").setValue(scoreUserLocal);

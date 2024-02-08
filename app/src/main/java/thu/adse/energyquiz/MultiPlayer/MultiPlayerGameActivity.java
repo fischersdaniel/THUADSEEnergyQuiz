@@ -1,34 +1,30 @@
 package thu.adse.energyquiz.MultiPlayer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import thu.adse.energyquiz.QuestionCatalog.EditQuestionQuestionCatalog;
 import thu.adse.energyquiz.R;
 
+/**
+ * This class is responsible for the game logic of the multiplayer game.
+ * @author Sebastian Steinhauser
+ */
 
 public class MultiPlayerGameActivity extends AppCompatActivity {
 
@@ -40,8 +36,8 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     private MaterialCardView cardViewMultiPlayerAnswer1, cardViewMultiPlayerAnswer2, cardViewMultiPlayerAnswer3, cardViewMultiPlayerAnswer4, cardViewMultiPlayerSubmitAnswer;
     private CardView  cardViewMultiPlayerGameBack;
     private boolean answer1Chosen, answer2Chosen, answer3Chosen, answer4Chosen, switchConfirmNextButton;
-    boolean answer1IsCorrect, answer2IsCorrect, answer3IsCorrect, answer4IsCorrect, creatorIsLoggedIn, player1finished, player2finished;
-    public static boolean bothPlayersFinished = false, onePlayerisFinished = false, abortGame=false;
+    boolean answer1IsCorrect, answer2IsCorrect, answer3IsCorrect, answer4IsCorrect, creatorIsLoggedIn;
+    public static boolean bothPlayersFinished = false, abortGame=false;
     FirebaseUser currentUser;
     FirebaseAuth auth;
     int numberCorrectAnswersRound = 0, currentQuestionNumber, numberQuestionsPerRound;
@@ -60,17 +56,14 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
 
-        dbRef.child("Lobbies").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot snapshot = task.getResult();
-                checkIfCreatorIsLoggedIn(snapshot);
+        dbRef.child("Lobbies").get().addOnCompleteListener(task -> {
+            DataSnapshot snapshot = task.getResult();
+            checkIfCreatorIsLoggedIn(snapshot);
 
-                for (DataSnapshot dataSnapshot : snapshot.child("full").child(player1ID).child("questionsForThisRound").getChildren()) {
-                    questionIDsForThisRound.add(dataSnapshot.getValue(Long.class));
-                }
-                numberQuestionsPerRound = questionIDsForThisRound.size();
+            for (DataSnapshot dataSnapshot : snapshot.child("full").child(player1ID).child("questionsForThisRound").getChildren()) {
+                questionIDsForThisRound.add(dataSnapshot.getValue(Long.class));
             }
+            numberQuestionsPerRound = questionIDsForThisRound.size();
         });
 
 
@@ -90,18 +83,15 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         cardViewMultiPlayerSubmitAnswer = findViewById(R.id.cardViewMultiPlayerSubmitAnswer);
 
 
-        dbRef.child("Questions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+        dbRef.child("Questions").get().addOnCompleteListener(task -> {
 
-                if (!bothPlayersFinished) {
-                    DataSnapshot snapshot = task.getResult();
-                    currentQuestionNumber = 1;
-                    getQuestionsFromDB(snapshot, (currentQuestionNumber - 1));
-                    loadQuestion(currentQuestionNumber);
-                }
-
+            if (!bothPlayersFinished) {
+                DataSnapshot snapshot = task.getResult();
+                currentQuestionNumber = 1;
+                getQuestionsFromDB(snapshot, (currentQuestionNumber - 1));
+                loadQuestion(currentQuestionNumber);
             }
+
         });
 
 
@@ -110,56 +100,33 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         answer2Chosen = false;
         answer3Chosen = false;
         answer4Chosen = false;
-        cardViewMultiPlayerAnswer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                answer1ChosenCheck();
-            }
-        });
+        cardViewMultiPlayerAnswer1.setOnClickListener(v -> answer1ChosenCheck());
 
-        cardViewMultiPlayerAnswer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                answer2ChosenCheck();
-            }
-        });
+        cardViewMultiPlayerAnswer2.setOnClickListener(v -> answer2ChosenCheck());
 
-        cardViewMultiPlayerAnswer3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                answer3ChosenCheck();
-            }
-        });
+        cardViewMultiPlayerAnswer3.setOnClickListener(v -> answer3ChosenCheck());
 
-        cardViewMultiPlayerAnswer4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                answer4ChosenCheck();
-            }
-        });
+        cardViewMultiPlayerAnswer4.setOnClickListener(v -> answer4ChosenCheck());
 
-        cardViewMultiPlayerSubmitAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmChosenAnswers();
-
-            }
-        });
+        cardViewMultiPlayerSubmitAnswer.setOnClickListener(v -> confirmChosenAnswers());
 
         cardViewMultiPlayerGameBack=findViewById(R.id.cardViewMultiPlayerGameBack);
-        cardViewMultiPlayerGameBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MultiplayerGameActivity", "onClick: MultiplayerGameBack reached");
+
+        cardViewMultiPlayerGameBack.setOnClickListener(v -> {
+            Log.d("MultiplayerGameActivity", "onClick: MultiplayerGameBack reached");
 
 
-                abortGame();
-            }
+            abortGame();
         });
-        
-
     }
 
+    /**
+     * Retrieves questions and answers from the database.
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot The snapshot of the database.
+     * @param i Index of the question.
+     */
     public void getQuestionsFromDB(DataSnapshot snapshot, int i) {
         questionTitle = snapshot.child(String.valueOf(questionIDsForThisRound.get(i))).child("questionTitle").getValue(String.class);
         answer1 = snapshot.child(String.valueOf(questionIDsForThisRound.get(i))).child("answers").child("answer1").child("answerText").getValue(String.class);
@@ -176,6 +143,12 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Loads the current question into the UI.
+     * @author Sebastian Steinhauser
+     *
+     * @param currentQuestionNumber The number of the current question.
+     */
     public void loadQuestion(int currentQuestionNumber) {
         textViewNumberQuestionsProgress.setText(Integer.toString(currentQuestionNumber) + " / " + Integer.toString(numberQuestionsPerRound));
         textViewQuestion.setText(questionTitle);
@@ -186,6 +159,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         textViewConfirmNext.setText(getString(R.string.confirm_button));
     }
 
+    /**
+     * Checks if the first answer is chosen and changes the color of the card view accordingly.
+     * @author Sebastian Steinhauser
+     */
     private void answer1ChosenCheck() {
         if (!switchConfirmNextButton) {
             answer1Chosen = !answer1Chosen;
@@ -198,7 +175,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * Checks if the second answer is chosen and changes the color of the card view accordingly.
+     * @author Sebastian Steinhauser
+     */
     private void answer2ChosenCheck() {
         if (!switchConfirmNextButton) {
             answer2Chosen = !answer2Chosen;
@@ -212,6 +192,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if the third answer is chosen and changes the color of the card view accordingly.
+     * @author Sebastian Steinhauser
+     */
     private void answer3ChosenCheck() {
         if (!switchConfirmNextButton) {
             answer3Chosen = !answer3Chosen;
@@ -225,6 +209,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if the fourth answer is chosen and changes the color of the card view accordingly.
+     * @author Sebastian Steinhauser
+     */
     private void answer4ChosenCheck() {
         if (!switchConfirmNextButton) {
             answer4Chosen = !answer4Chosen;
@@ -239,6 +227,14 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Confirms the chosen answers and changes the color of the card views accordingly.
+     * If all questions are answered, the waiting screen is started.
+     * If not, the next question is loaded.
+     * The number of correct answers is counted and written into the database.
+     *
+     * @author Sebastian Steinhauser
+     */
     private void confirmChosenAnswers() {
         if (!switchConfirmNextButton) {
             switchConfirmNextButton = true;
@@ -311,14 +307,11 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
                 answer3Chosen = false;
                 answer4Chosen = false;
 
-                dbRef.child("Questions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        DataSnapshot snapshot = task.getResult();
-                        getQuestionsFromDB(snapshot, (currentQuestionNumber - 1));
-                        loadQuestion(currentQuestionNumber);
+                dbRef.child("Questions").get().addOnCompleteListener(task -> {
+                    DataSnapshot snapshot = task.getResult();
+                    getQuestionsFromDB(snapshot, (currentQuestionNumber - 1));
+                    loadQuestion(currentQuestionNumber);
 
-                    }
                 });
             } else {
 
@@ -327,35 +320,28 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
                 Log.d("Waiting Screen", "confirmChosenAnswers: waiting Screen is started");
                 writeCorrectAnswersInDB();
                 waitingAlert.startWaitingScreenAlertDialog(player1ID, player2ID, MultiPlayerGameActivity.this, numberQuestionsPerRound, numberCorrectAnswersRound, creatorIsLoggedIn, questionIDsForThisRound);
-
-                if (bothPlayersFinished) {
-                    Log.d("resultScreen", "confirmChosenAnswers: ResultScreen is started");
-                    Intent resultScreenIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerResultActivity.class);
-                    resultScreenIntent.putExtra("numberQuestionsPerRound", numberQuestionsPerRound);
-                    resultScreenIntent.putExtra("player1ID", player1ID);
-                    resultScreenIntent.putExtra("player2ID", player2ID);
-                    resultScreenIntent.putExtra("numberCorrectAnswersRound", numberCorrectAnswersRound);
-                    resultScreenIntent.putExtra("creatorIsLoggedIn", creatorIsLoggedIn);
-                    resultScreenIntent.putExtra("usedQuestionIDs", questionIDsForThisRound);
-                    waitingAlert.stopWaitingScreenAlertDialog();
-                    startActivity(resultScreenIntent);
-                }
             }
         }
     }
 
 
+    /**
+     * Checks if the creator is logged in and retrieves the player IDs from the database.
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot The snapshot of the database.
+     */
     public void checkIfCreatorIsLoggedIn(DataSnapshot snapshot) {
         currentUser = auth.getCurrentUser();
         Bundle extras = getIntent().getExtras();
-        String lobbyname;
+        String lobbyName;
         if (extras == null) {
-            lobbyname = currentUser.getUid();
+            lobbyName = currentUser.getUid();
         } else {
-            lobbyname = extras.getString("lobbyname");
+            lobbyName = extras.getString("lobbyname");
         }
-        if (!currentUser.getUid().equals(lobbyname)) {
-            player1ID = lobbyname;
+        if (!currentUser.getUid().equals(lobbyName)) {
+            player1ID = lobbyName;
             creatorIsLoggedIn = false;
         } else {
             player1ID = currentUser.getUid();
@@ -366,17 +352,26 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Aborts the game and returns to the lobby screen.
+     * The game progress is not saved.
+     * The aborting user is informed about the aborted game.
+     * @author Sebastian Steinhauser
+     */
     private void abortGame() {
         abortGame=true;
         lobbyDbRef.child("full").child(player1ID).child("abortGame").setValue(abortGame);
-        //lobbyDbRef.child("full").child(player1ID).removeValue();
         Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerLobbyScreen.class);
         Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gepseichert!", Toast.LENGTH_SHORT).show();
         Log.d("AbortGame", "Player Aborted the Game");
         startActivity(abortGameIntent);
     }
 
-
+    /**
+     * Sets the default colors of the card views.
+     * The default color is white
+     * @author Sebastian Steinhauser
+     */
     private void setDefaultColors() {
         cardViewMultiPlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(MultiPlayerGameActivity.this, R.color.white));
         cardViewMultiPlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(MultiPlayerGameActivity.this, R.color.white));
@@ -389,17 +384,10 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         cardViewMultiPlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(MultiPlayerGameActivity.this, R.color.transparent));
     }
 
-    private void waitUntilOpponentIsFinished(DataSnapshot snapshot) {
-        player1finished = snapshot.child("Lobbies").child("full").child(player1ID).child(player1ID + "isFinished").getValue(Boolean.class);
-        player2finished = snapshot.child("Lobbies").child("full").child(player1ID).child(player2ID + "isFinished").getValue(Boolean.class);
-
-        if (player1finished && player2finished) {
-            bothPlayersFinished = true;
-        } else {
-            bothPlayersFinished = false;
-        }
-    }
-
+    /**
+     * Writes the number of correct answers into the database
+     * @author Sebastian Steinhauser
+     */
     private void writeCorrectAnswersInDB() {
         if (creatorIsLoggedIn) {
             lobbyDbRef.child("full").child(player1ID).child("correctAnswersPlayer1").setValue(numberCorrectAnswersRound);
@@ -408,10 +396,5 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             lobbyDbRef.child("full").child(player1ID).child("correctAnswersPlayer2").setValue(numberCorrectAnswersRound);
 
         }
-    }
-
-    private void isActiveDbCall(){
-
-        lobbyDbRef.child("full").child(player1ID).setValue(currentUser+"isActive");
     }
 }

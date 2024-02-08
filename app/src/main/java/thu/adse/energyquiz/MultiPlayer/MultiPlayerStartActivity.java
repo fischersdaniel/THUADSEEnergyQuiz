@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,13 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * Activity to start a multiplayer game
+ * @author Sebastian Steinhauser
+ */
 public class MultiPlayerStartActivity extends AppCompatActivity {
 
     private int numberQuestionsPerRound;
@@ -68,39 +69,30 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        numberQuestionsPerRound = 5; //Standardwert Fragen pro Runde wird hier festgelegt
+        numberQuestionsPerRound = 5; //default value
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             numberQuestionsPerRound = extras.getInt("numberQuestionsPerRound");
             TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
         }
-        cardViewMultiPlayerStartPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                numberQuestionsPerRound++;
+        cardViewMultiPlayerStartPlus.setOnClickListener(view -> {
+            numberQuestionsPerRound++;
+            TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+        });
+
+        cardViewMultiPlayerStartMinus.setOnClickListener(view -> {
+            if (numberQuestionsPerRound > 1) {
+                numberQuestionsPerRound--;
                 TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
             }
         });
 
-        cardViewMultiPlayerStartMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (numberQuestionsPerRound > 1) {
-                    numberQuestionsPerRound--;
-                    TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
-                }
-            }
-        });
 
-
-        cardViewMultiPlayerStartPlayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createNewLobby();
-                MultiPlayerCancelLobbyLoadingScreenAlert loadingScreenAlert = new MultiPlayerCancelLobbyLoadingScreenAlert(MultiPlayerStartActivity.this);
-                loadingScreenAlert.startLoadingScreenAlertDialog();
-            }
+        cardViewMultiPlayerStartPlayButton.setOnClickListener(view -> {
+            createNewLobby();
+            MultiPlayerCancelLobbyLoadingScreenAlert loadingScreenAlert = new MultiPlayerCancelLobbyLoadingScreenAlert(MultiPlayerStartActivity.this);
+            loadingScreenAlert.startLoadingScreenAlertDialog();
         });
 
         dbRef.addListenerForSingleValueEvent(dbEventListener = new ValueEventListener(){
@@ -133,7 +125,10 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             });
         }
 
-
+    /**
+     * Creates a new lobby in the database with the number of questions per round and the user name of the creator of the lobby
+     * @author Sebastian Steinhauser
+     */
     private void createNewLobby() {
         String numberQuesttionsPerRoundString= String.valueOf(numberQuestionsPerRound);
         lobbyDbRef.child("open").child(userIdCreator).push();
@@ -149,6 +144,12 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gets all the question IDs from the database and adds them to a list of all questions
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot DataSnapshot of the database
+     */
     private void getAllQuestionIDs(DataSnapshot snapshot) {
         for (DataSnapshot ds: snapshot.getChildren()){
             allQuestions.add(Long.parseLong(ds.getKey()));
@@ -158,18 +159,35 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gets the questions that have already been used in the current session from the user database
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot DataSnapshot of the database
+     */
     private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
         for (DataSnapshot ds: snapshot.child("Users").child(userIdCreator).child("usedSessionIDs").getChildren()){
             usedQuestions.add(Long.parseLong(ds.getValue().toString()));
         }
     }
 
+    /**
+     * Removes the questions that have already been used in the current session from the list of possible questions
+     * @author Sebastian Steinhauser
+     */
     private void getPossibleQuestions(){
         for (Long i: usedQuestions){
             possibleQuestions.remove(i);
         }
     }
 
+    /**
+     * Checks if a player has joined the lobby
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot DataSnapshot of the lobby
+     * @return playerJoined
+     */
     private boolean checkIfPlayerJoined(DataSnapshot snapshot){
         playerJoined = false;
         if (snapshot.child("full").child(userIdCreator).exists()){

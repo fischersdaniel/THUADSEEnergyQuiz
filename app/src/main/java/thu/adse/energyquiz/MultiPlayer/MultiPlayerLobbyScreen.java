@@ -26,14 +26,19 @@ import java.util.Collections;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
+/**
+ * This class is the MultiPlayerLobbyScreen class. It is used to display the lobbies for the multiplayer game and to join a lobby.
+ * It also sets the necessary values for the game to start and moves the lobby from open to full.
+ * @author Sebastian Steinhauser
+ */
+
 public class MultiPlayerLobbyScreen extends AppCompatActivity implements RecyclerViewInterfaceMultiPlayerLobby {
 
     DatabaseReference lobbyDbRef,usersDbRef, dbRef;
     RecyclerView recyclerViewLobbyscreen;
     MultiPlayerLobbyAdapter lobbyAdapter;
     ArrayList<MultiPlayerLobby> lobbyList;
-//    Button buttonCreateLobby, buttonBackToHome, buttonDialogYes, buttonDialogNo;
-    CardView cardViewMultiPlayerLobbyBack, cardViewMultiPlayerLobbyCreateGame, cardViewPopUpLobbyJoinYes, cardViewPopUpLobbyJoinNo, cardViewPopUpLobbyWaitingCancel;
+    CardView cardViewMultiPlayerLobbyBack, cardViewMultiPlayerLobbyCreateGame, cardViewPopUpLobbyJoinYes, cardViewPopUpLobbyJoinNo;
     Dialog dialog;
     FirebaseAuth auth;
     FirebaseUser JoinedUser;
@@ -41,7 +46,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
      MultiPlayerLobby selectedLobby;
      String joinedUserID, userIDCreator;
 
-    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),allQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
+    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
 
 
     @Override
@@ -67,32 +72,25 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
 
 
-//        buttonCreateLobby = findViewById(R.id.buttonCreateLobby);
         cardViewMultiPlayerLobbyCreateGame = findViewById(R.id.cardViewMultiPlayerLobbyCreateGame);
-//        buttonBackToHome = findViewById(R.id.buttonBackToHome);
         cardViewMultiPlayerLobbyBack = findViewById(R.id.cardViewMultiPlayerLobbyBack);
 
         dialog=new Dialog(MultiPlayerLobbyScreen.this);
         dialog.setContentView(R.layout.dialog_multi_player_join_lobby_v2);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.edit_delete_dialog_drawable_question_catalog));
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
-//        buttonDialogYes = dialog.findViewById(R.id.buttonDialogYes);
         cardViewPopUpLobbyJoinYes = dialog.findViewById(R.id.cardViewPopUpLobbyJoinYes);
-//        buttonDialogNo = dialog.findViewById(R.id.buttonDialogNo);
         cardViewPopUpLobbyJoinNo = dialog.findViewById(R.id.cardViewPopUpLobbyJoinNo);
 
 
 
-//        buttonCreateLobby.setOnClickListener(view -> {
         cardViewMultiPlayerLobbyCreateGame.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerStartActivity.class);
             startActivity(intent);
         });
 
-//        buttonBackToHome.setOnClickListener(view -> {
         cardViewMultiPlayerLobbyBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
@@ -101,9 +99,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         lobbyList=new ArrayList<>();
         lobbyAdapter = new MultiPlayerLobbyAdapter(this, this, lobbyList);
         recyclerViewLobbyscreen.setAdapter(lobbyAdapter);
-
-
-
 
 
         lobbyDbRef.addValueEventListener(new ValueEventListener() {
@@ -121,8 +116,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
                 }
                 lobbyAdapter.notifyDataSetChanged();
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -141,21 +134,15 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         }
     });
-
-
-
-
-
     }
+
 
     @Override
     public void onItemClick(int position, MultiPlayerLobby lobby) {
         selectedLobby = lobby;
         dialog.show();
 
-        cardViewPopUpLobbyJoinNo.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
+        cardViewPopUpLobbyJoinNo.setOnClickListener(view -> dialog.dismiss());
 
         cardViewPopUpLobbyJoinYes.setOnClickListener(view -> {
             moveLobbyToFull(selectedLobby);
@@ -164,6 +151,12 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     }
 
+    /**
+     * This method moves the lobby from open to full and sets the necessary values for the game to start
+     * @author Sebastian Steinhauser
+     *
+     * @param lobby The lobby is moved from open to full
+     */
     void moveLobbyToFull(MultiPlayerLobby lobby) {
         JoinedUser = auth.getCurrentUser();
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("numberQuestionsPerRound").setValue(lobby.numberQuestionsPerRound);
@@ -181,18 +174,37 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     }
 
+    /**
+     * This method gets the used questions from the user database and stores them in an array list
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot The snapshot of the user database
+     */
     private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
         usedQuestions.clear();
         for (DataSnapshot ds: snapshot.child("Users").child(joinedUserID).child("usedSessionIDs").getChildren()){
             usedQuestions.add(Long.parseLong(ds.getValue().toString()));
         }
     }
+
+    /**
+     * This method gets the possible questions for the game and stores them in an array list. It also removes the used questions from the possible questions list
+     * @author Sebastian Steinhauser
+     *
+     * @param possibleQuestions The possible questions for the game
+     */
     private void getPossibleQuestions(ArrayList<Long> possibleQuestions){
         possibleQuestions2Players=possibleQuestions;
         for (Long i: usedQuestions){
             possibleQuestions2Players.remove(i);
         }
     }
+
+    /**
+     * This method deletes the possible lobby entries from the database.
+     * It is called when the user is joining the lobbyScreen again after a game has finished.
+     * @author Sebastian Steinhauser
+     */
     public static void deletePossibleLobbyEntries(){
         FirebaseUser currentUser;
         DatabaseReference lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
@@ -202,11 +214,16 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         String currentUserID = currentUser.getUid();
 
         lobbyDbRef.child("open").child(currentUserID).removeValue();
-
         lobbyDbRef.child("full").child(currentUserID).removeValue();
 
     }
 
+    /**
+     * This method gets the randomized questions IDs for the game and stores them in an array list.
+     * @author Sebastian Steinhauser
+     *
+     * @param numberQuestionsPerRound The number of questions per round
+     */
     public void getRandomizedQuestions(String numberQuestionsPerRound){
         randomizedQuestions.clear();
         randomizedQuestions=possibleQuestions2Players;
