@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">EnergyQuiz</string>
 
+
+    <string name="Adminpasswort">Adminpasswort</string>
+
     <string name="userIsLoggedIn">Nutzer ist angemeldet.</string>
     <string name="userIsLoggedOut">Nutzer ist abgemeldet.</string>
     <string name="logOutSuccessfull">Abmeldung erfolgreich.</string>
