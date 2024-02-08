@@ -3,7 +3,7 @@ package thu.adse.energyquiz.QuestionCatalog;
 import java.io.Serializable;
 
 /**
- * This class is the QuestionQuestionCatalog class. It is used to represent a question RecyclerView of the question catalog.
+ * This class used to represent a question RecyclerView of the question catalog.
  * @author Sebastian Steinhauser
  */
 public class QuestionQuestionCatalog  implements Serializable {
@@ -31,12 +31,6 @@ public class QuestionQuestionCatalog  implements Serializable {
         this.answer4 = answer4;
     }
 
-    /**
-     * Method to get the key of the question.
-     * @author Sebastian Steinhauser
-     *
-     * @return the key of the question
-     */
     public String getKey() {
         return key;
     }

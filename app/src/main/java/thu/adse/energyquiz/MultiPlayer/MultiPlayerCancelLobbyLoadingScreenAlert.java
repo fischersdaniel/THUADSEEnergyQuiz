@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import thu.adse.energyquiz.R;
 
 /**
- * A class that creates a dialog window for canceling a multiplayer lobby screen.
+ * A class that creates a dialog window for waiting of a opponent in the multiplayer lobby screen.
  * @author Sebastian Steinhauser
  */
 public class MultiPlayerCancelLobbyLoadingScreenAlert {
@@ -33,6 +33,10 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
         activity = myActivity;
     }
 
+    /**
+     * Starts the dialog window for the lobby screen.
+     * @author Sebastian Steinhauser
+     */
     void startLoadingScreenAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -45,7 +49,8 @@ public class MultiPlayerCancelLobbyLoadingScreenAlert {
     }
 
     /**
-     * Displays the dialog window for the lobby screen.
+     * Dismisses the dialog window for the lobby screen.
+     * Removes the lobby from the database if the user cancels the lobby creation while in the waiting dialog.
      * @author Sebastian Steinhauser
      */
     void closeMultiPlayerLoadingScreenAlertDialog() {

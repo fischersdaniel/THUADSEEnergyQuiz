@@ -42,7 +42,6 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int numberCorrectAnswersRound = 0, currentQuestionNumber, numberQuestionsPerRound;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("MultiplayerGameActivity", "onCreate: MultiplayerHasStarted");
@@ -145,6 +144,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     /**
      * Loads the current question into the UI.
+     * The number of the current question is displayed.
      * @author Sebastian Steinhauser
      *
      * @param currentQuestionNumber The number of the current question.
@@ -355,7 +355,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     /**
      * Aborts the game and returns to the lobby screen.
      * The game progress is not saved.
-     * The aborting user is informed about the aborted game.
+     * The user who is aborting is informed about his actions.
      * @author Sebastian Steinhauser
      */
     private void abortGame() {
@@ -369,7 +369,6 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
 
     /**
      * Sets the default colors of the card views.
-     * The default color is white
      * @author Sebastian Steinhauser
      */
     private void setDefaultColors() {

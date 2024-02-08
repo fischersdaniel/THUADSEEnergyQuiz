@@ -156,10 +156,9 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
 
             if (scorePlayer1 < scorePlayer2) {
                 winner = "player2";
-            } else if (scorePlayer2 < scorePlayer1) {
-                winner = "player1";
+            } else if (scorePlayer2 < scorePlayer1) winner = "player1";
 
-            } else if (scorePlayer1 == scorePlayer2) {
+            else if (scorePlayer1 == scorePlayer2) {
                 winner = "tie";
             }
         }
@@ -169,8 +168,6 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
     /**
      * This method sets the text for the winner TextView according to the winner variable.
      * If the game was aborted, it sets the text accordingly.
-     * If the current user is the creator of the lobby, it sets the text for the winner accordingly.
-     * If the current user is the joiner of the lobby, it sets the text for the winner.
      * @author Sebastian Steinhauser
      */
     private void setTextForWinner() {

@@ -132,7 +132,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
         cardViewPopUpEDDelete.setOnClickListener(view -> {
             CheckCataloguePermission(CatalogueChange.DELETE_QUESTION, selectedQuestion);
-            // deleteQuestion(selectedQuestion);
             dialog.dismiss();
         });
     }
@@ -160,7 +159,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
     /**
      * This method is used to return to the home screen activity.
-     * It is called when the user clicks the back button in the question catalog activity.
      * @author Sebastian Steinhauser
      */
     public void backToMenu(){
@@ -184,7 +182,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
     /**
      * This method is used to delete a question from the question catalog.
-     * It is called when the user clicks the delete button in the dialog window for editing or deleting a question.
      * @author Sebastian Steinhauser
      *
      * @param question The question that should be deleted.

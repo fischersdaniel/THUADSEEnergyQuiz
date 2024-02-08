@@ -27,11 +27,10 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 /**
- * This class is the MultiPlayerLobbyScreen class. It is used to display the lobbies for the multiplayer game and to join a lobby.
+ * This class is used to display the lobbies for the multiplayer game and to join a lobby.
  * It also sets the necessary values for the game to start and moves the lobby from open to full.
  * @author Sebastian Steinhauser
  */
-
 public class MultiPlayerLobbyScreen extends AppCompatActivity implements RecyclerViewInterfaceMultiPlayerLobby {
 
     DatabaseReference lobbyDbRef,usersDbRef, dbRef;
@@ -42,10 +41,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     Dialog dialog;
     FirebaseAuth auth;
     FirebaseUser JoinedUser;
-
      MultiPlayerLobby selectedLobby;
      String joinedUserID, userIDCreator;
-
     ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
 
 
@@ -68,10 +65,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         usersDbRef = FirebaseDatabase.getInstance().getReference().child("Users");
         dbRef=FirebaseDatabase.getInstance().getReference();
 
-
-
-
-
         cardViewMultiPlayerLobbyCreateGame = findViewById(R.id.cardViewMultiPlayerLobbyCreateGame);
         cardViewMultiPlayerLobbyBack = findViewById(R.id.cardViewMultiPlayerLobbyBack);
 
@@ -83,8 +76,6 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         cardViewPopUpLobbyJoinYes = dialog.findViewById(R.id.cardViewPopUpLobbyJoinYes);
         cardViewPopUpLobbyJoinNo = dialog.findViewById(R.id.cardViewPopUpLobbyJoinNo);
-
-
 
         cardViewMultiPlayerLobbyCreateGame.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerStartActivity.class);
@@ -152,7 +143,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     }
 
     /**
-     * This method moves the lobby from open to full and sets the necessary values for the game to start
+     * This method moves the lobby from open to full in the Database.
+     * It sets the necessary values for the game to start.
      * @author Sebastian Steinhauser
      *
      * @param lobby The lobby is moved from open to full
@@ -175,7 +167,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     }
 
     /**
-     * This method gets the used questions from the user database and stores them in an array list
+     * This method gets the used questions from the user database and stores them in an array list.
      * @author Sebastian Steinhauser
      *
      * @param snapshot The snapshot of the user database
@@ -188,7 +180,8 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     }
 
     /**
-     * This method gets the possible questions for the game and stores them in an array list. It also removes the used questions from the possible questions list
+     * This method gets the possible questions for the game and stores them in an array list.
+     * Get the possible questions using the used questions from both players.
      * @author Sebastian Steinhauser
      *
      * @param possibleQuestions The possible questions for the game

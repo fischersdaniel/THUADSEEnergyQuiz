@@ -26,6 +26,11 @@ import java.util.List;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * This class is used to add a new question to the question catalog.
+ * @author Sebastian Steinhauser
+ */
+
 public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
     String newQuestionTitle;
@@ -90,7 +95,10 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Method to submit the new question to the database.
+     * @author Sebastian Steinhauser
+     */
     private void submitNewQuestion() {
         newQuestionTitle = editTextNewQuestion.getText().toString();
         newAnswer1 = editTextNewAnswer1.getText().toString();
@@ -121,8 +129,6 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     }
 
     /**
-     * Method to define the ID of the new question.
-     * The method is called when the activity is created.
      * The method gets the data snapshot from the database and generates the new question IDs.
      * @author Sebastian Steinhauser
      *
@@ -138,7 +144,6 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
     /**
      * Method to go back to the question catalog.
-     * The method is called when the user clicks the back to catalog button.
      * @author Sebastian Steinhauser
      */
     public void backToCatalog(){
@@ -147,11 +152,8 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     }
 
     /**
-     * Method to generate the question ID.
-     * The method is called when the activity is created.
      * The method generates the new question ID based on the existing question IDs.
-     * If the question ID already exists, the method sets the new question ID to 0.
-     * If the question ID does not exist, the method sets the new question ID to the next available ID.
+     * It iterates through the list of question IDs and uses the first available ID.
      * @author Sebastian Steinhauser
      *
      * @param questionIDs The list of question IDs.
@@ -173,8 +175,9 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     }
 
     /**
-     * Method to hide the keyboard when the user touches the screen outside of the keyboard.
-     * @param ev The touch screen event.
+     * Method to detect when the user touches the screen outside of the keyboard.
+     * @param ev the touch screen event
+     *
      * @return true if the event was handled, false otherwise
      */
     public boolean dispatchTouchEvent(MotionEvent ev) {

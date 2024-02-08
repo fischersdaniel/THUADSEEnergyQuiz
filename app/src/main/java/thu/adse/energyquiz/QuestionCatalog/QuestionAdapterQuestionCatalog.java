@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import thu.adse.energyquiz.R;
 /**
- * This class is the QuestionAdapterQuestionCatalog class. It is used to create the view holder for the question catalog.
+ * This class is used to create the view holder for the question catalog.
  * It also sets the necessary values for the view holder to display the questions and answers.
  * It also sets the on click listener for the view holder.
  * @author Sebastian Steinhauser
@@ -24,7 +24,14 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
     Context context;
     ArrayList<QuestionQuestionCatalog> list;
 
-
+    /**
+     * Constructor for the QuestionAdapterQuestionCatalog class.
+     * @author Sebastian Steinhauser
+     *
+     * @param context the context of the activity
+     * @param list the list of questions
+     * @param recyclerViewInterface the interface for the RecyclerView
+     */
     public QuestionAdapterQuestionCatalog(Context context, ArrayList<QuestionQuestionCatalog> list,
                            RecyclerViewInterfaceQuestionCatalog recyclerViewInterface) {
         this.context = context;

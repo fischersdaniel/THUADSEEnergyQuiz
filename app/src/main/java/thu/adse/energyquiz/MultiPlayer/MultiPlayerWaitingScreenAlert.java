@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import thu.adse.energyquiz.R;
 
 /**
- * The class MultiPlayerWaitingScreenAlert is used to show a waiting screen alert dialog for the multiplayer game
- * when the game is started and the players are waiting for the results of the other player.
+ * The class MultiPlayerWaitingScreenAlert is used to show a waiting screen alert dialog for the multiplayer game,
+ * when the game is finished and the players are waiting for the results of the other player.
  * @author Sebastian Steinhauser
  */
 public class MultiPlayerWaitingScreenAlert {
@@ -37,7 +37,7 @@ public class MultiPlayerWaitingScreenAlert {
 
     /**
      * Start the waiting screen alert dialog for the multiplayer game.
-     * This dialog is shown when the game is started and the players are waiting for the results of the other player.
+     * This dialog is shown when the game is finished and the players are waiting for the results of the other player.
      * The dialog is dismissed when both players are finished with the game.
      * If one player aborts the game, the dialog is dismissed and the result screen is started with the information that the game was aborted.
      * @author Sebastian Steinhauser
@@ -65,7 +65,7 @@ public class MultiPlayerWaitingScreenAlert {
     }
 
     /**
-     * Check if the opponents are finished with the game and start the result screen if they are finished
+     * Check if both opponents are finished with the game and start the result screen.
      * @author Sebastian Steinhauser
      *
      * @param player1ID the ID of the player who created the lobby
@@ -131,7 +131,7 @@ public class MultiPlayerWaitingScreenAlert {
     }
 
     /**
-     * Set the finished state of the game to true for the player who is still logged in
+     * Set the finished state of the player in the database.
      * @author Sebastian Steinhauser
      *
      * @param player1ID the ID of the player who created the lobby

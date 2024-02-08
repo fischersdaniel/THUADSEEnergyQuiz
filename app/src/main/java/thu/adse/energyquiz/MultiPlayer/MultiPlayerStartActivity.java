@@ -88,7 +88,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             }
         });
 
-
         cardViewMultiPlayerStartPlayButton.setOnClickListener(view -> {
             createNewLobby();
             MultiPlayerCancelLobbyLoadingScreenAlert loadingScreenAlert = new MultiPlayerCancelLobbyLoadingScreenAlert(MultiPlayerStartActivity.this);
@@ -96,7 +95,6 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         });
 
         dbRef.addListenerForSingleValueEvent(dbEventListener = new ValueEventListener(){
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     userNameCreator = snapshot.child("Users").child(userIdCreator).child("userName").getValue(String.class);
@@ -126,7 +124,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         }
 
     /**
-     * Creates a new lobby in the database with the number of questions per round and the user name of the creator of the lobby
+     * Creates a new lobby in the database with the number of questions per round and the user name of the creator of the lobby.
      * @author Sebastian Steinhauser
      */
     private void createNewLobby() {
@@ -145,7 +143,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets all the question IDs from the database and adds them to a list of all questions
+     * Gets all the question IDs from the database and adds them to a list of all questions.
      * @author Sebastian Steinhauser
      *
      * @param snapshot DataSnapshot of the database
@@ -160,7 +158,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets the questions that have already been used in the current session from the user database
+     * Gets the questions that have already been used in the current session from the user database.
      * @author Sebastian Steinhauser
      *
      * @param snapshot DataSnapshot of the database
@@ -172,7 +170,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     }
 
     /**
-     * Removes the questions that have already been used in the current session from the list of possible questions
+     * Removes the questions that have already been used in the current session from the list of possible questions.
      * @author Sebastian Steinhauser
      */
     private void getPossibleQuestions(){

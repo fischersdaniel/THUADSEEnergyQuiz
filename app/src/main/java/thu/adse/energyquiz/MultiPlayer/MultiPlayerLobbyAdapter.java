@@ -13,6 +13,12 @@ import java.util.ArrayList;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * This class creates a adapter for the multiplayer lobby screen.
+ * It sets the text of the view holder to the corresponding lobby data.
+ * It also sets the on click listener for the view holder.
+ * @author Sebastian Steinhauser
+ */
 public class MultiPlayerLobbyAdapter extends RecyclerView.Adapter<MultiPlayerLobbyAdapter.LobbyViewHolder> {
     private final RecyclerViewInterfaceMultiPlayerLobby recyclerViewInterface;
     Context context;
@@ -32,13 +38,6 @@ public class MultiPlayerLobbyAdapter extends RecyclerView.Adapter<MultiPlayerLob
         this.lobbyList = lobbyList;
     }
 
-    /**
-     * Method to create a new view holder for the adapter.
-     * @author Sebastian Steinhauser
-     *
-     * @param parent The parent view group.
-     * @param viewType The view type.
-     */
     @NonNull
     @Override
     public MultiPlayerLobbyAdapter.LobbyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,14 +46,6 @@ public class MultiPlayerLobbyAdapter extends RecyclerView.Adapter<MultiPlayerLob
         return new LobbyViewHolder(viewHolder);
     }
 
-    /**
-     * Method to bind the view holder to the adapter.
-     * This method sets the text of the view holder to the corresponding lobby data. It also sets the on click listener for the view holder.
-     * @author Sebastian Steinhauser
-     *
-     * @param holder The view holder.
-     * @param position The position of the view holder.
-     */
     @Override
     public void onBindViewHolder(@NonNull MultiPlayerLobbyAdapter.LobbyViewHolder holder, int position) {
         MultiPlayerLobby lobby= lobbyList.get(position);
@@ -71,21 +62,11 @@ public class MultiPlayerLobbyAdapter extends RecyclerView.Adapter<MultiPlayerLob
         });
     }
 
-    /**
-     * This method returns the size of the lobby list.
-     * @author Sebastian Steinhauser
-     */
     @Override
     public int getItemCount() {
         return lobbyList.size();
     }
 
-    /**
-     * View holder class for the adapter.
-     * This class holds the view holder for the adapter.
-     * It contains the text views for the lobby creator user name and the number of questions per round.
-     * @author Sebastian Steinhauser
-     */
     public static class LobbyViewHolder extends RecyclerView.ViewHolder{
         TextView textViewLobbyCreatorUserName, textViewNumberQuestionsPerRound;
 

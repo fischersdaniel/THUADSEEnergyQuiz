@@ -19,6 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import thu.adse.energyquiz.R;
 
+/**
+ * This class is used to edit a question in the question catalog.
+ * The class contains the methods to submit the edited question to the database.
+ * @author Sebastian Steinhauser
+ */
+
 public class EditQuestionQuestionCatalog extends AppCompatActivity {
 
     String editQuestionTitle,editTextAnswer1,editTextAnswer2,editTextAnswer3,editTextAnswer4, key;
@@ -75,7 +81,7 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
      * The method is called when the user clicks the submit button.
      * @author Sebastian Steinhauser
      *
-     * @param selectedQuestion the selected question
+     * @param selectedQuestion the selected question on which the user wants to make changes
      */
     private void submitEditQuestion(QuestionQuestionCatalog selectedQuestion) {
         editQuestionTitle = editTextEditQuestion.getText().toString();
@@ -106,8 +112,8 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
     }
 
     /**
-     * Method to hide the keyboard when the user touches the screen outside of the keyboard.
-     * @param ev The touch screen event.
+     * Method to detect when the user touches the screen outside of the keyboard.
+     * @param ev the touch screen event
      *
      * @return true if the event was handled, false otherwise
      */
