@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
-    <color name="night">#FF000F08</color>
-    <color name="darkgrey">#FF333533</color>
-    <color name="grey">#FF474947</color>
+    <color name="night" tools:ignore="UnusedResources">#FF000F08</color>
+    <color name="darkgrey" tools:ignore="UnusedResources">#FF333533</color>
+    <color name="grey" tools:ignore="UnusedResources">#FF474947</color>
     <color name="middlegrey">#FF797B79</color>
     <color name="lightgrey">#FFBFC0C0</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
 
-    <color name="preussianblue">#FF142B3E</color>
-    <color name="gunmetal">#FF143642</color>
-    <color name="paynegrey">#FF2E5E76</color>
-    <color name="slateblue"> #6F58C9</color>
+    <color name="preussianblue" tools:ignore="UnusedResources">#FF142B3E</color>
+    <color name="gunmetal" tools:ignore="UnusedResources">#FF143642</color>
+    <color name="paynegrey" tools:ignore="UnusedResources">#FF2E5E76</color>
+    <color name="slateblue" tools:ignore="UnusedResources"> #6F58C9</color>
 
-    <color name="cornellred">#FFA8201A</color>
-    <color name="cardinalred">#FFCE123E</color>
-    <color name="red">#FFFF0000</color>
-    <color name="orangepantone">#FFFE5F00</color>
-    <color name="tangerine">#FFF58A07</color>
-    <color name="selectiveyellow">#FFFFB10A</color>
+    <color name="cornellred" tools:ignore="UnusedResources">#FFA8201A</color>
+    <color name="cardinalred" tools:ignore="UnusedResources">#FFCE123E</color>
+    <color name="red" tools:ignore="UnusedResources">#FFFF0000</color>
+    <color name="orangepantone" tools:ignore="UnusedResources">#FFFE5F00</color>
+    <color name="tangerine" tools:ignore="UnusedResources">#FFF58A07</color>
+    <color name="selectiveyellow" tools:ignore="UnusedResources">#FFFFB10A</color>
 
-    <color name="green1">#FF359845</color>
-    <color name="mint">#FF17B890</color>
-    <color name="malachit">#FF04E762</color>
-    <color name="right1">#FF04E762</color>
-    <color name="chartreuse">#FF89FC00</color>
+    <color name="green1" tools:ignore="UnusedResources">#FF359845</color>
+    <color name="mint" tools:ignore="UnusedResources">#FF17B890</color>
+    <color name="malachit" tools:ignore="UnusedResources">#FF04E762</color>
+    <color name="right1" tools:ignore="UnusedResources">#FF04E762</color>
+    <color name="chartreuse" tools:ignore="UnusedResources">#FF89FC00</color>
 
     <color name="strokeon">#FF000000</color>
     <color name="strokeoff">#00FFFFFF</color>
     <color name="selectedbg">#FFCACBCB</color>
 
-    <color name="rightstroke">#FF17B890</color>
-    <color name="wrongstroke">#FFD83232</color>
+    <color name="rightstroke" tools:ignore="UnusedResources">#FF17B890</color>
+    <color name="wrongstroke" tools:ignore="UnusedResources">#FFD83232</color>
     <color name="rightbg">#FF17B890</color>
     <color name="wrongbg">#FFD83232</color>
 
-    <color name="status_bar_light">#FFFFFFFF</color>
-    <color name="status_bar_dark">#FF000000</color>
+    <color name="status_bar_light" tools:ignore="UnusedResources">#FFFFFFFF</color>
+    <color name="status_bar_dark" tools:ignore="UnusedResources">#FF000000</color>
 
 </resources>

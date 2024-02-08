@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imagePrevious"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -59,7 +58,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageAddQuestion"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="center"

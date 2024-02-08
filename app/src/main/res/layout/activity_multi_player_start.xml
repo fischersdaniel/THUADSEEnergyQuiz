@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imagePrevious"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -41,7 +40,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartBack">
 
         <TextView
-            android:id="@+id/editTextMultiPlayerStartQuestionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +87,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartText">
 
         <ImageView
-            android:id="@+id/imageAdd"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -111,7 +108,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartNumberInput">
 
         <ImageView
-            android:id="@+id/imageMinus"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -134,7 +130,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewMultiPlayerStartPlus">
 
         <ImageView
-            android:id="@+id/imageStartButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

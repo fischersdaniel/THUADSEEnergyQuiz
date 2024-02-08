@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imagePrevious"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -145,7 +144,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardViewLoginCardPassword" />
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="3dp"

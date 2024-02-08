@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">EnergyQuiz</string>
 
     <string name="userIsLoggedIn">Nutzer ist angemeldet.</string>
@@ -32,39 +32,39 @@
 
     <string name="signUp">Registrierung</string>
     <string name="signup_userName">Nutzername</string>
-    <string name="signup_email">Email</string>
-    <string name="signup_password">Passwort</string>
-    <string name="signup_confirmpassword">Wiederhole Passwort</string>
+    <string name="signup_email" tools:ignore="UnusedResources">Email</string>
+    <string name="signup_password" tools:ignore="UnusedResources">Passwort</string>
+    <string name="signup_confirmpassword" tools:ignore="UnusedResources">Wiederhole Passwort</string>
     <string name="signup_button">Registrieren</string>
     <string name="loginRedirectSignUpText">Bereits registriert?\nHier anmelden!</string>
 
     <string name="forgotPassword">Passwort vergessen</string>
-    <string name="sendNewPassword_email">Email</string>
+    <string name="sendNewPassword_email" tools:ignore="UnusedResources">Email</string>
     <string name="sendNewPassword_button">Neues Passwort anfordern</string>
-    <string name="loginRedirectForgotPasswordText">Doch nicht vergessen?\nHier anmelden!</string>
+    <string name="loginRedirectForgotPasswordText" tools:ignore="UnusedResources">Doch nicht vergessen?\nHier anmelden!</string>
 
     <string name="changePassword">Passwort ändern</string>
-    <string name="newPassword_text">Passwort</string>
+    <string name="newPassword_text" tools:ignore="UnusedResources">Passwort</string>
     <string name="confirmNewPassword_text">Passwort wiederholen</string>
     <string name="changePassword_button">Passwort ändern</string>
-    <string name="loginRedirectChangePasswordText">Keine Änderung benötigt?\nGehe zurück!</string>
+    <string name="loginRedirectChangePasswordText" tools:ignore="UnusedResources">Keine Änderung benötigt?\nGehe zurück!</string>
 
     <string name="deleteAccount">Account löschen?</string>
     <string name="confirmDeleteAcc_button">Account löschen</string>
     <string name="reminderDeleteAccount">ALLE Einstellungen &amp; Daten unwiderruflich löschen!</string>
 
-    <string name="cancelDeleteAcc_textview">Doch nicht löschen?\nGehe zurück!</string>
+    <string name="cancelDeleteAcc_textview" tools:ignore="UnusedResources">Doch nicht löschen?\nGehe zurück!</string>
 
-    <string name="main">Quiz zu Energie!</string>
-    <string name="startSingleplayer_button">Einzelspieler</string>
-    <string name="deleteAcc_button">Account löschen</string>
-    <string name="logout_button">Abmelden</string>
-    <string name="changePasswordMain_button">Passwort ändern</string>
+    <string name="main" tools:ignore="UnusedResources">Quiz zu Energie!</string>
+    <string name="startSingleplayer_button" tools:ignore="UnusedResources">Einzelspieler</string>
+    <string name="deleteAcc_button" tools:ignore="UnusedResources">Account löschen</string>
+    <string name="logout_button" tools:ignore="UnusedResources">Abmelden</string>
+    <string name="changePasswordMain_button" tools:ignore="UnusedResources">Passwort ändern</string>
 
-    <string name="singlePlayerStart">Einzelspieler Start</string>
-    <string name="startSinglePlayerGame_button">Starte Spiel</string>
+    <string name="singlePlayerStart" tools:ignore="UnusedResources">Einzelspieler Start</string>
+    <string name="startSinglePlayerGame_button" tools:ignore="UnusedResources">Starte Spiel</string>
 
-    <string name="singlePlayerGame">Einzelspieler</string>
+    <string name="singlePlayerGame" tools:ignore="UnusedResources">Einzelspieler</string>
     <string name="numberQuestionsProgress_textview">0/0</string>
     <string name="question_textview">Leere Frage</string>
     <string name="answer1_textview">Leere Antwort 1</string>
@@ -75,23 +75,23 @@
     <string name="confirm_button">Bestätige</string>
     <string name="next_button">Weiter</string>
 
-    <string name="singlePlayerResult">Einzelspieler Ergebnisse</string>
-    <string name="results_textview">Ergebnis</string>
-    <string name="numberCorrectAnswers_textview">Richtig beantwortet</string>
-    <string name="roundScore_textview">Punkte Runde</string>
-    <string name="userScore_textview">Gesamtpunkte</string>
-    <string name="userRank_textview">Rang</string>
+    <string name="singlePlayerResult" tools:ignore="UnusedResources">Einzelspieler Ergebnisse</string>
+    <string name="results_textview" tools:ignore="UnusedResources">Ergebnis</string>
+    <string name="numberCorrectAnswers_textview" tools:ignore="UnusedResources">Richtig beantwortet</string>
+    <string name="roundScore_textview" tools:ignore="UnusedResources">Punkte Runde</string>
+    <string name="userScore_textview" tools:ignore="UnusedResources">Gesamtpunkte</string>
+    <string name="userRank_textview" tools:ignore="UnusedResources">Rang</string>
     <string name="userRank_0">Anfänger</string>
     <string name="userRank_1">Schüler</string>
     <string name="userRank_2">Fortgeschrittener</string>
     <string name="userRank_3">Profi</string>
     <string name="userRank_4">Meister</string>
     <string name="userRank_5">Erleuchteter</string>
-    <string name="repeatNewGame_button">Nochmal spielen</string>
-    <string name="home_button">Home</string>
+    <string name="repeatNewGame_button" tools:ignore="UnusedResources">Nochmal spielen</string>
+    <string name="home_button" tools:ignore="UnusedResources">Home</string>
 
-    <string name="questionTitleTextView">Fragenkatalog</string>
-    <string name="buttonToNewQuestion">+</string>
+    <string name="questionTitleTextView" tools:ignore="UnusedResources">Fragenkatalog</string>
+    <string name="buttonToNewQuestion" tools:ignore="UnusedResources">+</string>
     <string name="editTextNewQuestion">Frage</string>
     <string name="editTextNewAnswer1">Eingabe Antwortmöglichkeit</string>
     <string name="editTextNewAnswer2">Eingabe Antwortmöglichkeit</string>
@@ -103,22 +103,22 @@
     <string name="radioButtonNewCorrectAnswerOption4">Richtige Antwort</string>
     <string name="buttonBackToCatalog">Zurück</string>
     <string name="buttonSubmitNewQuestion">Speichern</string>
-    <string name="textViewTitleDialog">Aktion auswählen</string>
-    <string name="textViewDialogText">Möchtest du diese Frage bearbeiten oder löschen?</string>
+    <string name="textViewTitleDialog" tools:ignore="UnusedResources">Aktion auswählen</string>
+    <string name="textViewDialogText" tools:ignore="UnusedResources">Möchtest du diese Frage bearbeiten oder löschen?</string>
     <string name="buttonDialogEdit">Bearbeiten</string>
     <string name="buttonDialogDelete">Löschen</string>
     <string name="buttonDialogCancel">Abbrechen</string>
-    <string name="buttonDialogCancelandDiscard">Abbrechen &amp; Fortschritt verwerfen</string>
-    <string name="buttonBackToMenu">Menü</string>
+    <string name="buttonDialogCancelandDiscard" tools:ignore="UnusedResources">Abbrechen &amp; Fortschritt verwerfen</string>
+    <string name="buttonBackToMenu" tools:ignore="UnusedResources">Menü</string>
 
-    <string name="multiPlayerLobbyscreenHeader">Mehrspieler</string>
-    <string name="buttonBackToHome">Zurück</string>
-    <string name="buttonCreateLobby">Spiel erstellen</string>
+    <string name="multiPlayerLobbyscreenHeader" tools:ignore="UnusedResources">Mehrspieler</string>
+    <string name="buttonBackToHome" tools:ignore="UnusedResources">Zurück</string>
+    <string name="buttonCreateLobby" tools:ignore="UnusedResources">Spiel erstellen</string>
     <string name="buttonJoinLobby">Beitreten</string>
 
-    <string name="buttonDialogYes">Ja</string>
-    <string name="buttonDialogNo">Nein</string>
-    <string name="textViewLobbyScreenTitleDialog">Möchtest du dem Raum beitreten?</string>
+    <string name="buttonDialogYes" tools:ignore="UnusedResources">Ja</string>
+    <string name="buttonDialogNo" tools:ignore="UnusedResources">Nein</string>
+    <string name="textViewLobbyScreenTitleDialog" tools:ignore="UnusedResources">Möchtest du dem Raum beitreten?</string>
 
     <string name="singlePlayerGameStartTextViewFragen">Fragen</string>
     <string name="singlePlayerGameStartTextViewDefaultNr">5</string>
@@ -131,7 +131,7 @@
     <string name="homeScreenTextViewCard3">Spielstatistik</string>
     <string name="homeScreenTextViewCard4">Fragenkatalog</string>
 
-    <string name="UserLoginTextViewHeader">Einloggen</string>
+    <string name="UserLoginTextViewHeader" tools:ignore="UnusedResources">Einloggen</string>
     <string name="UserSettingsTextViewHeader">Nutzerkonto</string>
     <string name="statisticsTextViewHeader">Spielstatistik</string>
     <string name="singlePlayerTextViewHeader">Einzelspieler</string>
@@ -151,7 +151,7 @@
     <string name="multiPlayerLobbyTextViewSubSubHeader1">[Host]</string>
     <string name="multiPlayerLobbyTextViewSubSubHeader2">[Anzahl Fragen]</string>
     <string name="multiPlayerLobbyCardViewCreateGameButton">Eigenes Spiel erstellen!</string>
-    <string name="multiPlayerLobbyTextViewDialogCancelButton">Abbrechen und Raum auflösen</string>
+    <string name="multiPlayerLobbyTextViewDialogCancelButton" tools:ignore="UnusedResources">Abbrechen und Raum auflösen</string>
     <string name="multiPlayerLobbyTextViewDialogWaitingHeader">Warten auf Mitspieler...</string>
     <string name="multiPlayerLobbyTextViewDialogJoinHeader">Spiel beitreten?</string>
     <string name="multiPlayerLobbyTextViewDialogJoinYes">Ja</string>
@@ -169,10 +169,10 @@
     <string name="NA">N/A</string>
     <string name="IDNF">ID nicht gefunden</string>
     <string name="Bitte_Anmelden">Bitte Anmelden</string>
-    <string name="Punkte"> pkt.</string>
-    <string name="Prozentzeichen"> %.1f%%</string>
+    <string name="Punkte" tools:ignore="UnusedResources"> pkt.</string>
+    <string name="Prozentzeichen" tools:ignore="UnusedResources"> %.1f%%</string>
 
-    <string name="Frage">Frage:</string>
+    <string name="Frage" tools:ignore="UnusedResources">Frage:</string>
     <string name="Antwort1">1.</string>
     <string name="Antwort2">2.</string>
     <string name="Antwort3">3.</string>

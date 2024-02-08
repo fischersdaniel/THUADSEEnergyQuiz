@@ -60,7 +60,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewMultiPlayerResultsUser1Quote"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -86,7 +85,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewMultiPlayerResultsUser2Quote"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -112,7 +110,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewMultiPlayerResultsUser1PointsEarned"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -138,7 +135,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewMultiPlayerResultsUser1AllPoints"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -164,7 +160,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewMultiPlayerResultsUser1Rank"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -206,14 +201,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageMultiPlayerPlayAgain"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
                 android:paddingTop="35dp"
                 app:srcCompat="@drawable/refresh_button_inv" />
 
             <TextView
-                android:id="@+id/textViewMultiPlayerResultsUser1PlayAgain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -242,14 +235,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageCatalog"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
                 android:paddingTop="35dp"
                 app:srcCompat="@drawable/home" />
 
             <TextView
-                android:id="@+id/textCatalog"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
