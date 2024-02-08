@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import thu.adse.energyquiz.R;
-
+/**
+ * This class is the QuestionAdapterQuestionCatalog class. It is used to create the view holder for the question catalog.
+ * It also sets the necessary values for the view holder to display the questions and answers.
+ * It also sets the on click listener for the view holder.
+ * @author Sebastian Steinhauser
+ */
 public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<QuestionAdapterQuestionCatalog.QuestionViewHolder> {
     private final RecyclerViewInterfaceQuestionCatalog recyclerViewInterface;
 
-
     Context context;
-
     ArrayList<QuestionQuestionCatalog> list;
 
 
@@ -45,16 +48,11 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
         holder.answerText2.setText(question.answer2.answerText);
         holder.answerText3.setText(question.answer3.answerText);
         holder.answerText4.setText(question.answer4.answerText);
-
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (recyclerViewInterface != null) {
-                    int pos = holder.getAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION) {
-                        recyclerViewInterface.onItemClick(pos, question);
-                    }
+        holder.itemView.setOnClickListener(view -> {
+            if (recyclerViewInterface != null) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    recyclerViewInterface.onItemClick(pos, question);
                 }
             }
         });
@@ -66,22 +64,14 @@ public class QuestionAdapterQuestionCatalog extends RecyclerView.Adapter<Questio
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder{
-
         TextView questionTitle, answerText1, answerText2, answerText3, answerText4;
-
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
             questionTitle = itemView.findViewById(R.id.textViewQuestionTitle);
             answerText1 = itemView.findViewById(R.id.textViewAnswerText1);
             answerText2 = itemView.findViewById(R.id.textViewAnswerText2);
             answerText3 = itemView.findViewById(R.id.textViewAnswerText3);
             answerText4 = itemView.findViewById(R.id.textViewAnswerText4);
-
-
-            //hier könnte man jetzt die korrekten Antworten markieren im Fragenkatalog
-
         }
     }
 }

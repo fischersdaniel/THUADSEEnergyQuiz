@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
-import thu.adse.energyquiz.MultiPlayer.MultiPlayerResultActivity;
 import thu.adse.energyquiz.R;
 
 public class EditQuestionQuestionCatalog extends AppCompatActivity {
@@ -67,17 +65,18 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
 
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
-        buttonSubmitEditQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitEditQuestion(selectedQuestion);
-            }
-        });
+        buttonSubmitEditQuestion.setOnClickListener(view -> submitEditQuestion(selectedQuestion));
 
-        buttonBackToCatalog.setOnClickListener(v -> {
-            finish();
-        });
+        buttonBackToCatalog.setOnClickListener(v -> finish());
     }
+
+    /**
+     * Method to submit the edited question to the database.
+     * The method is called when the user clicks the submit button.
+     * @author Sebastian Steinhauser
+     *
+     * @param selectedQuestion the selected question
+     */
     private void submitEditQuestion(QuestionQuestionCatalog selectedQuestion) {
         editQuestionTitle = editTextEditQuestion.getText().toString();
         editTextAnswer1 = editTextEditAnswer1.getText().toString();
@@ -106,6 +105,12 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
         startActivity(new Intent(EditQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class));
     }
 
+    /**
+     * Method to hide the keyboard when the user touches the screen outside of the keyboard.
+     * @param ev The touch screen event.
+     *
+     * @return true if the event was handled, false otherwise
+     */
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View v = getCurrentFocus();
 
@@ -125,6 +130,10 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
+    /**
+     * Method to hide the keyboard.
+     * @param activity The activity where the keyboard will be hidden.
+     */
     private void hideKeyboard(Activity activity) {
 
         if (activity != null && activity.getWindow() != null) {
