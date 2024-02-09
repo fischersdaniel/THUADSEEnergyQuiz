@@ -28,7 +28,6 @@ import thu.adse.energyquiz.R;
 
 public class MultiPlayerGameActivity extends AppCompatActivity {
 
-
     DatabaseReference lobbyDbRef, usersDbRef, dbRef, questionsDbRef;
     ArrayList<Long> questionIDsForThisRound = new ArrayList<>();
     String player1ID, player2ID, questionTitle, answer1, answer2, answer3, answer4;
@@ -365,6 +364,8 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gepseichert!", Toast.LENGTH_SHORT).show();
         Log.d("AbortGame", "Player Aborted the Game");
         startActivity(abortGameIntent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
     }
 
     /**

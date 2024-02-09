@@ -132,11 +132,16 @@ public class MultiPlayerResultActivity extends AppCompatActivity {
             Intent intent = new Intent(MultiPlayerResultActivity.this, MultiPlayerLobbyScreen.class);
             dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
             startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
         cardViewMultiPlayerResultsGoHome.setOnClickListener(v -> {
             dbRef.child("Lobbies").child("full").child(extras.getString("player1ID")).removeValue();
             startActivity(new Intent(MultiPlayerResultActivity.this, HomeScreenActivity.class));
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+
         });
     }
 

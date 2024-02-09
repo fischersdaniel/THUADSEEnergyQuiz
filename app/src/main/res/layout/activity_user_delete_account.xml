@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deleteAccount"
-        android:textSize="30sp"
+        android:textSize="29sp"
         app:layout_constraintBottom_toBottomOf="@+id/cardViewDeleteAccountBack"
         app:layout_constraintEnd_toEndOf="@+id/cardViewDeleteAccountCard"
         app:layout_constraintStart_toEndOf="@+id/cardViewDeleteAccountBack"
@@ -101,6 +101,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:textColor="@color/white"
                     android:text="@string/confirmDeleteAcc_button"
                     android:textSize="16sp" />
 
