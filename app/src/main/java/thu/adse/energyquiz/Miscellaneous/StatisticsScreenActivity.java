@@ -29,9 +29,10 @@ import java.util.Locale;
 
 import thu.adse.energyquiz.R;
 
+// L.B.: Activity to display user statistics
 public class StatisticsScreenActivity extends AppCompatActivity {
 
-    // UI elements
+    // L.B.: UI elements
     private TextView textViewStatisticsRankCalculated;
     private TextView textViewStatisticsPointsDB;
     private TextView textViewStatisticsCorrectAnswersDB;
@@ -42,7 +43,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     private PieChart pieChart1Statistics;
     private List <PieEntry> pieEntryList;
 
-    // User statistics variables
+    // L.B.: User statistics variables
     private Integer score;
     private Integer nextRank;
     private String rank;
@@ -50,22 +51,23 @@ public class StatisticsScreenActivity extends AppCompatActivity {
     public Integer totalCorrectAnswers;
     public Integer totalAnswers;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_statistics);
 
-        // Back button click listener
+        // L.B.: Checks for back button press, changes activities accordingly and applies custom transition
         CardView cardViewStatisticsBack = findViewById(R.id.cardViewStatisticsBack);
         cardViewStatisticsBack.setOnClickListener(view -> {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
-            startActivity(intent);
+            finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
-        // Initialize PieChart data
+        // L.B.: Initialize PieChart data
         pieEntryList = new ArrayList<>();
 
-        // Find UI elements
+        // L.B.: Find UI elements
         textViewStatisticsRankCalculated = findViewById(R.id.textViewStatisticsRankCalculated);
         textViewStatisticsPointsDB = findViewById(R.id.textViewStatisticsPointsDB);
         textViewStatisticsCorrectAnswersDB = findViewById(R.id.textViewStatisticsCorrectAnswersDB);
@@ -74,36 +76,36 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         textViewStatisticsNextRankCalculated = findViewById(R.id.textViewStatisticsNextRankCalculated);
         pieChart1Statistics = findViewById(R.id.pieChart1Statistics);
 
-        // Firebase Authentication
+        // L.B.: Firebase Authentication
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            userId = currentUser.getUid();  // Use the UID (e.g., store it in a variable)
+            userId = currentUser.getUid();  // L.B.: Use the UID (e.g., store it in a variable)
             Log.d("current User", "succesfully getting userID:" + userId);
         } else {
             Log.d("Current User", "No current User - Signup first");
         }
 
-        // Database reference setup
+        // L.B.: Database reference setup
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-        // ValueEventListener to listen for changes in the user's statistics in the Firebase database
+        // L.B.: ValueEventListener to listen for changes in the user's statistics in the Firebase database
         usersDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Retrieve user statistics from the database
+                    // L.B.: Retrieve user statistics from the database
                     score = dataSnapshot.child("score").getValue(Integer.class);
                     totalCorrectAnswers = dataSnapshot.child("totalCorrectAnswers").getValue(Integer.class);
                     totalAnswers = dataSnapshot.child("totalAnswers").getValue(Integer.class);
                     rank = dataSnapshot.child("rank").getValue(String.class);
 
-                    // Update UI based on retrieved user statistics
+                    // L.B.: Update UI based on retrieved user statistics
                     if (score != null) {
                         textViewStatisticsPointsDB.setText(String.valueOf(score + " pkt."));
 
-                        // Determine and calculate user rank and next rank based on the user score
+                        // L.B.: Determine and calculate user rank and next rank based on the user score
                         if (score >= 0 && score < 20) {
                             rank = getString(R.string.userRank_0);
                             nextRank = 20;
@@ -135,7 +137,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                         textViewStatisticsPointsDB.setText(R.string.NA);
                     }
 
-                    // Display total correct answers, total answers
+                    // L.B.: Display total correct answers, total answers
                     if (totalCorrectAnswers != null) {
                         textViewStatisticsCorrectAnswersDB.setText(String.valueOf(totalCorrectAnswers));
                     } else {
@@ -148,12 +150,12 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                         textViewStatisticsTotalAnswersDB.setText(R.string.NA);
                     }
 
-                    // Determine and calculate user answer accuracy
+                    // L.B.: Determine and calculate user answer accuracy
                     if (totalCorrectAnswers != null && totalAnswers != null) {
                         double quote = (double) totalCorrectAnswers / totalAnswers * 100;
                         textViewQuoteCalculated.setText(String.format(Locale.GERMANY, "%.1f%%", quote));
 
-                        // Update PieChart and display it
+                        // L.B.: Update PieChart and display it
                         setValues();
                         setUpChart();
                     } else {
@@ -161,7 +163,7 @@ public class StatisticsScreenActivity extends AppCompatActivity {
                     }
                 }
 
-                // User data empty or not found in the database
+                // L.B.: User data empty or not found in the database
                 else {
                         textViewStatisticsPointsDB.setText(R.string.IDNF);
                         textViewStatisticsCorrectAnswersDB.setText(R.string.IDNF);
@@ -178,18 +180,18 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         });
     }
 
-    // Set up the PieChart with the user's correct and incorrect answers
+    // L.B.: Set up the PieChart with the user's correct and incorrect answers
     private void setUpChart() {
         Log.d("0 setupchart", "im setupchart");
         PieDataSet pieDataSet = new PieDataSet(pieEntryList,"");
         PieData pieData = new PieData(pieDataSet);
 
-        // Create Data Array and Define colors for correct and incorrect answers
+        // L.B.: Create Data Array and Define colors for correct and incorrect answers
         List<Integer> colors = new ArrayList<>();
         colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.rightbg)); // R.color.greenColor sollte in Ihren Ressourcen definiert sein
         colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.wrongbg)); // R.color.redColor sollte in Ihren Ressourcen definiert sein
 
-        // Set up PieChart properties
+        // L.B.: Set up PieChart properties
         pieDataSet.setColors(colors);
         pieDataSet.setValueTextColor(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.white));
         pieData.setValueTextSize(12f);
@@ -198,14 +200,14 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         pieChart1Statistics.invalidate();
         pieChart1Statistics.getDescription().setEnabled(false);
 
-        // Set up legend for the PieChart
+        // L.B.: Set up legend for the PieChart
         Legend legend = pieChart1Statistics.getLegend();
         legend.setDrawInside(false);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
 
     }
 
-    // Populate the PieChart with the user's correct and incorrect answers
+    // L.B.: Populate the PieChart with the user's correct and incorrect answers
     private void setValues() {
 
         if (totalCorrectAnswers != null) {

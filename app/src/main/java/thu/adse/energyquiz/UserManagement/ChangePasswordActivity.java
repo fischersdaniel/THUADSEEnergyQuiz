@@ -71,6 +71,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                         Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeSuccessfull), Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
                                         finish();
+                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
                                     }
                                     else {
                                         Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeFailed), Toast.LENGTH_SHORT).show();
@@ -85,9 +86,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
-
     }
 
     public boolean dispatchTouchEvent(MotionEvent ev) {

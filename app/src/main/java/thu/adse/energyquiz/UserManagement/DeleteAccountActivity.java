@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to delete the account of the logged in user
@@ -50,8 +51,9 @@ public class DeleteAccountActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(DeleteAccountActivity.this, getString(R.string.deleteAccountSuccessfull), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(DeleteAccountActivity.this, SignUpActivity.class));
+                                    startActivity(new Intent(DeleteAccountActivity.this, HomeScreenActivity.class));
                                     finish();
+                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
                                 }
                                 else {
                                     Toast.makeText(DeleteAccountActivity.this, getString(R.string.deleteAccountFailed), Toast.LENGTH_SHORT).show();
@@ -65,6 +67,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DeleteAccountActivity.this, SettingsActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
     }

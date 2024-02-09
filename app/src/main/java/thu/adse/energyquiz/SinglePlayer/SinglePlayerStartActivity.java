@@ -21,15 +21,19 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_start);
 
+        // L.B.: Initialize UI elements
         CardView cardViewSinglePlayerStartBack = findViewById(R.id.cardViewSinglePlayerStartBack);
         CardView cardViewSinglePlayerStartPlayButton = findViewById(R.id.cardViewSinglePlayerStartPlayButton);
         CardView cardViewSinglePlayerStartPlus = findViewById(R.id.cardViewSinglePlayerStartPlus);
         CardView cardViewSinglePlayerStartMinus = findViewById(R.id.cardViewSinglePlayerStartMinus);
         TextView TextViewSinglePlayerStartNumberInput = findViewById(R.id.textViewLobbyCreatorUserName);
 
+        // L.B.: Back button click listener
         cardViewSinglePlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
+            finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
         // Standard number of numberQuestionsPerRound
@@ -44,11 +48,12 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
             // The key argument of the intent here must match that used in the other activity
         }
 
+        // L.B.: "Plus" button click listener
         cardViewSinglePlayerStartPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Increase numberQuestionsPerRound by 1 when pressing the "plus"-cardView
-                // The maximum number of questions per round is 10
+                // L.B.: Increase numberQuestionsPerRound by 1 when pressing the "plus"-cardView
+                // L.B.: The maximum number of questions per round is 10
                 if(numberQuestionsPerRound < 10) {
                     numberQuestionsPerRound++;
                     TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
@@ -56,11 +61,12 @@ public class SinglePlayerStartActivity extends AppCompatActivity{
             }
         });
 
+        // L.B.: "Minus" button click listener
         cardViewSinglePlayerStartMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Decrease numberQuestionsPerRound by 1 when pressing the "minus"-cardView
-                // The minimum number of questions per round is 1
+                // L.B.: Decrease numberQuestionsPerRound by 1 when pressing the "minus"-cardView
+                // L.B.: The minimum number of questions per round is 1
                 if (numberQuestionsPerRound > 1) {
                     numberQuestionsPerRound--;
                     TextViewSinglePlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));

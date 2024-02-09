@@ -164,8 +164,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
      * @author Sebastian Steinhauser
      */
     public void backToMenu(){
-        Intent intent = new Intent(MainActivityQuestionCatalog.this, HomeScreenActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     /**

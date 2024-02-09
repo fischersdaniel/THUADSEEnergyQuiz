@@ -94,6 +94,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         cardViewMultiPlayerLobbyBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         lobbyList=new ArrayList<>();

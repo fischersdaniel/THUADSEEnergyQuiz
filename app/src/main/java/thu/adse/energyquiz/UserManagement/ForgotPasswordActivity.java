@@ -58,6 +58,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                         Toast.makeText(ForgotPasswordActivity.this, getString(R.string.resetEmailSuccessfull), Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
                                         finish();
+                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
                                     }
                                     else {
                                         Toast.makeText(ForgotPasswordActivity.this, getString(R.string.resetEmailFailed), Toast.LENGTH_SHORT).show();
@@ -76,6 +77,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
     }
