@@ -2,6 +2,7 @@ package thu.adse.energyquiz.QuestionCatalog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,7 +42,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
 
     EditText editTextNewQuestion, editTextNewAnswer1, editTextNewAnswer2, editTextNewAnswer3, editTextNewAnswer4;
-    Button buttonBackToCatalog, buttonSubmitNewQuestion;
+    CardView cardViewCatalogAddQuestionBack, cardViewButtonSubmitNewQuestion;
     CheckBox radioButtonNewCorrectAnswer1, radioButtonNewCorrectAnswer2, radioButtonNewCorrectAnswer3, radioButtonNewCorrectAnswer4;
 
     DatabaseReference questionsDbRef;
@@ -51,7 +51,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_catalog_new_question);
+        setContentView(R.layout.activity_catalog_new_question_v2);
 
         editTextNewQuestion = findViewById(R.id.editTextNewQuestion);
         editTextNewAnswer1 = findViewById(R.id.editTextNewAnswer1);
@@ -63,20 +63,24 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         radioButtonNewCorrectAnswer3 = findViewById(R.id.radioButtonNewCorrectAnswer3);
         radioButtonNewCorrectAnswer4 = findViewById(R.id.radioButtonNewCorrectAnswer4);
 
-        buttonBackToCatalog = findViewById(R.id.buttonBackToCatalog);
-        buttonSubmitNewQuestion = findViewById(R.id.buttonSubmitNewQuestion);
+        cardViewCatalogAddQuestionBack = findViewById(R.id.cardViewCatalogAddQuestionBack);
+        cardViewButtonSubmitNewQuestion = findViewById(R.id.cardViewButtonSubmitNewQuestion);
 
         questionsDbRef = FirebaseDatabase.getInstance().getReference().child("Questions");
 
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
-        buttonSubmitNewQuestion.setOnClickListener(view -> {
+        cardViewButtonSubmitNewQuestion.setOnClickListener(view -> {
             submitNewQuestion();
             Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
             startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+
         });
-        buttonBackToCatalog = findViewById(R.id.buttonBackToCatalog);
-        buttonBackToCatalog.setOnClickListener(view -> backToCatalog());
+
+        cardViewCatalogAddQuestionBack = findViewById(R.id.cardViewCatalogAddQuestionBack);
+        cardViewCatalogAddQuestionBack.setOnClickListener(view -> backToCatalog());
         questionsDbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -144,6 +148,8 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     public void backToCatalog(){
         Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
         startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
     }
 
     /**
