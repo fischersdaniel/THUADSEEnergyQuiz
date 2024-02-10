@@ -96,10 +96,10 @@
     <string name="questionTitleTextView" tools:ignore="UnusedResources">Fragenkatalog</string>
     <string name="buttonToNewQuestion" tools:ignore="UnusedResources">+</string>
     <string name="editTextNewQuestion">Frage</string>
-    <string name="editTextNewAnswer1">Eingabe Antwortmöglichkeit</string>
-    <string name="editTextNewAnswer2">Eingabe Antwortmöglichkeit</string>
-    <string name="editTextNewAnswer3">Eingabe Antwortmöglichkeit</string>
-    <string name="editTextNewAnswer4">Eingabe Antwortmöglichkeit</string>
+    <string name="editTextNewAnswer1">Antwort Nr.1</string>
+    <string name="editTextNewAnswer2">Antwort Nr.2</string>
+    <string name="editTextNewAnswer3">Antwort Nr.3</string>
+    <string name="editTextNewAnswer4">Antwort Nr.4</string>
     <string name="radioButtonNewCorrectAnswerOption1">Richtige Antwort</string>
     <string name="radioButtonNewCorrectAnswerOption2">Richtige Antwort</string>
     <string name="radioButtonNewCorrectAnswerOption3">Richtige Antwort</string>
@@ -189,6 +189,9 @@
     <string name="StatQuote">Quote:</string>
 
     <string name="singlePlayerResultsUser2TextViewQuote">Richtige Gegner:</string>
+
+    <string name="NewQuest">Neue Frage</string>
+
 
 
 

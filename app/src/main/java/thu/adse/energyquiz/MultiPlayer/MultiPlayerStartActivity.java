@@ -67,6 +67,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         cardViewMultiPlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerLobbyScreen.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         numberQuestionsPerRound = 5; //default value

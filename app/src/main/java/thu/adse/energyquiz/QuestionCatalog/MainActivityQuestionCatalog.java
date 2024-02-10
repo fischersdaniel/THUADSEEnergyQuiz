@@ -164,6 +164,8 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     public void backToMenu(){
         Intent intent = new Intent(MainActivityQuestionCatalog.this, HomeScreenActivity.class);
         startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
     }
 
     /**

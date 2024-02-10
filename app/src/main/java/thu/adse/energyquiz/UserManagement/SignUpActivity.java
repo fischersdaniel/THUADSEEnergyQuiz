@@ -123,6 +123,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 Log.d("current User", "Create user in database erfolgreich");
                                 Toast.makeText(SignUpActivity.this, getString(R.string.signUpSuccessfull), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, HomeScreenActivity.class));
+                                finish();
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+
                             } else{
                                 Toast.makeText(SignUpActivity.this, getString(R.string.signUpFailed) + " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -136,13 +139,18 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
 
+        // L.B.: Checks for back button press, changes activities accordingly and applies custom transition
         cardViewSignUpBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
 

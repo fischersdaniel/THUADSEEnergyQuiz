@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
-// Main Activity of the User Management
+// D.F. & L.B.: Main Activity of the User Management
 public class SettingsActivity extends AppCompatActivity {
 
     private CardView cardViewSettingsBack, cardViewUserSettingsLogout, cardViewUserSettingsPassword, cardViewUserSettingsDeleteUser;
@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
 
+        // L.B.: Link UI elements with corresponding XML IDs
         cardViewSettingsBack = findViewById(R.id.cardViewSettingsBack);
         cardViewUserSettingsLogout = findViewById(R.id.cardViewUserSettingsLogout);
         cardViewUserSettingsPassword = findViewById(R.id.cardViewUserSettingsPassword);
@@ -44,13 +45,16 @@ public class SettingsActivity extends AppCompatActivity {
         textViewSettingsUserMailDB = findViewById(R.id.textViewSettingsUserMailDB);
         textViewSettingsUsernameDB = findViewById(R.id.textViewSettingsUsernameDB);
 
+        // L.B.: Check if a user is currently logged in
         if (currentUser != null) {
             userEmail = currentUser.getEmail();
             textViewSettingsUserMailDB.setText(userEmail);
 
+            // L.B.: Retrieve username from the Firebase Database
             userId = currentUser.getUid();
             DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("userName");
 
+            // L.B.: Display the username from the Firebase Database if exists
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,10 +76,13 @@ public class SettingsActivity extends AppCompatActivity {
             // kein User angemeldet
         }
 
+        // D.F. & L.B.: Set up click listeners for the various card views
         cardViewSettingsBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, HomeScreenActivity.class));
+                startActivity(new Intent(SettingsActivity.this, HomeScreenActivity.class ));
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
 
@@ -86,9 +93,11 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(SettingsActivity.this, getString(R.string.logOutSuccessfull), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SettingsActivity.this, HomeScreenActivity.class ));
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
 
+        // L.B.: Checks for button press, changes activities accordingly
         cardViewUserSettingsPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        // L.B.: Checks for button press, changes activities accordingly
         cardViewUserSettingsDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

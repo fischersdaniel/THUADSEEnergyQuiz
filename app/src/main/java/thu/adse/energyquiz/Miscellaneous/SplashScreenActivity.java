@@ -2,6 +2,7 @@ package thu.adse.energyquiz.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.splashscreen.SplashScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import java.util.List;
 
 import thu.adse.energyquiz.R;
 
-
+// D.F. & L.B.: Activity for the splash screen
 public class SplashScreenActivity extends AppCompatActivity {
     private String userID;
     private boolean remainLogInLocal;
@@ -30,12 +31,13 @@ public class SplashScreenActivity extends AppCompatActivity {
     private DatabaseReference usersDatabaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this); // L.B.: Install the splash screen
         super.onCreate(savedInstanceState);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);  // Always force custom Light-Theme independend of phone setting
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);  // L.B.: Always force custom Light-Theme independent of phone setting
         setContentView(R.layout.activity_splash_screen);
 
-        //When while opening the app a user is still logged in, there is no need to log in again
-        //remain logged in had to be chosen in the login screen
+        // D.F.: When opening the app, if a user is still logged in, there is no need to log in again
+        // D.F.: "Remain logged in" had to be chosen in the login screen
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -86,6 +88,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Log.d("current User", "Bitte Anmelden");
         }
 
+        // L.B.: Handler to delay the intent for opening HomeScreenActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -93,6 +96,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },3000);
+        },2500); // L.B.: 2500 milliseconds delay for splashscreen
     }
 }

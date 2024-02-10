@@ -32,7 +32,6 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
     private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview, confirm_next_textview;
     private MaterialCardView cardViewSinglePlayerAnswer1, cardViewSinglePlayerAnswer2, cardViewSinglePlayerAnswer3, cardViewSinglePlayerAnswer4, cardViewSinglePlayerSubmitAnswer;
-
     private boolean answer1_choosen, answer2_choosen, answer3_choosen,answer4_choosen, switchConfirmNextButton;
     private int numberQuestionsPerRound, counterRandomQuestions, actualQuestionNumber, numberCorrectAnswersRound, counterUsedSessionIDs;
     private long countQuestionChilds;
@@ -51,10 +50,13 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player_game);
 
+        // L.B.: Checks for back-button press, changes activities accordingly and applies custom transition
         CardView cardViewSinglePlayerGameBack = findViewById(R.id.cardViewSinglePlayerGameBack);
         cardViewSinglePlayerGameBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
+            finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -83,6 +85,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         numberCorrectAnswersRound = 0;
         switchConfirmNextButton = false;
 
+        // L.B.: Initialize/find UI elements
         numberQuestionsProgress_textview = findViewById(R.id.numberQuestionsProgress_textview);
         question_textview = findViewById(R.id.question_textview);
         answer1_textview = findViewById(R.id.answer1_textview);
@@ -240,15 +243,17 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
         confirm_next_textview.setText(getString(R.string.confirm_button));
 
+        // L.B.: Reset all cardView background colors to white for next round
         cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
         cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
         cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
         cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
 
-        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
-        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
-        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
-        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.transparent));
+        // L.B.: Reset all cardView border strokes to zero for next round
+        cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+        cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+        cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
+        cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
 
         answer1_choosen = false;
         answer2_choosen = false;
@@ -264,6 +269,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer1_choosen = !answer1_choosen;
+
+                    // L.B.: Visualizing selected answer 1 by toggling cardView Background color between white/grey and toggles border stroke on/off
                     if(answer1_choosen){
                         cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
                         cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
@@ -281,6 +288,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer2_choosen = !answer2_choosen;
+
+                    // L.B.: Visualizing selected answer 2 by toggling cardView Background color between white/grey and toggles border stroke on/off
                     if(answer2_choosen){
                         cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
                         cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
@@ -298,6 +307,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer3_choosen = !answer3_choosen;
+
+                    // L.B.: Visualizing selected answer 3 by toggling cardView Background color between white/grey and toggles border stroke on/off
                     if(answer3_choosen){
                         cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
                         cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
@@ -315,6 +326,8 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // Check if in the answer choosing phase, else no action if clicked
                 if (false == switchConfirmNextButton) {
                     answer4_choosen = !answer4_choosen;
+
+                    // L.B.: Visualizing selected answer 4 by toggling cardView Background color between white/grey and toggles border stroke on/off
                     if(answer4_choosen){
                         cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.selectedbg));
                         cardViewSinglePlayerAnswer4.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeon));
@@ -333,8 +346,9 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                 // second click (else) loads the next question or goes to the result screen
                 if (false == switchConfirmNextButton) {
                     switchConfirmNextButton = true;
-                    confirm_next_textview.setText(getString(R.string.next_button));
+                    confirm_next_textview.setText(getString(R.string.next_button)); // L.B.: Changes Button after submitting answers
 
+                    // L.B.: Checks if answer 1 has been chosen correctly and changes cardView background color accordingly to indicate right/wrong
                     if (actualQuestionAnswer1Correct == true) {
                         cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
                         if (answer1_choosen == true) {
@@ -346,6 +360,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
+                    // L.B.: Checks if answer 2 has been chosen correctly and changes cardView background color accordingly to indicate right/wrong
                     if (actualQuestionAnswer2Correct == true) {
                         cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
                         if (answer2_choosen == true) {
@@ -357,6 +372,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
+                    // L.B.: Checks if answer 3 has been chosen correctly and changes cardView background color accordingly to indicate right/wrong
                     if (actualQuestionAnswer3Correct == true) {
                         cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
                         if (answer3_choosen == true) {
@@ -368,6 +384,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
                         cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.wrongbg));
                     }
 
+                    // L.B.: Checks if answer 4 has been chosen correctly and changes cardView background color accordingly to indicate right/wrong
                     if (actualQuestionAnswer4Correct == true) {
                         cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.rightbg));
                         if (answer4_choosen == true) {
@@ -397,11 +414,13 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
 
                         numberQuestionsProgress_textview.setText(String.valueOf(actualQuestionNumber) + " / " + String.valueOf(numberQuestionsPerRound));
 
+                        // L.B.: Reset all cardView background colors to white for next round
                         cardViewSinglePlayerAnswer1.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
                         cardViewSinglePlayerAnswer2.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
                         cardViewSinglePlayerAnswer3.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
                         cardViewSinglePlayerAnswer4.setCardBackgroundColor(ContextCompat.getColor(SinglePlayerGameActivity.this, R.color.white));
 
+                        // L.B.: Reset all cardView border strokes to zero for next round
                         cardViewSinglePlayerAnswer1.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                         cardViewSinglePlayerAnswer2.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));
                         cardViewSinglePlayerAnswer3.setStrokeColor(ContextCompat.getColorStateList(SinglePlayerGameActivity.this, R.color.strokeoff));

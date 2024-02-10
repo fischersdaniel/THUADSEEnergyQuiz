@@ -61,9 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         // Close the Keyboard by touching anywhere on the screen expect the EditText-fields
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
+        // L.B.: Checks for back button press, changes activities accordingly and applies custom transition
         cardViewLoginBack.setOnClickListener(view -> {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, HomeScreenActivity.class); // L.B.: changes activities accordingly
             startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
         cardViewLoginCardLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.logInSuccessfull), Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class ));
                                         finish();
+                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -143,14 +148,15 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)); // Change activity with standard transition
             }
         });
 
         signUpRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class)); // Change activity with standard transition
+
             }
         });
     }

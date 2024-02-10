@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- L.B.: Custom colors palette-->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="night" tools:ignore="UnusedResources">#FF000F08</color>
@@ -7,6 +8,7 @@
     <color name="middlegrey">#FF797B79</color>
     <color name="lightgrey">#FFBFC0C0</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whitetransp">#80FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
 
     <color name="preussianblue" tools:ignore="UnusedResources">#FF142B3E</color>
@@ -38,5 +40,4 @@
 
     <color name="status_bar_light" tools:ignore="UnusedResources">#FFFFFFFF</color>
     <color name="status_bar_dark" tools:ignore="UnusedResources">#FF000000</color>
-
 </resources>

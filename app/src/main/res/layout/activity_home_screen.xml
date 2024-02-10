@@ -51,6 +51,19 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Energie Quiz!"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewHomeUser"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewHomeUser"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeSingle"
+        app:layout_constraintTop_toTopOf="@+id/cardViewHomeUser" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeSingle"
         android:layout_width="0dp"

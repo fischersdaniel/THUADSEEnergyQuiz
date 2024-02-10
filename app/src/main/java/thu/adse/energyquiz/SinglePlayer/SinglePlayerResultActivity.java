@@ -116,6 +116,7 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
                     totalCorrectAnswersLocal = totalCorrectAnswersLocal + numberCorrectAnswersRound;
                     totalAnswersLocal = totalAnswersLocal + numberQuestionsPerRound;
 
+                    // L.B.: Display results on screen
                     textViewSinglePlayerResultsUser1QuotePlaceholder.setText(String.valueOf(numberCorrectAnswersRound) + " / " + String.valueOf(numberQuestionsPerRound));
                     textViewSinglePlayerResultsUser1PointsEarnedPlaceholder.setText(String.valueOf(scoreRound));
                     textViewSinglePlayerResultsUser1AllPointsPlaceholder.setText(String.valueOf(scoreUserLocal));
@@ -141,6 +142,8 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
                 Intent i = new Intent(SinglePlayerResultActivity.this, SinglePlayerStartActivity.class);
                 i.putExtra("numberQuestionsPerRound", numberQuestionsPerRound);
                 startActivity(i);
+                finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
 
@@ -148,6 +151,8 @@ public class SinglePlayerResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SinglePlayerResultActivity.this, HomeScreenActivity.class));
+                finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
         });
     }

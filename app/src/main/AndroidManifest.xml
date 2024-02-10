@@ -6,16 +6,18 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/new_logo"
+        android:icon="@drawable/logo_neu_black"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/new_logo_round"
+        android:roundIcon="@drawable/logo_neu_black_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EnergyQuiz"
+        android:theme="@style/Base.Theme.EnergyQuiz"
         tools:targetApi="31">
 
         <!-- Miscellaneous Activities-->
         <activity
+            android:theme="@style/Base.Theme.EnergyQuiz"
             android:name=".Miscellaneous.SplashScreenActivity"
+            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +59,7 @@
             android:name=".MultiPlayer.MultiPlayerWaitingScreenAlert"
             android:exported="false" />
 
-        <!-- MultiPlayer Activities-->
+        <!-- Question Catalog Activities-->
         <activity
             android:name=".QuestionCatalog.AnswerQuestionCatalog"
             android:exported="false" />

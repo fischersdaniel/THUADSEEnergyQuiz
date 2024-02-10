@@ -26,26 +26,27 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Findet und initialisiere die CardView-Elemente
-//        CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
+        // L.B.: Find and initialize CardView elements
         CardView cardViewHomeUser = findViewById(R.id.cardViewHomeUser);
         CardView cardViewHomeSingle = findViewById(R.id.cardViewHomeSingle);
         CardView cardViewHomeMulti = findViewById(R.id.cardViewHomeMulti);
         CardView cardViewHomeStatistics = findViewById(R.id.cardViewHomeStatistics);
         CardView cardViewHomeCatalog = findViewById(R.id.cardViewHomeCatalog);
+        //        CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
 
-        // Weist allen CardViews denselben OnClickListener zu, um Klickereignisse zu erfassen
-//        cardViewHomeSettings.setOnClickListener(this);
+        // L.B.: Assign the same OnClickListener to all CardViews to capture click events
         cardViewHomeUser.setOnClickListener(this);
         cardViewHomeSingle.setOnClickListener(this);
         cardViewHomeMulti.setOnClickListener(this);
         cardViewHomeStatistics.setOnClickListener(this);
         cardViewHomeCatalog.setOnClickListener(this);
+        //        cardViewHomeSettings.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
+        // L.B.: Check if the user is logged in
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -54,6 +55,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             userLoggedIn = false;
         }
 
+        // L.B.: Handle different CardView click events
         if (v.getId() == R.id.cardViewHomeUser) {
             // Aktionen für cardUser
             if(userLoggedIn){
