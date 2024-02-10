@@ -44,7 +44,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
      MultiPlayerLobby selectedLobby;
      String joinedUserID, userIDCreator;
     ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
-
+    ValueEventListener lobbyEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         recyclerViewLobbyscreen.setAdapter(lobbyAdapter);
 
 
-        lobbyDbRef.addValueEventListener(new ValueEventListener() {
+        lobbyDbRef.addValueEventListener(lobbyEventListener =new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -108,6 +108,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
                     lobbyList.add(lobby);
                 }
                 lobbyAdapter.notifyDataSetChanged();
+                lobbyDbRef.removeEventListener(lobbyEventListener);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
