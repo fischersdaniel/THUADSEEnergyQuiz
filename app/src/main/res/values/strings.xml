@@ -2,7 +2,7 @@
     <string name="app_name">EnergyQuiz</string>
 
 
-    <string name="Adminpasswort">Adminpasswort</string>
+    <string name="Adminpasswort">Administrator-Passwort</string>
 
     <string name="userIsLoggedIn">Nutzer ist angemeldet.</string>
     <string name="userIsLoggedOut">Nutzer ist abgemeldet.</string>

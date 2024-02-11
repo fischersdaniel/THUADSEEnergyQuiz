@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.Button;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     CardView cardViewPopUpEDEdit, cardViewPopUpEDDelete, cardViewPopUpEDCancel;
 
     String adminpasswordDB;
+    public Integer ADMINSCORE = 100;
     public QuestionQuestionCatalog selectedQuestion;
     enum CatalogueChange
     {
@@ -263,19 +266,23 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         final EditText editText = dialogView.findViewById(R.id.edit_text_input);
 
         // Set the dialog title, view, and buttons
-        builder.setTitle("Bitte geben Sie das Adminpasswort ein")
+        builder.setTitle("Erst ab " + ADMINSCORE + " Punkten verfügbar. Bitte Passwort eingeben:")
                 .setView(dialogView)
-                .setPositiveButton("OK", (dialog, which) -> {
+                .setPositiveButton("Bestätigen", (dialog, which) -> {
                     String inputstring = editText.getText().toString();
                     // Due to Asychronous processes we need to wait for the String Input
                     Callback.onAdminPasswordEntered(inputstring, requestedChange, question);
                     // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
                 })
-                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                .setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
 
-        // Create and show the AlertDialog
+        // L.B.: Create and show the AlertDialog and make buttons visible by setting color to black
         AlertDialog dialog = builder.create();
         dialog.show();
+        Button bpos = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button bneg = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        bpos.setTextColor(Color.BLACK);
+        bneg.setTextColor(Color.BLACK);
     }
 
     public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
@@ -313,7 +320,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                     Integer score = snapshot.child("score").getValue(Integer.class);
                     Log.d("UserRank", "UserRank:" + score);
                         //RankCallback.UserRankRead(rank, requestedChange, question);
-                    final Integer ADMINSCORE = 100;
                     if (score >= (ADMINSCORE)){
                         switch(requestedChange)
                         {
