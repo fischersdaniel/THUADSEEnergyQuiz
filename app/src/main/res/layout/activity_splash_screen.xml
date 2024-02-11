@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L.B.: Author Linus Bender. Splashscreen created in Adobe Photoshop by Linus Bender-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Miscellaneous.SplashScreenActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/adse_splash_v5"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop"/>
 </RelativeLayout>

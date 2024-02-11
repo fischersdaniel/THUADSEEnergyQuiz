@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--L.B.: Author Linus Bender. Layout for UserSettingsActivity-->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserManagement.SettingsActivity"
+    tools:context=".UserManagement.UserSettingsActivity"
     android:paddingBottom="50dp"
     android:clipToPadding="false">
-
-<!--    <com.google.android.material.card.MaterialCardView-->
-<!--        android:id="@+id/cardViewHomeSettings"-->
-<!--        android:layout_width="60dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginStart="50dp"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        app:cardCornerRadius="35dp"-->
-<!--        app:cardElevation="10dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageSettings"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            app:srcCompat="@drawable/settingsv2"/>-->
-
-<!--    </com.google.android.material.card.MaterialCardView>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHomeUser"
@@ -51,14 +32,25 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <TextView
+<!--    <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="Energie Quiz!"
+        android:text="Willkomen"
         android:textColor="@color/black"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewHomeUser"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewHomeUser"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeSingle"
+        app:layout_constraintTop_toTopOf="@+id/cardViewHomeUser" />-->
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/logo_titel"
         app:layout_constraintBottom_toBottomOf="@+id/cardViewHomeUser"
         app:layout_constraintEnd_toStartOf="@+id/cardViewHomeUser"
         app:layout_constraintStart_toStartOf="@+id/cardViewHomeSingle"
@@ -212,4 +204,16 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+<!--    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/logo_titel"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewHomeCatalog"
+        app:layout_constraintStart_toStartOf="@+id/cardViewHomeStatistics"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHomeStatistics" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

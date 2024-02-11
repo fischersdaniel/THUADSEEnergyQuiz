@@ -1,6 +1,7 @@
 package thu.adse.energyquiz.QuestionCatalog;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,7 +34,7 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
     EditText editTextEditQuestion, editTextEditAnswer1, editTextEditAnswer2, editTextEditAnswer3, editTextEditAnswer4;
     CheckBox radioButtonEditCorrectAnswer1, radioButtonEditCorrectAnswer2, radioButtonEditCorrectAnswer3, radioButtonEditCorrectAnswer4;
 
-    Button buttonBackToCatalog, buttonSubmitEditQuestion;
+    CardView cardViewCatalogEditQuestionBack, cardViewButtonEditQuestionSubmit;
 
     DatabaseReference questionsDbRef;
 
@@ -65,15 +65,23 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
         radioButtonEditCorrectAnswer3.setChecked(selectedQuestion.answer3.isCorrect);
         radioButtonEditCorrectAnswer4.setChecked(selectedQuestion.answer4.isCorrect);
 
-        buttonSubmitEditQuestion = findViewById(R.id.buttonSubmitEditQuestion);
-        buttonBackToCatalog = findViewById(R.id.buttonBackToCatalog);
+        cardViewButtonEditQuestionSubmit = findViewById(R.id.cardViewButtonEditQuestionSubmit);
+        cardViewCatalogEditQuestionBack = findViewById(R.id.cardViewCatalogEditQuestionBack);
         questionsDbRef = FirebaseDatabase.getInstance().getReference().child("Questions");
 
         findViewById(android.R.id.content).setFocusableInTouchMode(true);
 
-        buttonSubmitEditQuestion.setOnClickListener(view -> submitEditQuestion(selectedQuestion));
+        cardViewButtonEditQuestionSubmit.setOnClickListener(view -> submitEditQuestion(selectedQuestion));
 
-        buttonBackToCatalog.setOnClickListener(v -> finish());
+        cardViewCatalogEditQuestionBack.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivityQuestionCatalog.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+        });
+
+
+
     }
 
     /**
@@ -109,6 +117,8 @@ public class EditQuestionQuestionCatalog extends AppCompatActivity {
 
         Toast.makeText(EditQuestionQuestionCatalog.this, "Daten gespeichert", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(EditQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class));
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
     }
 
     /**

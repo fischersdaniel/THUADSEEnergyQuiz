@@ -16,7 +16,7 @@ import thu.adse.energyquiz.QuestionCatalog.MainActivityQuestionCatalog;
 import thu.adse.energyquiz.R;
 import thu.adse.energyquiz.SinglePlayer.SinglePlayerStartActivity;
 import thu.adse.energyquiz.UserManagement.LoginActivity;
-import thu.adse.energyquiz.UserManagement.SettingsActivity;
+import thu.adse.energyquiz.UserManagement.UserSettingsActivity;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean userLoggedIn;
@@ -32,7 +32,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         CardView cardViewHomeMulti = findViewById(R.id.cardViewHomeMulti);
         CardView cardViewHomeStatistics = findViewById(R.id.cardViewHomeStatistics);
         CardView cardViewHomeCatalog = findViewById(R.id.cardViewHomeCatalog);
-        //        CardView cardViewHomeSettings = findViewById(R.id.cardViewHomeSettings);
 
         // L.B.: Assign the same OnClickListener to all CardViews to capture click events
         cardViewHomeUser.setOnClickListener(this);
@@ -40,7 +39,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         cardViewHomeMulti.setOnClickListener(this);
         cardViewHomeStatistics.setOnClickListener(this);
         cardViewHomeCatalog.setOnClickListener(this);
-        //        cardViewHomeSettings.setOnClickListener(this);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (v.getId() == R.id.cardViewHomeUser) {
             // Aktionen für cardUser
             if(userLoggedIn){
-                startActivity(new Intent(HomeScreenActivity.this, SettingsActivity.class));
+                startActivity(new Intent(HomeScreenActivity.this, UserSettingsActivity.class));
             }else{
                 Toast.makeText(HomeScreenActivity.this, getString(R.string.userNotLoggedIn), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeScreenActivity.this, LoginActivity.class));

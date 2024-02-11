@@ -60,6 +60,8 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         // L.B.: Checks for back button press, changes activities accordingly and applies custom transition
         CardView cardViewStatisticsBack = findViewById(R.id.cardViewStatisticsBack);
         cardViewStatisticsBack.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeScreenActivity.class);
+            startActivity(intent);
             finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
@@ -188,8 +190,8 @@ public class StatisticsScreenActivity extends AppCompatActivity {
 
         // L.B.: Create Data Array and Define colors for correct and incorrect answers
         List<Integer> colors = new ArrayList<>();
-        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.rightbg)); // R.color.greenColor sollte in Ihren Ressourcen definiert sein
-        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.wrongbg)); // R.color.redColor sollte in Ihren Ressourcen definiert sein
+        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.rightbg)); // Sets PieChart Color for correctly answered
+        colors.add(ContextCompat.getColor(StatisticsScreenActivity.this, R.color.wrongbg)); // Sets PieChart Color for falsely answered
 
         // L.B.: Set up PieChart properties
         pieDataSet.setColors(colors);
@@ -204,7 +206,6 @@ public class StatisticsScreenActivity extends AppCompatActivity {
         Legend legend = pieChart1Statistics.getLegend();
         legend.setDrawInside(false);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-
     }
 
     // L.B.: Populate the PieChart with the user's correct and incorrect answers

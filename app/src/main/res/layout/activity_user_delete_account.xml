@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L.B.: Author Linus Bender. Layout for DeleteAccountActivity-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
-
-
+    tools:context=".UserManagement.DeleteAccountActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewDeleteAccountBack"
@@ -27,8 +29,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,8 +38,6 @@
         app:layout_constraintEnd_toEndOf="@+id/cardViewDeleteAccountCard"
         app:layout_constraintStart_toEndOf="@+id/cardViewDeleteAccountBack"
         app:layout_constraintTop_toTopOf="@+id/cardViewDeleteAccountBack"/>
-
-
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewDeleteAccountCard"
@@ -71,14 +69,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/reminderDeleteAccount" />
             </com.google.android.material.card.MaterialCardView>
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewConfirmDeleteAcc_button"

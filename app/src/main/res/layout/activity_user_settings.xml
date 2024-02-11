@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L.B.: Author Linus Bender. Layout for UserSettingsActivity-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserManagement.SettingsActivity">
-
+    tools:context=".UserManagement.UserSettingsActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewSettingsBack"
@@ -210,6 +212,5 @@
             app:srcCompat="@drawable/delete_user_inv" />
 
     </com.google.android.material.card.MaterialCardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

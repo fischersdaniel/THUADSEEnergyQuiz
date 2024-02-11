@@ -347,8 +347,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             creatorIsLoggedIn = true;
         }
         player2ID = snapshot.child("full").child(player1ID).child("userIDPlayer2").getValue(String.class);
-
-
+        
     }
 
     /**
@@ -361,7 +360,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
         abortGame=true;
         lobbyDbRef.child("full").child(player1ID).child("abortGame").setValue(abortGame);
         Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerLobbyScreen.class);
-        Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gepseichert!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gespeichert!", Toast.LENGTH_SHORT).show();
         Log.d("AbortGame", "Player Aborted the Game");
         startActivity(abortGameIntent);
         finish();

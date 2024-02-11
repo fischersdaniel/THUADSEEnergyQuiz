@@ -104,7 +104,7 @@
             android:name=".UserManagement.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.SettingsActivity"
+            android:name=".UserManagement.UserSettingsActivity"
             android:exported="false" />
         <activity
             android:name=".UserManagement.SignUpActivity"

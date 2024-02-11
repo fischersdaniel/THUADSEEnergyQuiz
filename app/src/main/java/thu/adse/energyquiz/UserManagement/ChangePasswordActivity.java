@@ -69,7 +69,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ChangePasswordActivity.this, getString(R.string.passwordChangeSuccessfull), Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
+                                        startActivity(new Intent(ChangePasswordActivity.this, UserSettingsActivity.class));
                                         finish();
                                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
                                     }
@@ -85,7 +85,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         cardViewChangePWBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChangePasswordActivity.this, SettingsActivity.class));
+                startActivity(new Intent(ChangePasswordActivity.this, UserSettingsActivity.class));
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }

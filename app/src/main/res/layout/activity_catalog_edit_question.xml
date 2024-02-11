@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L.B.: Author Linus Bender. Layout for EditQuestionQuestionCatalog-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,125 +9,263 @@
     android:layout_height="match_parent"
     tools:context=".QuestionCatalog.EditQuestionQuestionCatalog">
 
-    <CheckBox
-        android:id="@+id/radioButtonEditCorrectAnswer4"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/radioButtonNewCorrectAnswerOption4"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCatalogEditQuestionBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer4" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <CheckBox
-        android:id="@+id/radioButtonEditCorrectAnswer3"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/radioButtonNewCorrectAnswerOption3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer3" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/close" />
 
-    <CheckBox
-        android:id="@+id/radioButtonEditCorrectAnswer2"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/radioButtonNewCorrectAnswerOption2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer2" />
+    </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/editTextEditQuestion"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/editTextNewQuestion"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextEditAnswer1"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:hint="@string/editTextNewAnswer1"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditQuestion" />
-
-    <EditText
-        android:id="@+id/editTextEditAnswer2"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/editTextNewAnswer2"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer1" />
-
-    <EditText
-        android:id="@+id/editTextEditAnswer3"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/editTextNewAnswer3"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer2" />
-
-    <EditText
-        android:id="@+id/editTextEditAnswer4"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/editTextNewAnswer4"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer3" />
-
-    <Button
-        android:id="@+id/buttonBackToCatalog"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="288dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/buttonBackToCatalog"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSubmitEditQuestion" />
+        android:text="@string/EditQuest"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewCatalogEditQuestionBack"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewQuestion"
+        app:layout_constraintStart_toEndOf="@+id/cardViewCatalogEditQuestionBack"
+        app:layout_constraintTop_toTopOf="@+id/cardViewCatalogEditQuestionBack" />
 
-    <Button
-        android:id="@+id/buttonSubmitEditQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/buttonSubmitNewQuestion"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewQuestion"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButtonEditCorrectAnswer4" />
+        app:layout_constraintTop_toBottomOf="@id/cardViewCatalogEditQuestionBack">
 
-    <CheckBox
-        android:id="@+id/radioButtonEditCorrectAnswer1"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="10dp"
-        android:checked="false"
-        android:text="@string/radioButtonNewCorrectAnswerOption1"
+        <EditText
+            android:id="@+id/editTextEditQuestion"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/editTextNewQuestion"
+            android:singleLine="false"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="4"
+            android:lines="4"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewEditQuestionAnswer1"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditAnswer1" />
+        app:layout_constraintTop_toBottomOf="@id/cardViewQuestion">
+
+        <EditText
+            android:id="@+id/editTextEditAnswer1"
+            android:singleLine="false"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="3"
+            android:lines="3"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeStepGranularity="1sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/editTextNewAnswer1"/>
+
+        <CheckBox
+            android:id="@+id/radioButtonEditCorrectAnswer1"
+            android:layout_gravity="end|center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:duplicateParentState="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewEditQuestionAnswer2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewEditQuestionAnswer1">
+
+        <EditText
+            android:id="@+id/editTextEditAnswer2"
+            android:singleLine="false"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="3"
+            android:lines="3"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeMaxTextSize="12sp"
+            app:autoSizeStepGranularity="1sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/editTextNewAnswer2" />
+
+        <CheckBox
+            android:id="@+id/radioButtonEditCorrectAnswer2"
+            android:layout_gravity="end|center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:duplicateParentState="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewEditQuestionAnswer3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewEditQuestionAnswer2">
+
+        <EditText
+            android:id="@+id/editTextEditAnswer3"
+            android:singleLine="false"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="3"
+            android:lines="3"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeMaxTextSize="12sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/editTextNewAnswer3" />
+
+        <CheckBox
+            android:id="@+id/radioButtonEditCorrectAnswer3"
+            android:layout_gravity="end|center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:duplicateParentState="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewEditQuestionAnswer4"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
+        android:checkable="true"
+        android:state_checked="false"
+        app:strokeWidth="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewEditQuestionAnswer3">
+
+        <EditText
+            android:id="@+id/editTextEditAnswer4"
+            android:singleLine="false"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="2"
+            android:lines="2"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="2sp"
+            app:autoSizeMaxTextSize="6sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/editTextNewAnswer4" />
+
+        <CheckBox
+            android:id="@+id/radioButtonEditCorrectAnswer4"
+            android:layout_gravity="end|center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:duplicateParentState="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewButtonEditQuestionSubmit"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewEditQuestionAnswer4">
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/buttonSubmitNewQuestion" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

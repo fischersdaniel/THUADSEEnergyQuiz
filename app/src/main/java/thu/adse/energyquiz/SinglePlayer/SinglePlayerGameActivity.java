@@ -53,7 +53,7 @@ public class SinglePlayerGameActivity extends AppCompatActivity {
         // L.B.: Checks for back-button press, changes activities accordingly and applies custom transition
         CardView cardViewSinglePlayerGameBack = findViewById(R.id.cardViewSinglePlayerGameBack);
         cardViewSinglePlayerGameBack.setOnClickListener(view -> {
-            Intent intent = new Intent(this, HomeScreenActivity.class);
+            Intent intent = new Intent(this, SinglePlayerStartActivity.class);
             startActivity(intent);
             finish(); // L.B.: needs to be called BEFORE the navigation implementation. Else onLeaveThisActivity will be called AFTER onStartNewActivity -> wrong animation
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
