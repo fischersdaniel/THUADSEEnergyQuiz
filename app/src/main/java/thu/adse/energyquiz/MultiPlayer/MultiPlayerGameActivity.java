@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 /**
@@ -359,7 +360,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
     private void abortGame() {
         abortGame=true;
         lobbyDbRef.child("full").child(player1ID).child("abortGame").setValue(abortGame);
-        Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, MultiPlayerLobbyScreen.class);
+        Intent abortGameIntent = new Intent(MultiPlayerGameActivity.this, HomeScreenActivity.class);
         Toast.makeText(MultiPlayerGameActivity.this, "Spiel abgebrochen. Fortschritt nicht gespeichert!", Toast.LENGTH_SHORT).show();
         Log.d("AbortGame", "Player Aborted the Game");
         startActivity(abortGameIntent);
