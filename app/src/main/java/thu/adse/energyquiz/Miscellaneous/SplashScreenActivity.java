@@ -23,12 +23,13 @@ import java.util.List;
 
 import thu.adse.energyquiz.R;
 
-// D.F. & L.B.: Activity for the splash screen
 public class SplashScreenActivity extends AppCompatActivity {
     private String userID;
     private boolean remainLogInLocal;
     private List<Integer> usedSessionIDsInit = new ArrayList<>();
     private DatabaseReference usersDatabaseReference;
+
+    // D.F. & L.B.: Activity for the splash screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this); // L.B.: Install the splash screen
@@ -62,7 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                             usedSessionIDsInit.add(0);
                             usersDatabaseReference.child("usedSessionIDs").setValue(usedSessionIDsInit);
                             Toast.makeText(SplashScreenActivity.this, getString(R.string.userIsLoggedIn), Toast.LENGTH_SHORT).show();
-                           // startActivity(new Intent(SignUpActivity.this, SettingsActivity.class));
+                           // startActivity(new Intent(SignUpActivity.this, UserSettingsActivity.class));
                         }
                         else{
                             Log.d("current User", "remainLogIn false");

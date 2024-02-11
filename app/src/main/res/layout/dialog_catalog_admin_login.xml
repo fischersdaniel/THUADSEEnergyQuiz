@@ -1,4 +1,7 @@
-<!-- dialog_string_input.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--J.K.: Author Johannes Klever. Part of the Layout for the "Insert Admin Password" -Popup in MainActivityQuestionCatalog-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

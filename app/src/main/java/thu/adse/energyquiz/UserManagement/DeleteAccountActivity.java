@@ -66,7 +66,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         cardViewDeleteAccountBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DeleteAccountActivity.this, SettingsActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, UserSettingsActivity.class));
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }

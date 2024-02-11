@@ -21,7 +21,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // D.F. & L.B.: Main Activity of the User Management
-public class SettingsActivity extends AppCompatActivity {
+public class UserSettingsActivity extends AppCompatActivity {
 
     private CardView cardViewSettingsBack, cardViewUserSettingsLogout, cardViewUserSettingsPassword, cardViewUserSettingsDeleteUser;
     private TextView textViewSettingsUserMailDB, textViewSettingsUsernameDB;
@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         cardViewSettingsBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, HomeScreenActivity.class ));
+                startActivity(new Intent(UserSettingsActivity.this, HomeScreenActivity.class ));
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
@@ -90,8 +90,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                Toast.makeText(SettingsActivity.this, getString(R.string.logOutSuccessfull), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SettingsActivity.this, HomeScreenActivity.class ));
+                Toast.makeText(UserSettingsActivity.this, getString(R.string.logOutSuccessfull), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserSettingsActivity.this, HomeScreenActivity.class ));
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
             }
@@ -101,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         cardViewUserSettingsPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ChangePasswordActivity.class));
+                startActivity(new Intent(UserSettingsActivity.this, ChangePasswordActivity.class));
             }
         });
 
@@ -109,7 +109,7 @@ public class SettingsActivity extends AppCompatActivity {
         cardViewUserSettingsDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, DeleteAccountActivity.class));
+                startActivity(new Intent(UserSettingsActivity.this, DeleteAccountActivity.class));
             }
         });
     }

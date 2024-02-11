@@ -42,7 +42,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
 
     EditText editTextNewQuestion, editTextNewAnswer1, editTextNewAnswer2, editTextNewAnswer3, editTextNewAnswer4;
-    CardView cardViewCatalogAddQuestionBack, cardViewButtonSubmitNewQuestion;
+    CardView cardViewCatalogAddQuestionBack, cardViewButtonNewQuestionSubmit;
     CheckBox radioButtonNewCorrectAnswer1, radioButtonNewCorrectAnswer2, radioButtonNewCorrectAnswer3, radioButtonNewCorrectAnswer4;
 
     DatabaseReference questionsDbRef;
@@ -51,7 +51,7 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_catalog_new_question_v2);
+        setContentView(R.layout.activity_catalog_new_question);
 
         editTextNewQuestion = findViewById(R.id.editTextNewQuestion);
         editTextNewAnswer1 = findViewById(R.id.editTextNewAnswer1);
@@ -64,23 +64,26 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
         radioButtonNewCorrectAnswer4 = findViewById(R.id.radioButtonNewCorrectAnswer4);
 
         cardViewCatalogAddQuestionBack = findViewById(R.id.cardViewCatalogAddQuestionBack);
-        cardViewButtonSubmitNewQuestion = findViewById(R.id.cardViewButtonSubmitNewQuestion);
+        cardViewButtonNewQuestionSubmit = findViewById(R.id.cardViewButtonNewQuestionSubmit);
 
         questionsDbRef = FirebaseDatabase.getInstance().getReference().child("Questions");
-
-        findViewById(android.R.id.content).setFocusableInTouchMode(true);
-
-        cardViewButtonSubmitNewQuestion.setOnClickListener(view -> {
-            submitNewQuestion();
-            Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
+        cardViewButtonNewQuestionSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitNewQuestion();
+                Intent intent = new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class);
+                startActivity(intent);
+            }
 
         });
-
         cardViewCatalogAddQuestionBack = findViewById(R.id.cardViewCatalogAddQuestionBack);
-        cardViewCatalogAddQuestionBack.setOnClickListener(view -> backToCatalog());
+        cardViewCatalogAddQuestionBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backToCatalog();
+            }
+        });
+
         questionsDbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -120,8 +123,8 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
 
         Toast.makeText(NewQuestionQuestionCatalog.this, "Daten gespeichert", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(NewQuestionQuestionCatalog.this, MainActivityQuestionCatalog.class));
-
-
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
     }
 
     /**
@@ -217,6 +220,4 @@ public class NewQuestionQuestionCatalog extends AppCompatActivity {
             }
         }
     }
-
-
 }

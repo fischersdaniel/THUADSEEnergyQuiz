@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L.B.: Author Linus Bender. Layout for the "Waiting for Player" -PopUp before the Multiplayer-Round begins in MultiPlayerCancelLobbyLoadingScreenAlert-->
+
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="312dp"

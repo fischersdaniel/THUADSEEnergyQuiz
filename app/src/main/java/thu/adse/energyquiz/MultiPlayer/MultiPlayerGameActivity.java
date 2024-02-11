@@ -347,8 +347,7 @@ public class MultiPlayerGameActivity extends AppCompatActivity {
             creatorIsLoggedIn = true;
         }
         player2ID = snapshot.child("full").child(player1ID).child("userIDPlayer2").getValue(String.class);
-
-
+        
     }
 
     /**
