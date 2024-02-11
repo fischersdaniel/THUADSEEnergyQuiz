@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 //import android.widget.Button;
 
@@ -29,11 +30,12 @@ import thu.adse.energyquiz.R;
 /**
  * This class is used to display the lobbies for the multiplayer game and to join a lobby.
  * It also sets the necessary values for the game to start and moves the lobby from open to full.
+ *
  * @author Sebastian Steinhauser
  */
 public class MultiPlayerLobbyScreen extends AppCompatActivity implements RecyclerViewInterfaceMultiPlayerLobby {
 
-    DatabaseReference lobbyDbRef,usersDbRef, dbRef;
+    DatabaseReference lobbyDbRef, usersDbRef, dbRef;
     RecyclerView recyclerViewLobbyscreen;
     MultiPlayerLobbyAdapter lobbyAdapter;
     ArrayList<MultiPlayerLobby> lobbyList;
@@ -41,10 +43,11 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     Dialog dialog;
     FirebaseAuth auth;
     FirebaseUser JoinedUser;
-     MultiPlayerLobby selectedLobby;
-     String joinedUserID, userIDCreator;
-    ArrayList<Long> possibleQuestions = new ArrayList<>(),usedQuestions = new ArrayList<>(),possibleQuestions2Players=new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>();
-    ValueEventListener lobbyEventListener;
+    MultiPlayerLobby selectedLobby;
+    String joinedUserID, userIDCreator;
+    ArrayList<Long> possibleQuestions = new ArrayList<>(), usedQuestions = new ArrayList<>(), possibleQuestions2Players = new ArrayList<>(), randomizedQuestions = new ArrayList<>(), questionIDsForThisRound = new ArrayList<>(), allQuestionsFromDB = new ArrayList<>();
+    ValueEventListener lobbyEventListener, lobbySinlgeEventListener;
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +60,20 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         auth = FirebaseAuth.getInstance();
 
-        JoinedUser=auth.getCurrentUser();
-        joinedUserID=JoinedUser.getUid();
+        JoinedUser = auth.getCurrentUser();
+        joinedUserID = JoinedUser.getUid();
 
 
         lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
         usersDbRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        dbRef=FirebaseDatabase.getInstance().getReference();
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
         cardViewMultiPlayerLobbyCreateGame = findViewById(R.id.cardViewMultiPlayerLobbyCreateGame);
         cardViewMultiPlayerLobbyBack = findViewById(R.id.cardViewMultiPlayerLobbyBack);
 
-        dialog=new Dialog(MultiPlayerLobbyScreen.this);
+        dialog = new Dialog(MultiPlayerLobbyScreen.this);
         dialog.setContentView(R.layout.dialog_multi_player_join_game);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
@@ -89,45 +92,51 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // L.B.: apply custom transition
         });
 
-        lobbyList=new ArrayList<>();
+        lobbyList = new ArrayList<>();
         lobbyAdapter = new MultiPlayerLobbyAdapter(this, this, lobbyList);
         recyclerViewLobbyscreen.setAdapter(lobbyAdapter);
 
 
-        lobbyDbRef.addValueEventListener(lobbyEventListener =new ValueEventListener() {
+        lobbyDbRef.addValueEventListener(lobbyEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 lobbyList.clear();
+                possibleQuestions.clear();
 
-                for (DataSnapshot lobbysnapshot: snapshot.child("open").getChildren()) {
-                    for (DataSnapshot questionsnapshot: lobbysnapshot.child("possibleQuestions").getChildren()) {
+                for (DataSnapshot lobbysnapshot : snapshot.child("open").getChildren()) {
+                    extras = getIntent().getExtras();
+                    for (DataSnapshot questionsnapshot : lobbysnapshot.child("possibleQuestions").getChildren()) {
                         possibleQuestions.add(questionsnapshot.getValue(Long.class));
+                        Log.d("lobbyScreen", "onDataChange: possibleQuestions added");
                     }
                     MultiPlayerLobby lobby = new MultiPlayerLobby(lobbysnapshot.child("numberQuestionsPerRound").getValue(String.class), lobbysnapshot.child("userNameCreator").getValue(String.class), lobbysnapshot.getKey(), possibleQuestions);
                     lobbyList.add(lobby);
                 }
                 lobbyAdapter.notifyDataSetChanged();
-                lobbyDbRef.removeEventListener(lobbyEventListener);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
 
-    dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            getUsedQuestionsFromUserDb(snapshot);
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot questionsnapshot : snapshot.child("Questions").getChildren()) {
+                    allQuestionsFromDB.add(Long.parseLong(questionsnapshot.getKey()));
+                }
+                getUsedQuestionsFromUserDb(snapshot);
 
-        }
+            }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-    });
+            }
+        });
     }
 
 
@@ -140,7 +149,7 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
         cardViewPopUpLobbyJoinYes.setOnClickListener(view -> {
             moveLobbyToFull(selectedLobby);
-            startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class).putExtra("lobbyname",selectedLobby.userIDCreator));
+            startActivity(new Intent(MultiPlayerLobbyScreen.this, MultiPlayerGameActivity.class).putExtra("lobbyname", selectedLobby.userIDCreator));
         });
 
     }
@@ -148,9 +157,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     /**
      * This method moves the lobby from open to full in the Database.
      * It sets the necessary values for the game to start.
-     * @author Sebastian Steinhauser
      *
      * @param lobby The lobby is moved from open to full
+     * @author Sebastian Steinhauser
      */
     void moveLobbyToFull(MultiPlayerLobby lobby) {
         JoinedUser = auth.getCurrentUser();
@@ -161,9 +170,9 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("possibleQuestions").setValue(possibleQuestions2Players);
         getRandomizedQuestions(lobby.numberQuestionsPerRound);
         lobbyDbRef.child("full").child(lobby.userIDCreator).child("questionsForThisRound").setValue(questionIDsForThisRound);
-        userIDCreator=lobby.userIDCreator;
-        lobbyDbRef.child("full").child(userIDCreator).child(userIDCreator+"isFinished").setValue(false);
-        lobbyDbRef.child("full").child(userIDCreator).child(JoinedUser.getUid()+"isFinished").setValue(false);
+        userIDCreator = lobby.userIDCreator;
+        lobbyDbRef.child("full").child(userIDCreator).child(userIDCreator + "isFinished").setValue(false);
+        lobbyDbRef.child("full").child(userIDCreator).child(JoinedUser.getUid() + "isFinished").setValue(false);
         lobbyDbRef.child("full").child(userIDCreator).child("abortGame").setValue(false);
         lobbyDbRef.child("open").child(lobby.userIDCreator).removeValue();
 
@@ -171,13 +180,13 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     /**
      * This method gets the used questions from the user database and stores them in an array list.
-     * @author Sebastian Steinhauser
      *
      * @param snapshot The snapshot of the user database
+     * @author Sebastian Steinhauser
      */
-    private void getUsedQuestionsFromUserDb(DataSnapshot snapshot){
+    private void getUsedQuestionsFromUserDb(DataSnapshot snapshot) {
         usedQuestions.clear();
-        for (DataSnapshot ds: snapshot.child("Users").child(joinedUserID).child("usedSessionIDs").getChildren()){
+        for (DataSnapshot ds : snapshot.child("Users").child(joinedUserID).child("usedSessionIDs").getChildren()) {
             usedQuestions.add(Long.parseLong(ds.getValue().toString()));
         }
     }
@@ -185,13 +194,13 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     /**
      * This method gets the possible questions for the game and stores them in an array list.
      * Get the possible questions using the used questions from both players.
-     * @author Sebastian Steinhauser
      *
      * @param possibleQuestions The possible questions for the game
+     * @author Sebastian Steinhauser
      */
-    private void getPossibleQuestions(ArrayList<Long> possibleQuestions){
-        possibleQuestions2Players=possibleQuestions;
-        for (Long i: usedQuestions){
+    private void getPossibleQuestions(ArrayList<Long> possibleQuestions) {
+        possibleQuestions2Players = possibleQuestions;
+        for (Long i : usedQuestions) {
             possibleQuestions2Players.remove(i);
         }
     }
@@ -199,9 +208,10 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
     /**
      * This method deletes the possible lobby entries from the database.
      * It is called when the user is joining the lobbyScreen again after a game has finished.
+     *
      * @author Sebastian Steinhauser
      */
-    public static void deletePossibleLobbyEntries(){
+    public static void deletePossibleLobbyEntries() {
         FirebaseUser currentUser;
         DatabaseReference lobbyDbRef = FirebaseDatabase.getInstance().getReference().child("Lobbies");
 
@@ -216,17 +226,33 @@ public class MultiPlayerLobbyScreen extends AppCompatActivity implements Recycle
 
     /**
      * This method gets the randomized questions IDs for the game and stores them in an array list.
-     * @author Sebastian Steinhauser
      *
      * @param numberQuestionsPerRound The number of questions per round
+     * @author Sebastian Steinhauser
      */
-    public void getRandomizedQuestions(String numberQuestionsPerRound){
+    public void getRandomizedQuestions(String numberQuestionsPerRound) {
         randomizedQuestions.clear();
-        randomizedQuestions=possibleQuestions2Players;
-        Collections.shuffle(randomizedQuestions);
 
-        for (int i = 0; i < Integer.parseInt(numberQuestionsPerRound); i++) {
-               questionIDsForThisRound.add(randomizedQuestions.get(i));
+
+        if (Integer.parseInt(numberQuestionsPerRound) <= possibleQuestions2Players.size()) {
+            randomizedQuestions = possibleQuestions2Players;
+            Collections.shuffle(randomizedQuestions);
+
+            for (int i = 0; i < Integer.parseInt(numberQuestionsPerRound); i++) {
+                questionIDsForThisRound.add(randomizedQuestions.get(i));
+            }
+        } else {
+            int missingQuestions = Integer.parseInt(numberQuestionsPerRound) - possibleQuestions2Players.size();
+            questionIDsForThisRound = possibleQuestions2Players;
+            for (Long question : questionIDsForThisRound) {
+                allQuestionsFromDB.remove(question);
+            }
+            Collections.shuffle(allQuestionsFromDB);
+            for (int i = 0; i < missingQuestions; i++) {
+                questionIDsForThisRound.add(allQuestionsFromDB.get(i));
+            }
+
         }
     }
+
 }
