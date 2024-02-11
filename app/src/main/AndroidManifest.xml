@@ -31,7 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".Miscellaneous.StatisticsScreenActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
 
         <!-- MultiPlayer Activities-->
         <activity
@@ -39,76 +40,97 @@
             android:exported="false" />
         <activity
             android:name=".MultiPlayer.MultiPlayerGameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".MultiPlayer.MultiPlayerLobby"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".MultiPlayer.MultiPlayerLobbyAdapter"
             android:exported="false" />
         <activity
             android:name=".MultiPlayer.MultiPlayerLobbyScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".MultiPlayer.MultiPlayerResultActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".MultiPlayer.MultiPlayerStartActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".MultiPlayer.MultiPlayerWaitingScreenAlert"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
 
         <!-- Question Catalog Activities-->
         <activity
             android:name=".QuestionCatalog.AnswerQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".QuestionCatalog.EditQuestionQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".QuestionCatalog.MainActivityQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".QuestionCatalog.NewQuestionQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".QuestionCatalog.QuestionAdapterQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".QuestionCatalog.QuestionQuestionCatalog"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
 
         <!-- SinglePlayer Activities-->
         <activity
             android:name=".SinglePlayer.SinglePlayerGameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".SinglePlayer.SinglePlayerResultActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".SinglePlayer.SinglePlayerStartActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
 
         <!-- UserManagement Activities-->
         <activity
             android:name=".UserManagement.ChangePasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".UserManagement.DeleteAccountActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".UserManagement.ForgotPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".UserManagement.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".UserManagement.UserSettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".UserManagement.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
 
     </application>
 </manifest>
