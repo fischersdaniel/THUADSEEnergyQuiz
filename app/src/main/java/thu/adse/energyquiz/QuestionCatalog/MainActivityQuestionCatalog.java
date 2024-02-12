@@ -334,22 +334,16 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                         }
                     }
                     else {
-<<<<<<< HEAD
                         //Rank is not high enough, adminpassword required
-=======
                         //Admin Passwort wird ausgelegesen und abgefragt
->>>>>>> parent of 9fce6af (Added Return to Loginactivity when the user is not logged in whilst editing, removing or adding questions to the catalogue.)
                         ReadadminpasswordDB(requestedChange, question);
                     }
                 }
                 else
                 {
                     Log.d("UserRankError", "Keinen Datensatz gefunden");
-<<<<<<< HEAD
                     //adminpassword required
-=======
                     //Admin Passwort wird ausgelegesen und abgefragt
->>>>>>> parent of 9fce6af (Added Return to Loginactivity when the user is not logged in whilst editing, removing or adding questions to the catalogue.)
                     ReadadminpasswordDB(requestedChange, question);
                 }
             }
