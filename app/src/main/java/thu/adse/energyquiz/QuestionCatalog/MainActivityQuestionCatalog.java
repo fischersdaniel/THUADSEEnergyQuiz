@@ -337,7 +337,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                         }
                     }
                     else {
-                        //Adminpasswort will be read
+                        //Rank is not high enough, adminpassword required
                         ReadadminpasswordDB(requestedChange, question);
                     }
                 }
@@ -345,7 +345,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                 {
                     //if no user snapshot can be gernerated the adminpassword shall be triggered
                     Log.d("UserRankError", "Keinen Datensatz gefunden");
-                    //Adminpasswort will be read
+                    //adminpassword required
                     ReadadminpasswordDB(requestedChange, question);
                 }
             }
