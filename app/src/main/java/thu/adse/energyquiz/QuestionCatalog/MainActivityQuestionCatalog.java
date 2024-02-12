@@ -96,7 +96,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                     list.add(question);
 
                 }
-
                 questionAdapter.notifyDataSetChanged();
             }
 
@@ -196,8 +195,8 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     }
 
     public void ReadadminpasswordDB(CatalogueChange requestedChange, QuestionQuestionCatalog question){
-        //Hier wird der Playerrank oder das Admin Passwort abgefragt
-        //DB Path definieren
+        //The Admin password defined in the DB is read
+        //DB Path is defined
         databaseAdmin = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Adminpassword");
         databaseAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -219,6 +218,8 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         });
     }
     public void onAdminPasswordEntered(String adminpasswordUser, CatalogueChange requestedChange, QuestionQuestionCatalog question){
+        //the method checks the entered adminpassword. If entered correctly the corresponding case will be triggered (edit, add or delete).
+        //If the password is wrong, the user will be noticed via a toast.
         if(adminpasswordUser != null)
         {
             Log.d("myTag", adminpasswordUser);
@@ -284,18 +285,18 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
     public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
     {
-       // CheckPlayerRank(); // returns false if player rank to low
+       // CheckPlayerRank(); returns false if player rank to low
         CheckPlayerRank(requestedChange, question);
     }
     public void CheckPlayerRank(CatalogueChange requestedChange, QuestionQuestionCatalog question){
-        //Hier werden lokale Variablen definiert
+        //local defnition of variables
         String userId;
 
-        //Hier werden Datenbankinstanzen initialisiert
+        /* DB is initalized */
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        // Hier lesen wir den "rank" des Benutzers mit der angegebenen Benutzer-ID aus
+        //if the user is not logged in, a toast will inform the user to log in
         if (currentUser == null)
         {
             Toast.makeText(MainActivityQuestionCatalog.this, getString(R.string.userNotLoggedIn), Toast.LENGTH_SHORT).show();
@@ -305,18 +306,20 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         }
         else
         {
-            userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            //if the user is logged in, the userId is saved
+            userId = currentUser.getUid();
             Log.d("current User", "succesfully getting userID:" + userId);
         }
         databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         databaseRank.addListenerForSingleValueEvent(new ValueEventListener() {
+            //It is checked if the userrank is equivalent to the adminrank
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
                     Integer score = snapshot.child("score").getValue(Integer.class);
                     Log.d("UserRank", "UserRank:" + score);
-                        //RankCallback.UserRankRead(rank, requestedChange, question);
+
                     if (score >= (ADMINSCORE)){
                         switch(requestedChange)
                         {
@@ -334,21 +337,22 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                         }
                     }
                     else {
-                        //Admin Passwort wird ausgelegesen und abgefragt
+                        //Adminpasswort will be read
                         ReadadminpasswordDB(requestedChange, question);
                     }
                 }
                 else
                 {
+                    //if no user snapshot can be gernerated the adminpassword shall be triggered
                     Log.d("UserRankError", "Keinen Datensatz gefunden");
-                    //Admin Passwort wird ausgelegesen und abgefragt
+                    //Adminpasswort will be read
                     ReadadminpasswordDB(requestedChange, question);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("UserRankError", "Keinen Datensatz gefunden");
-                //Admin Passwort wird ausgelegesen und abgefragt
+                //Adminpassword will be read and triggered
                 ReadadminpasswordDB(requestedChange, question);
             }
         });
