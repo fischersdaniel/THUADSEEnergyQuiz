@@ -309,7 +309,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
             Log.d("current User", "succesfully getting userID:" + userId);
         }
         databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        databaseRank.addValueEventListener(new ValueEventListener() {
+        databaseRank.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
