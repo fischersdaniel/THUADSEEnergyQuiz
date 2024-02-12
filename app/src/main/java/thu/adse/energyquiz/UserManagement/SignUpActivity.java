@@ -32,6 +32,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity sign up an user without an existing account
+// author D.F.
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText signupUserName, signupEmail, signupPassword, signupConfirmPassword;

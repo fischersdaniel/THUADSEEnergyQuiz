@@ -22,6 +22,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to delete the account of the logged in user
+// author D.F.
 public class DeleteAccountActivity extends AppCompatActivity {
 
     private CardView cardViewConfirmDeleteAcc_button, cardViewDeleteAccountBack;

@@ -12,6 +12,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to start a singleplayer game and choose the number of questions per round
+// author D.F.
 public class SinglePlayerStartActivity extends AppCompatActivity{
 
     private int numberQuestionsPerRound;

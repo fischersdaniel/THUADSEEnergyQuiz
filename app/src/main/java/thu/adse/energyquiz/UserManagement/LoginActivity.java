@@ -34,6 +34,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to log in the user with an existing account
+// author D.F.
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;

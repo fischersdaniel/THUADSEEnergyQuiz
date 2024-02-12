@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import thu.adse.energyquiz.R;
 
 // Activity to reset the password via email of the logged out user
+// author D.F.
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;

@@ -28,6 +28,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to play a singleplayer game
+// author D.F.
 public class SinglePlayerGameActivity extends AppCompatActivity {
 
     private TextView numberQuestionsProgress_textview, question_textview, answer1_textview, answer2_textview, answer3_textview, answer4_textview, confirm_next_textview;

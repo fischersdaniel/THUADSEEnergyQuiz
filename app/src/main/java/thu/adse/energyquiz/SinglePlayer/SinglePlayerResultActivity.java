@@ -23,6 +23,7 @@ import thu.adse.energyquiz.Miscellaneous.HomeScreenActivity;
 import thu.adse.energyquiz.R;
 
 // Activity to display the results of a singleplayer game
+// author D.F.
 public class SinglePlayerResultActivity extends AppCompatActivity {
 
     private TextView textViewSinglePlayerResultsUser1QuotePlaceholder, textViewSinglePlayerResultsUser1PointsEarnedPlaceholder, textViewSinglePlayerResultsUser1AllPointsPlaceholder, textViewSinglePlayerResultsUser1RankPlaceholder;

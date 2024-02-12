@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import thu.adse.energyquiz.R;
 
 // Activity to change the password of the logged in user
+// author D.F.
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
