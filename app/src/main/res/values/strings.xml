@@ -151,8 +151,8 @@
     <string name="singlePlayerResultsUser1TextViewGoHome">Beenden</string>
 
     <string name="multiPlayerLobbyTextViewSubHeader">Verfügbare Spiele</string>
-    <string name="multiPlayerLobbyTextViewSubSubHeader1">[Host]</string>
-    <string name="multiPlayerLobbyTextViewSubSubHeader2">[Anzahl Fragen]</string>
+    <string name="multiPlayerLobbyTextViewSubSubHeader1">Host</string>
+    <string name="multiPlayerLobbyTextViewSubSubHeader2">Anzahl Fragen</string>
     <string name="multiPlayerLobbyCardViewCreateGameButton">Eigenes Spiel erstellen!</string>
     <string name="multiPlayerLobbyTextViewDialogCancelButton" tools:ignore="UnusedResources">Abbrechen und Raum auflösen</string>
     <string name="multiPlayerLobbyTextViewDialogWaitingHeader">Warten auf Mitspieler...</string>

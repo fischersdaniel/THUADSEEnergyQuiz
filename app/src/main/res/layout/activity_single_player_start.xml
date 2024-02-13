@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
@@ -66,13 +66,13 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="50dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cardViewSinglePlayerStartText"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewSinglePlayerStartBack">
+        app:layout_constraintTop_toTopOf="@+id/cardViewSinglePlayerStartText">
 
         <TextView
             android:id="@+id/textViewLobbyCreatorUserName"

@@ -196,8 +196,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
     }
 
     public void ReadadminpasswordDB(CatalogueChange requestedChange, QuestionQuestionCatalog question){
-        //Hier wird der Playerrank oder das Admin Passwort abgefragt
-        //DB Path definieren
+        //JK: DB Path to password is defined  and read from DB
         databaseAdmin = FirebaseDatabase.getInstance("https://energyquizdb-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Adminpassword");
         databaseAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -218,6 +217,7 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
             }
         });
     }
+    //JK: The entered password by the user is compared to the Adminpassword. Than the new activity is openend depending on the case
     public void onAdminPasswordEntered(String adminpasswordUser, CatalogueChange requestedChange, QuestionQuestionCatalog question){
         if(adminpasswordUser != null)
         {
@@ -248,28 +248,29 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
             }
         }
     }
+    //JK: Interface is needed due to callback function
     public interface inputTextCallback{
         void onAdminPasswordEntered(String adminpasswordUser,final CatalogueChange requestedChange,final QuestionQuestionCatalog question);
     }
 
-    // Method to create and display the pop-up window
+    //JK: Method to create and display the pop-up window
     private void showStringInputDialog(final inputTextCallback Callback, final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
+        //JK: Inflate and set the layout for the dialog
         View dialogView = inflater.inflate(R.layout.dialog_catalog_admin_login, null);
         final EditText editText = dialogView.findViewById(R.id.edit_text_input);
 
-        // Set the dialog title, view, and buttons
+        //JK: Set the dialog title, view, and buttons
         builder.setTitle("Erst ab " + ADMINSCORE + " Punkten verfügbar. Bitte Passwort eingeben:")
                 .setView(dialogView)
                 .setPositiveButton("Bestätigen", (dialog, which) -> {
                     String inputstring = editText.getText().toString();
-                    // Due to Asychronous processes we need to wait for the String Input
+                    //JK: Due to Asychronous processes we need to wait for the String Input
                     Callback.onAdminPasswordEntered(inputstring, requestedChange, question);
-                    // Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
+                    //JK: Process the adminpasswordUser as needed -> See buttonToNewQuestionActivity.setOnClickListener
                 })
                 .setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
 
@@ -284,18 +285,18 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
 
     public void CheckCataloguePermission(final CatalogueChange requestedChange, final QuestionQuestionCatalog question)
     {
-       // CheckPlayerRank(); // returns false if player rank to low
+       //JK: CheckPlayerRank() returns false if player rank to low
         CheckPlayerRank(requestedChange, question);
     }
     public void CheckPlayerRank(CatalogueChange requestedChange, QuestionQuestionCatalog question){
-        //Hier werden lokale Variablen definiert
+        //JK: Local variabel is defined
         String userId;
 
-        //Hier werden Datenbankinstanzen initialisiert
+        //JK: DB is initialized
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        // Hier lesen wir den "rank" des Benutzers mit der angegebenen Benutzer-ID aus
+        //JK: Checks if a user is logged in via Uid
         if (currentUser == null)
         {
             Toast.makeText(MainActivityQuestionCatalog.this, getString(R.string.userNotLoggedIn), Toast.LENGTH_SHORT).show();
@@ -305,10 +306,11 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
         }
         else
         {
-            userId = currentUser.getUid();  // Verwende die UID (z. B. speichere sie in einer Variable)
+            userId = currentUser.getUid();
             Log.d("current User", "succesfully getting userID:" + userId);
         }
         databaseRank = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        //JK: Checks the rank of the player via the score and opens the corresponding Case.
         databaseRank.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -316,7 +318,6 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                 {
                     Integer score = snapshot.child("score").getValue(Integer.class);
                     Log.d("UserRank", "UserRank:" + score);
-                        //RankCallback.UserRankRead(rank, requestedChange, question);
                     if (score >= (ADMINSCORE)){
                         switch(requestedChange)
                         {
@@ -334,23 +335,21 @@ public class MainActivityQuestionCatalog extends AppCompatActivity implements Re
                         }
                     }
                     else {
-                        //Rank is not high enough, adminpassword required
-                        //Admin Passwort wird ausgelegesen und abgefragt
+                        //JK: Rank is not high enough, adminpassword required
                         ReadadminpasswordDB(requestedChange, question);
                     }
                 }
                 else
                 {
                     Log.d("UserRankError", "Keinen Datensatz gefunden");
-                    //adminpassword required
-                    //Admin Passwort wird ausgelegesen und abgefragt
+                    //JK: DB error, adminpassword required
                     ReadadminpasswordDB(requestedChange, question);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("UserRankError", "Keinen Datensatz gefunden");
-                //Admin Passwort wird ausgelegesen und abgefragt
+                //JK: Adminpassword is required
                 ReadadminpasswordDB(requestedChange, question);
             }
         });
