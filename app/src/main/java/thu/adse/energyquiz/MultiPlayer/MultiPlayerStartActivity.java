@@ -41,6 +41,7 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
     List<Long> allQuestions = new ArrayList<>();
     boolean playerJoined,gameHasStarted;
     private ValueEventListener lobbyEventListener, dbEventListener;
+    private long maxQuestionsInDb;
 
 
 
@@ -64,6 +65,11 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
         UserCreator = auth.getCurrentUser();
         userIdCreator = UserCreator.getUid();
 
+        questionsDbRef.get().addOnCompleteListener(task -> {
+            DataSnapshot snapshot = task.getResult();
+            getMaxQuestionsInDb(snapshot);
+        });
+
         cardViewMultiPlayerStartBack.setOnClickListener(view -> {
             Intent intent = new Intent(this, MultiPlayerLobbyScreen.class);
             startActivity(intent);
@@ -78,9 +84,13 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             numberQuestionsPerRound = extras.getInt("numberQuestionsPerRound");
             TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
         }
+
         cardViewMultiPlayerStartPlus.setOnClickListener(view -> {
-            numberQuestionsPerRound++;
-            TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+            if(numberQuestionsPerRound < maxQuestionsInDb){
+                numberQuestionsPerRound++;
+                TextViewMultiPlayerStartNumberInput.setText(String.valueOf(numberQuestionsPerRound));
+            }
+
         });
 
         cardViewMultiPlayerStartMinus.setOnClickListener(view -> {
@@ -196,5 +206,14 @@ public class MultiPlayerStartActivity extends AppCompatActivity {
             playerJoined=true;
         }
         return playerJoined;
+    }
+    /**
+     * Gets the maximum number of questions in the database from the database snapshot
+     * @author Sebastian Steinhauser
+     *
+     * @param snapshot DataSnapshot of the database
+     */
+    private void getMaxQuestionsInDb(DataSnapshot snapshot){
+        maxQuestionsInDb = snapshot.getChildrenCount();
     }
 }
