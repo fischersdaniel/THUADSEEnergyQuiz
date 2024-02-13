@@ -97,6 +97,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },2500); // L.B.: 2500 milliseconds delay for splashscreen
+        },3000); // L.B.: 3000 milliseconds delay for splashscreen
     }
 }
